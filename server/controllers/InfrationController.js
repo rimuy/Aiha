@@ -2,27 +2,57 @@ const Infration = require('../models/Infration');
 
 class InfrationController {
     static index(req, res, db) {
-        const user = db.get('infrations').value();
+        const userId = req.params.userId;
+        const infrations = db.get(`infrations${userId ? '.' + userId : ''}`).value();
 
-        res.send(user);
+        if (!infrations) {
+            return res.status(400).send('Invalid user id.');
+        }
+
+        res.send(infrations);
     }
 
     static store(req, res, db) {
-        const post = db.set(`infrations.${req.params.userId}`, {
+
+        const userId = req.params.userId;
+        const infrations = db.get('infrations').value();
+        let userData = infrations[userId];
+
+        req.body.case = ++infrations.cases;
+
+        if (!userData) userData = [];
+        
+        userData.push({
             ...Infration, 
             ...req.body,
-        })
-        .write();
+        });
+        
+        db.set('infrations', infrations).write();
+
+        const post = db.set(`infrations.${userId}`, userData).write();
 
         res.send(post);
     }
 
-    static update(req, res, db) {
-
-    }
-
     static remove(req, res, db) {
+        const userId = req.params.userId;
+        const infCase = req.params.case;
 
+        if (!userId || !db.has(`infrations.${userId}`)) {
+            return res.status(400).send('Invalid user id.');
+        }
+
+        if (infCase) {
+            const infraction = db.get(`infrations.${userId}`)
+                .remove({ case: parseInt(infCase) })
+                .write();
+
+            return res.send(infraction);
+        }
+
+        db.unset(`infrations.${userId}`).write();
+
+        res.send(db.get('infrations'));
     }
 }
 

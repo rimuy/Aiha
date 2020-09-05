@@ -10,7 +10,3 @@
 # Temp
 /src/Aiha/commands/Economy
 /src/Aiha/commands/Music
-/src/Aiha/commands/Moderation/clearwarnings.js
-/src/Aiha/commands/Moderation/removewarn.js
-/src/Aiha/commands/Moderation/warn.js
-/src/Aiha/commands/Moderation/warnings.js

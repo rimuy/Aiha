@@ -6,15 +6,16 @@ class Database {
     static async request(method, key, body) {
         const options = { method };
 
-        if (method.toUpperCase() === 'POST') {
-            options.body = JSON.stringify(body);
-            options.headers = { 'Content-Type': 'application/json' };
+        if (['POST', 'PUT'].includes(method.toUpperCase())) {
+            options.body = JSON.stringify(body, {});
+            options.headers = { 
+                'Content-Type': 'application/json; charset=UTF-8' 
+            };
         }
 
-        const response = await fetch(URL + key, options)
-            .then(res => res.json());
+        const response = await fetch(URL + key, options);
 
-        return response;
+        return response.json();
     }
 }
 
