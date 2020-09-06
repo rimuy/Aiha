@@ -39,7 +39,7 @@ class Top extends Command {
             ranking.map(async (obj, idx) => {
                 const member = await msg.guild.members.fetch(obj.id);
 
-                return `**#${++idx}:** \`${member.user.tag}\``;
+                return `**#${++idx}:** \`${member.user.tag}\` LVL ${obj.level}`;
             })
         );
 

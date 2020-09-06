@@ -1,5 +1,7 @@
 const set = new Set()
 
+.add(require('../../commands/Admin/setRank'))
+.add(require('../../commands/Admin/unsetRank'))
 .add(require('../../commands/Dev/backup'))
 .add(require('../../commands/Dev/eval'))
 .add(require('../../commands/Fun/8ball'))
@@ -24,6 +26,7 @@ const set = new Set()
 .add(require('../../commands/Utility/invite'))
 .add(require('../../commands/Utility/level'))
 .add(require('../../commands/Utility/ping'))
+.add(require('../../commands/Utility/ranks'))
 .add(require('../../commands/Utility/top'))
 
 ;module.exports = set;

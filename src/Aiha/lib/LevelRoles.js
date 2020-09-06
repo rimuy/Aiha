@@ -30,7 +30,7 @@ module.exports = async (Bot, user, msg, level) => {
             ...member.roles.cache
                 .filter(r => !levelRoles.map(rl => rl.role.id).includes(r.id))
                 .map(r => r.id)
-        ]).catch(error => Bot.report(error));
+        ]).catch(error => { /*Bot.report(error)*/ });
     }
 
 };

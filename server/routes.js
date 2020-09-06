@@ -15,11 +15,13 @@ const db = low(adapter);
 db.defaults({
     users: {},
     muted: {},
-    infrations: { cases: 0 },
+    infrations: { _cases: 0 },
     levelroles: {},
 }).write();
 
 /* GET */
+routes.get('/', (_, res) => res.send(db.value()));
+
 routes.get('/users', (req, res) => 
     UController.index(req, res, db));
 
@@ -49,6 +51,8 @@ routes.post('/levelroles/:roleId', (req, res) =>
     LRController.store(req, res, db));
 
 /* PUT */
+routes.put('/levelroles/:roleId', (req, res) => 
+    LRController.update(req, res, db));
 
 /* DELETE */
 routes.delete('/infrations/:userId', (req, res) => 
@@ -62,5 +66,8 @@ routes.delete('/users/:userId', (req, res) =>
 
 routes.delete('/muted/:userId', (req, res) => 
     MUController.remove(req, res, db));
+
+routes.delete('/levelroles/:roleId', (req, res) => 
+    LRController.remove(req, res, db));
 
 module.exports = routes;

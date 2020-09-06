@@ -1,4 +1,3 @@
-const Database = require('../config/Database');
 const User = require('../models/User');
 
 class UserController {

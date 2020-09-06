@@ -18,7 +18,7 @@ class InfrationController {
         const infrations = db.get('infrations').value();
         let userData = infrations[userId];
 
-        req.body.case = ++infrations.cases;
+        req.body.case = ++infrations._cases;
 
         if (!userData) userData = [];
         
