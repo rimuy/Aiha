@@ -1,28 +1,52 @@
 const User = require('../models/User');
 
 class UserController {
-    static index(req, res, db) {
-        const user = db.get(`users`).value();
+    static index(req, res, db) { /* GET */
+        const userId = req.params.userId;
+        const usersOrUser = db.get(`users${userId ? '.' + userId : ''}`).value();
 
-        res.send(user);
+        if (!usersOrUser) {
+            return res.status(400).send('Invalid user id.');
+        }
+
+        res.send(usersOrUser);
     }
 
-    static store(req, res, db) {
-        const post = db.set(`users.${req.params.userId}`, {
+    static store(req, res, db) { /* POST */
+        const userId = req.params.userId;
+
+        db.set(`users.${userId}`, {
             ...User, 
-            ...req.body,
+            ...req.body || {},
         })
         .write();
         
-        res.send(post);
+        res.send(db.get(`users.${userId}`).value());
     }
 
-    static update(req, res, db) {
+    static overwrite(req, res, db) { /* PATCH */
+        const userId = req.params.userId;
+        const savedData = db.get(`users.${userId}`);
 
+        if (!savedData.value()) {
+            return res.status(400).send('Invalid user id.');
+        }
+
+        savedData.assign(req.body).write();
+        
+        res.send(savedData);
     }
 
-    static remove(req, res, db) {
+    static remove(req, res, db) { /* DELETE */
+        const userId = req.params.userId;
 
+        if (!db.get(`users.${userId}`).value()) {
+            return res.status(400).send('User not found.');
+        }
+
+        db.unset(`users.${userId}`).write();
+
+        res.send(db.get('users').value());
     }
 }
 

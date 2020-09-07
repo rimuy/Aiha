@@ -16,19 +16,34 @@ module.exports = async (Bot, msg) => {
     };
 
     if (expCd && (new Date() - expCd) > cooldown) {
-        const newData = (await Bot.server.request('GET', 'users'))[user.id] || { level: 0, exp: 0 };
+        const data = await Bot.server.request('GET', `users/${user.id}`) || { level: 0, exp: 0 };
         usersOnCooldown.set(user.id, new Date());
-        newData.exp += Math.floor(earnXP(msg.content));
+        data.exp += Math.floor(earnXP(msg.content));
 
-        const eq = newData.exp >= 150 + ( 75 * newData.level );
+        const eq = data.exp >= 150 + ( 75 * data.level );
 
-        if (newData.exp > 0 && eq) {
-            newData.exp = 0;
-            await LevelRoles(Bot, user, msg, ++newData.level);
+        if (data.exp > 0 && eq) {
+            data.exp = 0;
+            await LevelRoles(Bot, user, msg, ++data.level);
             
-            await msg.channel.send(`<@${user.id}> Alcançou o nível **${newData.level}**!`);
+            // Announcement
+            const guild = await msg.guild.fetch();
+            const perms = ['VIEW_CHANNEL', 'SEND_MESSAGES'];
+
+            const announcementChannel = guild.me.permissionsIn(msg.channel).has(perms)
+                ? msg.channel
+                : ( guild.channels.cache
+                    .find(ch => guild.me.permissionsIn(ch).has(perms)) );
+
+            if (announcementChannel) {
+                await announcementChannel.send(`<@${user.id}> Alcançou o nível **${data.level}**!`);
+            }
+
         }
 
-        await Bot.server.request('POST', `users/${user.id}`, newData);
+        await Bot.server.request('PATCH', `users/${user.id}`, { 
+            level: data.level, 
+            exp: data.exp,
+        });
     }
 };

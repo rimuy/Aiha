@@ -28,7 +28,7 @@ class LevelRoleController {
         res.send(post.levelroles);
     }
 
-    static update(req, res, db) {
+    static overwrite(req, res, db) {
         const roleId = req.params.roleId;
 
         if (!roleId) {
@@ -44,6 +44,23 @@ class LevelRoleController {
         role.assign(req.body).write();
 
         res.send(role);
+    }
+
+    static update(req, res, db) {
+        const roleId = req.params.roleId;
+        const query = `levelroles.${roleId}`;
+
+        if (!roleId) {
+            return res.status(400).send('Role ID was not provided.');
+        }
+
+        if (!db.get(query)) {
+            return res.status(404).send('Invalid role id.');
+        }
+
+        db.set(query, req.body).write();
+
+        res.send(db.get(query).value());
     }
 
     static remove(req, res, db) {

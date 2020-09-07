@@ -22,6 +22,10 @@ class MessageEvent extends Event {
 
                 if (user.bot) return;
                 if (!msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
+
+                if (!(await Bot.server.request('GET', `users/${user.id}`))) {
+                    await Bot.server.request('POST', `users/${user.id}`);
+                }
                 
                 if (msg.content.startsWith(prefix)) {
 

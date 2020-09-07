@@ -2,6 +2,7 @@
 /.env
 
 *.bat
+*.log
 *.zip
 *.tar*
 

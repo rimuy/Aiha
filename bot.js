@@ -1,3 +1,4 @@
+console.log('\x1b[35m');
 require('dotenv').config();
 require('moment-timezone').tz.setDefault('America/Sao_Paulo');
 require('./server');

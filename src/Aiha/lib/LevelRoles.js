@@ -22,15 +22,19 @@ module.exports = async (Bot, user, msg, level) => {
         }));
 
         const highestLevel = Math.max(...levelRoles.map(r => r.level));
-        const rolesToAdd = levelRoles
-            .filter(r => r.level === highestLevel);
+       
+        await Promise.all(
+            levelRoles
+                .filter(r => r.role.editable)
+                .map(async r => {
+                    if (r.level === highestLevel) {
+                        await member.roles.add(r.role.id).catch();
+                    } else {
+                        await member.roles.remove(r.role.id).catch();
+                    }
+                })
+        );
 
-        await member.roles.set([
-            ...rolesToAdd.map(r => r.role.id), 
-            ...member.roles.cache
-                .filter(r => !levelRoles.map(rl => rl.role.id).includes(r.id))
-                .map(r => r.id)
-        ]).catch(error => { /*Bot.report(error)*/ });
     }
 
 };

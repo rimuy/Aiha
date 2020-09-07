@@ -6,7 +6,7 @@ class Database {
     static async request(method, key, body) {
         const options = { method };
 
-        if (['POST', 'PUT'].includes(method.toUpperCase())) {
+        if (['POST', 'PUT', 'PATCH'].includes(method.toUpperCase())) {
             options.body = JSON.stringify(body, {});
             options.headers = { 
                 'Content-Type': 'application/json; charset=UTF-8' 
