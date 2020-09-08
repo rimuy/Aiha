@@ -67,7 +67,7 @@ class Poll extends Command {
 
         embed
             .setTitle(title)
-            .setDescription(choices.map((c, i) => `${emojis[i]} ${c.replace(/"/g, '')}`))
+            .setDescription(choices.map((c, i) => `${emojis[i]} ${c.replace(/"/g, '')}\n`))
             .setFooter(`Enquete de ${msg.author.tag}`);
 
         msg.channel.send(embed)
@@ -75,11 +75,7 @@ class Poll extends Command {
                 choices.forEach(async (_, i) => 
                     await m.react(emojis[i])).catch(() => {});
             })
-            .catch(() => msg.channel.send(
-                embed
-                    .setDescription(`${error} **Erro ao tentar reagir na mensagem.**`)
-                    .setColor(0xF44336)
-            ));
+            .catch(() => {});
     }
 }
 
