@@ -15,7 +15,7 @@ class Help extends Command {
         });
     }
 
-    run(Bot, msg, args) {
+    async run(Bot, msg, args) {
         
         let cmd = (args[0] || '').toLowerCase();
 

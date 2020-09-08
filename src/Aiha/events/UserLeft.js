@@ -9,7 +9,6 @@ class MemberRemoveEvent extends Event {
         super({
             event: 'guildMemberRemove',
             callback: (Bot, member) => {
-                console.log('b');
                 Bot.server.request('DELETE', `users/${member.id}`);
             }
         });
