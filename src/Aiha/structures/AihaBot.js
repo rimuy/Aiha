@@ -20,8 +20,7 @@ class AihaBot {
                 this.categoriesEmojis.set(key, CategoriesEmojis[key])
             );
 
-            this.client.user.setActivity(
-                (await this.server.request('GET', 'settings')).prefix + 'help');
+            this.updateStatus();
 
             /* Auto-Backup */
             const devs = [];
@@ -61,6 +60,11 @@ class AihaBot {
     server = require('../../../server/config/Database');
 
     report = require('../lib/BotReport');
+
+    async updateStatus() {
+        this.client.user.setActivity(
+            (await this.server.request('GET', 'settings')).prefix + 'help');
+    }
     
 }
 

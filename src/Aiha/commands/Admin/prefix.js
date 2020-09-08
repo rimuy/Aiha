@@ -29,6 +29,7 @@ class Prefix extends Command {
             await Bot.server.request('PATCH', 'settings', { prefix })
                 .then(res => {
                     embed.setDescription(`${success} **O prefixo dos comandos foi alterado para** \`${res.prefix}\`**.**`);
+                    Bot.updateStatus();
                 })
                 .catch(() => {
                     embed
