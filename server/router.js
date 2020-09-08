@@ -8,6 +8,7 @@ const adapter = require('./config/Adapter');
 const db = low(adapter);
 
 db.defaults({
+    settings: require('./models/Settings'),
     users: {},
     muted: {},
     infrations: { _cases: 0 },

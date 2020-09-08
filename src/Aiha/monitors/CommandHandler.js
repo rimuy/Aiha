@@ -5,10 +5,10 @@ module.exports = Bot => {
     cmds.forEach(cmdClass => {
         const cmd = new cmdClass();
 
-        Bot.commands.set(cmd.name, cmd);
+        Bot.commands.set(cmd.name.toLowerCase(), cmd);
 
         cmd.aliases.forEach(alias => {
-            Bot.aliases.set(alias, cmd);
+            Bot.aliases.set(alias.toLowerCase(), cmd);
         });
     });
 

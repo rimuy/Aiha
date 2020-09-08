@@ -1,6 +1,11 @@
 const set = new Set()
 
+.add(require('../../commands/Admin/poll'))
+.add(require('../../commands/Admin/prefix'))
+.add(require('../../commands/Admin/resetSettings'))
+.add(require('../../commands/Admin/setCommandsChannel'))
 .add(require('../../commands/Admin/setRank'))
+.add(require('../../commands/Admin/setWelcomeChannel'))
 .add(require('../../commands/Admin/unsetRank'))
 .add(require('../../commands/Dev/backup'))
 .add(require('../../commands/Dev/eval'))

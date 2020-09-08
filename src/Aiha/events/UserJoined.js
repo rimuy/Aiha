@@ -5,17 +5,28 @@
 const { Event } = require('..');
 const { MessageEmbed } = require('discord.js');
 
-class UserJoined extends Event {
+var fetched;
+
+class MemberAddEvent extends Event {
     constructor() {
         super({
             event: 'guildMemberAdd',
             callback: async (Bot, member) => {
-                Bot.server.request('POST', `users/${member.id}`);
+                await Bot.server.request('POST', `users/${member.id}`);
+
+                if (!fetched) {
+                    await member.guild.fetch();
+                    await member.guild.members.fetch();
+                    fetched = true;
+                }
+
+                const guild = member.guild;
                 
-                const mainChannel = member.guild.publicUpdatesChannel;
+                const id = (await Bot.server.request('GET', 'settings')).welcomeChannel;
+                const mainChannel = guild.channels.cache.get(id);
 
                 if (mainChannel) {
-                    const count = (await member.guild.members.fetch()).filter(m => !m.bot).size;
+                    const count = guild.members.cache.filter(m => !m.bot).size;
 
                     mainChannel.send(
                         new MessageEmbed()
@@ -30,9 +41,9 @@ class UserJoined extends Event {
                     );
                 }
                 
-            },
+            }
         });
     }
 }
 
-module.exports = UserJoined;
+module.exports = MemberAddEvent;

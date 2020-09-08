@@ -7,8 +7,6 @@ const { MessageEmbed } = require('discord.js');
 
 const LevelingSystem = require('../lib/LevelingSystem');
 
-const prefix = process.env.PREFIX;
-
 const usersOnCooldown = new Map();
 const cooldown = 1000;
 
@@ -17,8 +15,10 @@ class MessageEvent extends Event {
         super({
             event: 'message',
             callback: async (Bot, msg) => {
-
+                
                 const user = msg.author;
+                const settings = await Bot.server.request('GET', 'settings');
+                const prefix = settings.prefix;
 
                 if (user.bot) return;
                 if (!msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
@@ -27,7 +27,10 @@ class MessageEvent extends Event {
                     await Bot.server.request('POST', `users/${user.id}`);
                 }
                 
-                if (msg.content.startsWith(prefix)) {
+                if (
+                    msg.content.startsWith(prefix) && 
+                    (!settings.commandsChannel.length || msg.channel.id === settings.commandsChannel)
+                ) {
 
                     const args = msg.content.slice(prefix.length).split(/\s+/g);
                     const cmd = (args.shift() || '').toLowerCase();

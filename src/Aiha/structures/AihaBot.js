@@ -7,7 +7,7 @@ const Developers = require('../config/json/devs.json');
 class AihaBot {
     constructor() {
         
-        this.client.once('ready', () => {
+        this.client.once('ready', async () => {
             log('FG_YELLOW', 'Ready.');
 
             require('../monitors/CommandHandler')(this);
@@ -20,7 +20,8 @@ class AihaBot {
                 this.categoriesEmojis.set(key, CategoriesEmojis[key])
             );
 
-            this.client.user.setActivity(process.env.PREFIX + 'help');
+            this.client.user.setActivity(
+                (await this.server.request('GET', 'settings')).prefix + 'help');
 
             /* Auto-Backup */
             const devs = [];
@@ -42,7 +43,7 @@ class AihaBot {
     }
 
     client = new Client({
-        ws: { intents: Intents.NON_PRIVILEGED }
+        ws: { intents: Intents.ALL }
     });
 
     events = new Collection();

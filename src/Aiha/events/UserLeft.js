@@ -4,13 +4,16 @@
 
 const { Event } = require('..');
 
-class UserLeft extends Event {
+class MemberRemoveEvent extends Event {
     constructor() {
         super({
             event: 'guildMemberRemove',
-            callback: (Bot, member) => Bot.server.request('DELETE', `users/${member.id}`),
+            callback: (Bot, member) => {
+                console.log('b');
+                Bot.server.request('DELETE', `users/${member.id}`);
+            }
         });
     }
 }
 
-module.exports = UserLeft;
+module.exports = MemberRemoveEvent;

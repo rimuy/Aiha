@@ -12,8 +12,8 @@ module.exports = Bot => {
         const event = new exports();
         
         try {
-            Bot.events.set(event.name, event);
             Bot.client.on(event.name, (...args) => event.run(Bot, ...args));
+            Bot.events.set(event.name, event);
         } catch(e) {
             console.log(e.message);
         }

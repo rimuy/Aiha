@@ -21,6 +21,7 @@ class Help extends Command {
 
         const categories = new Map();
         const command = Bot.commands.get(cmd) || Bot.aliases.get(cmd);
+        const prefix = (await Bot.server.request('GET', 'settings')).prefix;
 
         const embed = new BaseEmbed()
             .setFooter(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));
@@ -47,7 +48,7 @@ class Help extends Command {
             
             const format = {
                 "name": '`{}`',
-                "usage": `${process.env.PREFIX}{}`,
+                "usage": `${prefix}{}`,
                 "aliases": '`{}`',
                 "userPerms": "`{}`",
             }
@@ -83,7 +84,7 @@ class Help extends Command {
                 }))
                 .setDescription(
                     `${Bot.client.user.username} é o bot oficial do nosso servidor!` +
-                    `\nUse **${process.env.PREFIX}**help **<**comando**>** para obter informações detalhadas\ndo comando.\n\n` +
+                    `\nUse **${prefix}**help **<**comando**>** para obter informações detalhadas\ndo comando.\n\n` +
                     [...categories]
                     .map(e => {
                         const emoji = Bot.categoriesEmojis.get(e[0]);
