@@ -15,7 +15,7 @@ class MessageEvent extends Event {
         super({
             event: 'message',
             callback: async (Bot, msg) => {
-                
+
                 const user = msg.author;
                 const settings = await Bot.server.request('GET', 'settings');
                 const prefix = settings.prefix;
@@ -23,9 +23,8 @@ class MessageEvent extends Event {
                 if (user.bot) return;
                 if (!msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
 
-                if (!(await Bot.server.request('GET', `users/${user.id}`))) {
-                    await Bot.server.request('POST', `users/${user.id}`);
-                }
+                await Bot.server.request('GET', `users/${user.id}`)
+                    .catch(async () => await Bot.server.request('POST', `users/${user.id}`));
                 
                 if (
                     msg.content.startsWith(prefix) && 
