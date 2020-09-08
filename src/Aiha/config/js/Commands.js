@@ -1,5 +1,6 @@
 const set = new Set()
 
+.add(require('../../commands/Admin/embed'))
 .add(require('../../commands/Admin/poll'))
 .add(require('../../commands/Admin/prefix'))
 .add(require('../../commands/Admin/resetSettings'))
