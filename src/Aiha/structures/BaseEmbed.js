@@ -1,16 +1,12 @@
 const { MessageEmbed } = require('discord.js');
 
 class BaseEmbed extends MessageEmbed {
-    color;
-
     constructor() {
         super();
-        this.setColor(0xff0a68).setTimestamp();
+        this.setColor(BaseEmbed.defaultColor).setTimestamp();
     }
 
-    static get defaultColor() {
-        return this.color;
-    };
+    static defaultColor = 0xff0a68;
 }
 
 module.exports = BaseEmbed;
