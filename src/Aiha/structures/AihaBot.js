@@ -59,6 +59,8 @@ class AihaBot {
 
     server = require('../../../server/config/Database');
 
+    api = require('../../../api');
+
     report = require('../lib/BotReport');
 
     async updateStatus() {
