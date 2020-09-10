@@ -31,7 +31,7 @@ class InfrationController {
 
         const post = db.set(`infrations.${userId}`, userData).write();
 
-        res.send(post);
+        res.send(db.get(`infrations.${userId}`).find({ case: req.body.case }).value());
     }
 
     static remove(req, res, db) {
@@ -43,11 +43,13 @@ class InfrationController {
         }
 
         if (infCase) {
-            const infraction = db.get(`infrations.${userId}`)
+            const infrations = db.get(`infrations.${userId}`);
+
+            infrations
                 .remove({ case: parseInt(infCase) })
                 .write();
 
-            return res.send(infraction);
+            return res.send(infrations.value());
         }
 
         db.unset(`infrations.${userId}`).write();

@@ -19,10 +19,13 @@ class Unlock extends Command {
         const everyone = msg.guild.roles.everyone;
         const channel = msg.channel;
 
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+
         if (msg.guild.me.permissionsIn(channel).has('VIEW_CHANNEL')) {
             channel.createOverwrite(everyone, { SEND_MESSAGES: true })
-                .then(() => msg.react('✅'))
-                .catch(() => msg.react('❌').catch());
+                .then(() => msg.react(success))
+                .catch(() => msg.react(error).catch());
         };
         
     }

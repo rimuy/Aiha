@@ -3,6 +3,7 @@
  */
 
 const { Command, BaseEmbed } = require('../..');
+const Logs = require('../../lib/Logs');
 
 class Warn extends Command {
     constructor() {
@@ -15,39 +16,63 @@ class Warn extends Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    run(Bot, msg, args) {
         
         const id = (args[0] || '').replace(/[<@!>&]/g, '');
         const embed = new BaseEmbed();
 
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+        const exclamation = Bot.emojis.get('bot2Exclamation');
+
         if (!id.length) {
             return msg.channel.send(
                     embed
-                        .setDescription(`${Bot.emojis.get('bot2Exclamation')} **Mencione o usuário que deseja registrar a infração.**`)
+                        .setDescription(`${exclamation} **Mencione o usuário que deseja registrar a infração.**`)
                         .setColor(0xe3c51b)
             );
         }
         
         const infration = args[1] || 'Nenhum motivo foi registrado.';
 
-        await msg.guild.members.fetch(id)
-            .then(async member => {
+        msg.guild.members.fetch(id)
+            .then(member => {
 
-                await Bot.server.request('POST', `infrations/${id}`, {
+                Bot.server.request('POST', `infrations/${id}`, {
                     description: infration,
                     createdTimestamp: new Date(),
-                });
+                })
+                .then(async inf => {
 
-                msg.channel.send(
-                    embed
-                        .setDescription(`${Bot.emojis.get('bot2Success')} **Foi registrada uma infração para ${member.user.tag}.**`)
-                );
+                    await msg.channel.send(
+                        embed
+                            .setDescription(`${success} **Foi registrada uma infração para ${member.user.tag}.**`)
+                    );
+    
+                    const logEmbed = new BaseEmbed()
+                        .setTitle('Infração Registrada')
+                        .addFields(
+                            { name: 'Usuário', value: `<@${member.id}>`, inline: true },
+                            { name: 'Motivo', value: `\`${infration}\``, inline: true },
+                            { name: 'Caso', value: `\`${inf.case}\`` },
+                        );
+    
+                    Logs(Bot, msg.channel, logEmbed);
+
+                })
+                .catch(() => {
+                    msg.channel.send(
+                        embed
+                            .setDescription(`${error} **Ocorreu um erro ao tentar registrar a infração.**`)
+                            .setColor(0xF44336)
+                    );
+                });
 
             })
             .catch(() => {
                 msg.channel.send(
                     embed
-                        .setDescription(`${Bot.emojis.get('bot2Cancel')} **Usuário não encontrado.**`)
+                        .setDescription(`${error} **Usuário não encontrado.**`)
                         .setColor(0xF44336)
                 );
             });

@@ -22,8 +22,12 @@ class Unmute extends Command {
         const embed = new MessageEmbed().setColor(0xe3c51b);
         const muteRole = await MuteRule(msg.guild);
 
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+        const exclamation = Bot.emojis.get('bot2Exclamation');
+
         if (!muteRole) 
-            return msg.channel.send(embed.setDescription('⚠️ **Não foi possível localizar o cargo de mute.**'));
+            return msg.channel.send(embed.setDescription(`${exclamation} **Não foi possível localizar o cargo de mute.**`));
 
         embed.setColor(0x1ba4e3);
 
@@ -34,7 +38,7 @@ class Unmute extends Command {
 
         if (!members.size) {
             embed
-              .setDescription(`⚠️ **Por favor, indique um membro válido.**`)
+              .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
               .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
@@ -62,7 +66,7 @@ class Unmute extends Command {
     
                 if (unmutedMembers.has(member.id)) {
                     embed
-                      .setDescription(`✅ \`${member.user.tag}\` **foi desmutado(a) com sucesso.**`)
+                      .setDescription(`${success} \`${member.user.tag}\` **foi desmutado(a) com sucesso.**`)
                       .setColor(0x27db27);
                     
                     return;
@@ -78,7 +82,7 @@ class Unmute extends Command {
                     embed
                       .setTitle('Membros desmutados')
                       .setDescription([...members].map(m => 
-                        `${unmutedMembers.has(m.id) ? '✅' : '❌'} **${m.user.tag}**`).join('\n')
+                        `${unmutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
                       );
 
                     return;

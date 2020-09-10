@@ -24,12 +24,15 @@ class ClearWarnings extends Command {
         const embed = new BaseEmbed();
         const response = await Bot.server.request('DELETE', `infrations/${id}`);
 
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+
         if (response) {
             embed
-                .setDescription(`${Bot.emojis.get('bot2Success')} **As infrações do usuários foram limpas com sucesso.**`);
+                .setDescription(`${success} **As infrações do usuários foram limpas com sucesso.**`);
         } else {
             embed
-                .setDescription(`${Bot.emojis.get('bot2Cancel')} **Erro na tentativa de deletar as infrações do usuário.**`)
+                .setDescription(`${error} **Erro na tentativa de deletar as infrações do usuário.**`)
                 .setColor(0xF44336);
         }
 

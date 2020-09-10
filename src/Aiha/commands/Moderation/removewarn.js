@@ -23,17 +23,21 @@ class RemoveWarn extends Command {
 
         const warnCase = parseInt((args[1] || '#0').match(/#(\d+)/)[1]);
         const embed = new BaseEmbed();
+
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+        const exclamation = Bot.emojis.get('bot2Exclamation');
         
         if (!id.length) {
             return msg.channel.send(
                     embed
-                        .setDescription(`${Bot.emojis.get('bot2Exclamation')} **Mencione o usuário que deseja retirar a infração.**`)
+                        .setDescription(`${exclamation} **Mencione o usuário que deseja retirar a infração.**`)
                         .setColor(0xe3c51b)
             );
         }
 
         if (warnCase) {
-            const infrations = (await Bot.server.request('GET', 'infrations'))[id];
+            const infrations = await Bot.server.request('GET', `infrations/${id}`);
             
             if (!infrations || !infrations.length) {
 
@@ -44,17 +48,17 @@ class RemoveWarn extends Command {
                 if (infration) {
                     await Bot.server.request('DELETE', `infrations/${id}/${warnCase}`)
                         .then(() => {
-                            embed.setDescription(`${Bot.emojis.get('bot2Success')} **O Caso #${warnCase} foi removido com sucesso.**`);
+                            embed.setDescription(`${success} **O Caso #${warnCase} foi removido com sucesso.**`);
                         })
                         .catch(() => {
                             embed
-                                .setDescription(`${Bot.emojis.get('bot2Cancel')} **Ocorreu um erro ao tentar remover a infração.**`)
+                                .setDescription(`${error} **Ocorreu um erro ao tentar remover a infração.**`)
                                 .setColor(0xF44336);
                         });
 
                 } else {
                     embed
-                        .setDescription(`${Bot.emojis.get('bot2Exclamation')} **O Caso #${warnCase} não foi encontrado.**`)
+                        .setDescription(`${exclamation} **O Caso #${warnCase} não foi encontrado.**`)
                         .setColor(0xe3c51b);
                 }
 

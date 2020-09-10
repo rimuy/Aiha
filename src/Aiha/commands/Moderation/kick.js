@@ -4,6 +4,7 @@
 
 const { Command } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const Logs = require('../../lib/Logs');
 
 class Kick extends Command {
     constructor() {
@@ -22,25 +23,40 @@ class Kick extends Command {
         const kickedMembers = new Set();
         const embed = new MessageEmbed().setColor(0x1ba4e3);
 
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+        const exclamation = Bot.emojis.get('bot2Exclamation');
+
         msg.mentions.members.forEach(m => members.add(m));
 
         if (!members.size) {
             embed
-              .setDescription(`⚠️ **Por favor, indique um membro válido.**`)
+              .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
               .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
         };
 
-        const reason = args.slice(members.size).join(' ');
+        const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
         
         await Promise.all(
             [...members].map(member => new Promise(async res => {
 
-                if (member.kickable) 
-                    await member.kick(reason || 'Nenhum motivo foi registrado.')
-                        .then(member => kickedMembers.add(member.id))
-                        .catch();
+                if (member.kickable && !member.permissions.has(this.userPerms)) 
+                    await member.kick(reason)
+                        .then(member => {
+                            kickedMembers.add(member.id);
+
+                            const logEmbed = new BaseEmbed()
+                                .setTitle('Membro Expulso')
+                                .addFields(
+                                    { name: 'Usuário', value: `<@${member.id}>`, inline: true },
+                                    { name: 'Motivo', value: `\`${reason}\``, inline: true },
+                                );
+
+                            Logs(Bot, msg.channel, logEmbed);
+                        })
+                        .catch(() => {});
                 
                 res();
                 
@@ -54,7 +70,7 @@ class Kick extends Command {
     
                 if (kickedMembers.has(member.id)) {
                     embed
-                      .setDescription(`✅ \`${member.user.tag}\` **foi expulso(a) com sucesso.**`)
+                      .setDescription(`${success} \`${member.user.tag}\` **foi expulso(a) com sucesso.**`)
                       .setColor(0x27db27);
                     
                     return;
@@ -70,7 +86,7 @@ class Kick extends Command {
                     embed
                       .setTitle('Membros expulsos')
                       .setDescription([...members].map(m => 
-                        `${kickedMembers.has(m.id) ? '✅' : '❌'} **${m.user.tag}**`).join('\n')
+                        `${kickedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
                       );
 
                     return;

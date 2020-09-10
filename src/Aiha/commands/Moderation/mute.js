@@ -22,8 +22,16 @@ class Mute extends Command {
         const embed = new MessageEmbed().setColor(0xe3c51b);
         const muteRole = await MuteRule(msg.guild);
 
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+        const exclamation = Bot.emojis.get('bot2Exclamation');
+
         if (!muteRole) 
-            return msg.channel.send(embed.setDescription('⚠️ **Não foi possível criar o cargo de mute.**'));
+            return msg.channel.send(
+                embed
+                    .setDescription(`${error} **Não foi possível criar o cargo de mute.**`)
+                    .setColor(0xF44336)
+            );
 
         embed.setColor(0x1ba4e3);
 
@@ -34,7 +42,7 @@ class Mute extends Command {
 
         if (!members.size) {
             embed
-              .setDescription(`⚠️ **Por favor, indique um membro válido.**`)
+              .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
               .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
@@ -45,9 +53,20 @@ class Mute extends Command {
         await Promise.all(
             [...members].map(member => new Promise(async res => {
 
-                if (member.manageable) 
+                if (member.manageable && !member.permissions.has(this.userPerms)) 
                     await member.roles.add(muteRole, reason || 'Nenhum motivo foi registrado.')
-                        .then(member => mutedMembers.add(member.id))
+                        .then(member => {
+                            mutedMembers.add(member.id);
+
+                            const logEmbed = new BaseEmbed()
+                                .setTitle('Membro Silenciado')
+                                .addFields(
+                                    { name: 'Usuário', value: `<@${member.id}>`, inline: true },
+                                    { name: 'Motivo', value: `\`${reason}\``, inline: true },
+                                );
+
+                            Logs(Bot, msg.channel, logEmbed);
+                        })
                         .catch();
                 
                 res();
@@ -62,7 +81,7 @@ class Mute extends Command {
     
                 if (mutedMembers.has(member.id)) {
                     embed
-                      .setDescription(`✅ \`${member.user.tag}\` **foi mutado(a) com sucesso.**`)
+                      .setDescription(`${success} \`${member.user.tag}\` **foi mutado(a) com sucesso.**`)
                       .setColor(0x27db27);
                     
                     return;
@@ -78,7 +97,7 @@ class Mute extends Command {
                     embed
                       .setTitle('Membros mutados')
                       .setDescription([...members].map(m => 
-                        `${mutedMembers.has(m.id) ? '✅' : '❌'} **${m.user.tag}**`).join('\n')
+                        `${mutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
                       );
 
                     return;

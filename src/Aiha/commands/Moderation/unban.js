@@ -22,9 +22,13 @@ class Unban extends Command {
         const unbannedUsers = new Set();
         const embed = new MessageEmbed().setColor(0x1ba4e3);
 
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+        const exclamation = Bot.emojis.get('bot2Exclamation');
+
         if (!bannedList.size) {
             embed
-              .setDescription(`⚠️ **Não há nenhum usuário banido neste servidor.**`)
+              .setDescription(`${exclamation} **Não há nenhum usuário banido neste servidor.**`)
               .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
@@ -52,7 +56,7 @@ class Unban extends Command {
     
                 if (unbannedUsers.has(userinfo[0])) {
                     embed
-                      .setDescription(`✅ \`${userinfo[1].user.tag}\` **foi desbanido(a) com sucesso.**`)
+                      .setDescription(`${success} \`${userinfo[1].user.tag}\` **foi desbanido(a) com sucesso.**`)
                       .setColor(0x27db27);
                     
                     return;
@@ -68,7 +72,7 @@ class Unban extends Command {
                     embed
                       .setTitle('Usuários desbanidos')
                       .setDescription([...bannedList].map(u => 
-                        `${unbannedUsers.has(u[0]) ? '✅' : '❌'} **${u[1].user.tag}**`).join('\n')
+                        `${unbannedUsers.has(u[0]) ? success : error} **${u[1].user.tag}**`).join('\n')
                       );
 
                     return;

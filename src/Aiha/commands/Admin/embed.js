@@ -7,7 +7,7 @@ const { Command } = require('../..');
 class Embed extends Command {
     constructor() {
         super('embed', {
-            description: 'Constrói um embed com conteúdo (opcional).',
+            description: 'Constrói um embed com conteúdo (opcional).\n**Embed Builder:** https://embedbuilder.nadekobot.me/',
             usage: 'embed `conteúdo`',
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],

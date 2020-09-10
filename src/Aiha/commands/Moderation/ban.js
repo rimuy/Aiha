@@ -22,24 +22,39 @@ class Ban extends Command {
         const bannedMembers = new Set();
         const embed = new MessageEmbed().setColor(0x1ba4e3);
 
+        const success = Bot.emojis.get('bot2Success');
+        const error = Bot.emojis.get('bot2Cancel');
+        const exclamation = Bot.emojis.get('bot2Exclamation');
+
         msg.mentions.members.forEach(m => members.add(m));
 
         if (!members.size) {
             embed
-              .setDescription(`⚠️ **Por favor, indique um membro válido.**`)
+              .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
               .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
         };
 
-        const reason = args.slice(members.size).join(' ');
+        const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
         
         await Promise.all(
             [...members].map(member => new Promise(async res => {
 
-                if (member.bannable) 
-                    await member.ban({ days: soft ? 7 : 0, reason: reason || 'Nenhum motivo foi registrado.' })
-                        .then(member => bannedMembers.add(member.id))
+                if (member.bannable && !member.permissions.has(this.userPerms)) 
+                    await member.ban({ days: soft ? 7 : 1, reason })
+                        .then(member => {
+                            bannedMembers.add(member.id);
+
+                            const logEmbed = new BaseEmbed()
+                                .setTitle('Membro Banido')
+                                .addFields(
+                                    { name: 'Usuário', value: `<@${member.id}>`, inline: true },
+                                    { name: 'Motivo', value: `\`${reason}\``, inline: true },
+                                );
+
+                            Logs(Bot, msg.channel, logEmbed);
+                        })
                         .catch()
                         .finally(res);
                 
@@ -57,7 +72,7 @@ class Ban extends Command {
     
                 if (bannedMembers.has(member.id)) {
                     embed
-                      .setDescription(`✅ \`${member.user.tag}\` **foi banido(a) com sucesso.**`)
+                      .setDescription(`${success} \`${member.user.tag}\` **foi banido(a) com sucesso.**`)
                       .setColor(0x27db27);
                     
                     return;
@@ -73,7 +88,7 @@ class Ban extends Command {
                     embed
                       .setTitle('Membros banidos')
                       .setDescription([...members].map(m => 
-                        `${bannedMembers.has(m.id) ? '✅' : '❌'} **${m.user.tag}**`).join('\n')
+                        `${bannedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
                       );
 
                     return;
