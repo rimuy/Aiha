@@ -39,7 +39,7 @@ class MessageEvent extends Event {
                                 msg.channel.id !== settings.commandsChannel 
                                 && msg.channel.id !== settings.testingChannel
                             ) 
-                            && command.category !== 'Moderação'
+                            && (!command.multiChannel || command.category !== 'Moderação')
                         ) return;
                         
                         const userCd = usersOnCooldown.get(user.id);
