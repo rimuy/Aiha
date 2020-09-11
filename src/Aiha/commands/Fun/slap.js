@@ -12,6 +12,7 @@ class Slap extends Command {
             aliases: [],
             category: 'Diversão',
             botPerms: ['EMBED_LINKS'],
+            multiChannel: true,
         });
     }
 

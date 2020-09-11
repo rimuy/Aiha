@@ -12,6 +12,7 @@ class Kiss extends Command {
             aliases: [],
             category: 'Diversão',
             botPerms: ['EMBED_LINKS'],
+            multiChannel: true,
         });
     }
 

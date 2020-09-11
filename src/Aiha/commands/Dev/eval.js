@@ -21,8 +21,9 @@ class Eval extends Command {
         let evaled;
 
         /* Shortcut variables */
-        const req = Bot.server.request;
+        const server = Bot.server;
         const client = Bot.client;
+        const api = Bot.api;
         const me = msg.author;
         const users = client.users;
         const members = client.members;

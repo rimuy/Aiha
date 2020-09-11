@@ -12,6 +12,7 @@ class Pat extends Command {
             aliases: [],
             category: 'Diversão',
             botPerms: ['EMBED_LINKS'],
+            multiChannel: true,
         });
     }
 

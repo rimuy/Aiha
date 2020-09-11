@@ -11,6 +11,7 @@ class Command {
         this.botPerms = options.botPerms || [];
         this.hidden = options.hidden || false;
         this.dev = options.dev || false;
+        this.multiChannel = options.multiChannel || false;
     }
 
     run(Bot, message, args) {}

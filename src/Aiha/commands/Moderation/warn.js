@@ -33,7 +33,7 @@ class Warn extends Command {
             );
         }
         
-        const infration = args[1] || 'Nenhum motivo foi registrado.';
+        const infration = args.slice(1).join(' ') || 'Nenhum motivo foi registrado.';
 
         msg.guild.members.fetch(id)
             .then(member => {

@@ -75,7 +75,15 @@ class MessageEvent extends Event {
                 }
 
                 const r = messagesWithResponses[msg.content.toLowerCase().trim()];
-                if (r) return msg.channel.send(r);
+
+                if (r) {
+                    const userCd = usersOnCooldown.get(user.id);
+                    if (userCd && (new Date() - userCd) <= cooldown) return;
+
+                    usersOnCooldown.set(user.id, new Date());
+                    await msg.channel.send(r);
+                }
+
             }
         });
     }
