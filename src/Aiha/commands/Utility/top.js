@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/03
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Command, BaseEmbed, PageEmbed, Server } = require('../..');
 
 class Top extends Command {
     constructor() {
@@ -18,11 +18,10 @@ class Top extends Command {
     async run(Bot, msg) {
 
         const users = await Server.Database.request('GET', 'users');
-        const embed = new BaseEmbed();
 
         if (!Object.keys(users).length) {
             return msg.channel.send(
-                embed.setDescription('Este servidor não possui nenhum membro com level.')
+                new BaseEmbed().setDescription('Este servidor não possui nenhum membro com level.')
             );
         }
 
@@ -34,20 +33,19 @@ class Top extends Command {
                 return { id, level: users[id].level, order: ++idx };
             });
 
-        
+        const medals = ['🥇', '🥈', '🥉'];
+
         const membersRanking = await Promise.all(
             ranking.map(async (obj, idx) => {
                 const member = await msg.guild.members.fetch(obj.id);
 
-                return `**#${++idx}:** \`${member.user.tag}\` LVL ${obj.level}`;
+                return `**#${++idx}:** \`${member.user.tag}\` LVL ${obj.level} ${medals[idx - 1] || ''}`;
             })
         );
 
-        embed
+        new PageEmbed(msg, membersRanking, 10)
             .setAuthor('Placar do Servidor', msg.guild.iconURL({ dynamic: true }))
-            .setDescription(`${membersRanking.join('\n')}`);
-
-        msg.channel.send(embed);
+            .send();
         
     }
 }
