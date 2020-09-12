@@ -1,0 +1,16 @@
+sudo: false
+language: node_js
+node_js:
+  - 12
+
+install:
+  - yarn install --frozen-lockfile
+
+script: 
+  - yarn lint
+  - yarn test
+
+cache:
+  yarn: true
+  directories:
+    - node_modules

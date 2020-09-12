@@ -5,7 +5,18 @@
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
-    "dev": "nodemon bot.js"
+    "dev": "nodemon bot.js",
+    "lint": "yarn eslint '**/*.js'",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:staged": "jest --findRelatedTests"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint",
+      "yarn test:staged",
+      "git add"
+    ]
   },
   "author": "Kevinwkz",
   "license": "GPL-3.0",
@@ -23,6 +34,7 @@
     "babel-eslint": "^10.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.8.1",
+    "jest": "^26.4.2",
     "nodemon": "^2.0.4"
   }
 }
