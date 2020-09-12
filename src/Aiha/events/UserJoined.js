@@ -12,6 +12,9 @@ class MemberAddEvent extends Event {
         super({
             event: 'guildMemberAdd',
             callback: async (Bot, member) => {
+
+                if (member.user.bot) return;
+
                 await Bot.server.request('POST', `users/${member.id}`);
 
                 if (!fetched) {
@@ -40,6 +43,9 @@ class MemberAddEvent extends Event {
                         .setImage('https://i.imgur.com/V3ixT7M.png')
                     );
                 }
+
+                const welcomeRoles = (await Bot.server.request('GET', 'settings')).welcomeRoles || [];
+                welcomeRoles.length && member.roles.set(welcomeRoles).catch();
                 
             }
         });

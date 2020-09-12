@@ -5,4 +5,8 @@ require('./server');
 const { Bot } = require('./src/Aiha');
 
 const bot = new Bot();
-bot.client.login(process.env.TOKEN);
+bot.client.login(
+    process.argv[2] === 'dev' 
+        ? process.env.TESTER 
+        : process.env.TOKEN
+);
