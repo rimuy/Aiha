@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/05
+ *      Kevinwkz - 2020/09/05
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
 class SetRank extends Command {
@@ -43,7 +43,7 @@ class SetRank extends Command {
 
         const embed = new BaseEmbed();
 
-        await Bot.server.request('POST', `levelroles/${id}`, {
+        await Server.Database.request('POST', `levelroles/${id}`, {
             roleId: id,
             requiredLevel: parseInt(reqLevel),
         })

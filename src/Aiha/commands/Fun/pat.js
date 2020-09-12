@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, API } = require('../..');
 
 class Pat extends Command {
     constructor() {
@@ -19,7 +19,7 @@ class Pat extends Command {
     async run(Bot, msg) {
 
         const pet = msg.mentions.users.first() || msg.author;
-        const req = await Bot.api.NekosLife.pat;
+        const req = await API.NekosLife.pat;
 
         const error = Bot.emojis.get('bot2Cancel');
 

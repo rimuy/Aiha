@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/11
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
 class AddWelcomeRole extends Command {
@@ -34,12 +34,12 @@ class AddWelcomeRole extends Command {
                     .setColor(0xe3c51b)
             );
         }
-
+        
         const embed = new BaseEmbed();
-        const welcomeRoles = (await Bot.server.request('GET', 'settings')).welcomeRoles || [];
+        const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
         welcomeRoles.push(role.id);
 
-        await Bot.server.request('PATCH', 'settings', { welcomeRoles })
+        await Server.Database.request('PATCH', 'settings', { welcomeRoles })
             .then(() => {
                 embed.setDescription(`${success} **Cargo de bem-vindo \`${role.name}\` foi adicionado à lista.**`);
             })

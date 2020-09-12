@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/05
+ *      Kevinwkz - 2020/09/05
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class UnsetRank extends Command {
     constructor() {
@@ -33,7 +33,7 @@ class UnsetRank extends Command {
 
         const embed = new BaseEmbed();
 
-        await Bot.server.request('DELETE', `levelroles/${id}`)
+        await Server.Database.request('DELETE', `levelroles/${id}`)
             .then(() => {
                 embed.setDescription(`${Bot.emojis.get('bot2Success')} **O Cargo \`${role.name}\` foi retirado do sistema de level.**`);
             })

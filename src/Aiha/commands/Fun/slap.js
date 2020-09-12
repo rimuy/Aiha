@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, API } = require('../..');
 
 class Slap extends Command {
     constructor() {
@@ -19,7 +19,7 @@ class Slap extends Command {
     async run(Bot, msg) {
 
         const slapped = msg.mentions.users.first() || msg.author;
-        const req = await Bot.api.NekosLife.slap;
+        const req = await API.NekosLife.slap;
 
         const error = Bot.emojis.get('bot2Cancel');
 

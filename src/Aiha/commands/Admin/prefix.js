@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/07
+ *      Kevinwkz - 2020/09/07
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class Prefix extends Command {
     constructor() {
@@ -26,7 +26,7 @@ class Prefix extends Command {
         const exclamation = Bot.emojis.get('bot2Exclamation');
 
         if (prefix) {
-            await Bot.server.request('PATCH', 'settings', { prefix })
+            await Server.Database.request('PATCH', 'settings', { prefix })
                 .then(res => {
                     embed.setDescription(`${success} **O prefixo dos comandos foi alterado para** \`${res.prefix}\`**.**`);
                     Bot.updateStatus();

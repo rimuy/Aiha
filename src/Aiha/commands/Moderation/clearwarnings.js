@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/02
+ *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class ClearWarnings extends Command {
     constructor() {
@@ -22,7 +22,7 @@ class ClearWarnings extends Command {
             .replace(/[<@!>&]/g, '');
 
         const embed = new BaseEmbed();
-        const response = await Bot.server.request('DELETE', `infrations/${id}`);
+        const response = await Server.Database.request('DELETE', `infrations/${id}`);
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');

@@ -6,6 +6,10 @@ module.exports = {
     Command: require('./structures/Command'),
     Event: require('./structures/Event'),
 
+    // External
+    Server: require('../../server'),
+    API: require('../../api'),
+
     // Misc
     Developers: require('./config/json/devs.json'),
     version: require('../../package.json').version

@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/07
+ *      Kevinwkz - 2020/09/07
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class ResetSettings extends Command {
     constructor() {
@@ -25,7 +25,7 @@ class ResetSettings extends Command {
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
 
-        await Bot.server.request('POST', 'settings')
+        await Server.Database.request('POST', 'settings')
             .then(() => {
                 embed.setDescription(`${success} **As configurações do servidor foram resetadas para o padrão.**`);
             })

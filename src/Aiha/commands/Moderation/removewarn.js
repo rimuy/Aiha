@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/02
+ *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class RemoveWarn extends Command {
     constructor() {
@@ -37,7 +37,7 @@ class RemoveWarn extends Command {
         }
 
         if (warnCase) {
-            const infrations = await Bot.server.request('GET', `infrations/${id}`);
+            const infrations = await Server.Database.request('GET', `infrations/${id}`);
             
             if (!infrations || !infrations.length) {
 
@@ -46,7 +46,7 @@ class RemoveWarn extends Command {
                 const infration = infrations.find(inf => inf.case === warnCase);
 
                 if (infration) {
-                    await Bot.server.request('DELETE', `infrations/${id}/${warnCase}`)
+                    await Server.Database.request('DELETE', `infrations/${id}/${warnCase}`)
                         .then(() => {
                             embed.setDescription(`${success} **O Caso #${warnCase} foi removido com sucesso.**`);
                         })

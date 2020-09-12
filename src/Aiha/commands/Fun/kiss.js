@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, API } = require('../..');
 
 class Kiss extends Command {
     constructor() {
@@ -20,7 +20,7 @@ class Kiss extends Command {
 
         const kissed = msg.mentions.users.first();
         const embed = new BaseEmbed()
-        const req = await Bot.api.NekosLife.kiss;
+        const req = await API.NekosLife.kiss;
 
         const error = Bot.emojis.get('bot2Cancel');
         const exclamation = Bot.emojis.get('bot2Exclamation');

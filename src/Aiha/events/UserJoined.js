@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/06
+ *      Kevinwkz - 2020/09/06
  */
 
-const { Event } = require('..');
+const { Event, Server } = require('..');
 const { MessageEmbed } = require('discord.js');
 
 var fetched;
@@ -15,7 +15,7 @@ class MemberAddEvent extends Event {
 
                 if (member.user.bot) return;
 
-                await Bot.server.request('POST', `users/${member.id}`);
+                await Server.Database.request('POST', `users/${member.id}`);
 
                 if (!fetched) {
                     await member.guild.fetch();
@@ -25,7 +25,7 @@ class MemberAddEvent extends Event {
 
                 const guild = member.guild;
                 
-                const id = (await Bot.server.request('GET', 'settings')).welcomeChannel;
+                const id = (await Server.Database.request('GET', 'settings')).welcomeChannel;
                 const mainChannel = guild.channels.cache.get(id);
 
                 if (mainChannel) {
@@ -44,7 +44,7 @@ class MemberAddEvent extends Event {
                     );
                 }
 
-                const welcomeRoles = (await Bot.server.request('GET', 'settings')).welcomeRoles || [];
+                const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
                 welcomeRoles.length && member.roles.set(welcomeRoles).catch();
                 
             }

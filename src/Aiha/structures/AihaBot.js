@@ -2,6 +2,7 @@ const { Client, Collection, Intents } = require('discord.js');
 const CategoriesEmojis = require('../config/json/CategoriesEmojis.json');
 const log = require('../util/Log');
 
+const Server = require('../../../server');
 const Developers = require('../config/json/devs.json');
 
 class AihaBot {
@@ -57,15 +58,11 @@ class AihaBot {
 
     timedMutes = new Collection();
 
-    server = require('../../../server/config/Database');
-
-    api = require('../../../api');
-
     report = require('../lib/BotReport');
 
     async updateStatus() {
         this.client.user.setActivity(
-            (await this.server.request('GET', 'settings')).prefix + 'help');
+            (await Server.Database.request('GET', 'settings')).prefix + 'help');
     }
     
 }

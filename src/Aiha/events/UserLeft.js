@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/06
+ *      Kevinwkz - 2020/09/06
  */
 
-const { Event } = require('..');
+const { Event, Server } = require('..');
 
 class MemberRemoveEvent extends Event {
     constructor() {
@@ -11,7 +11,7 @@ class MemberRemoveEvent extends Event {
             callback: (Bot, member) => {
                 if (member.user.bot) return;
 
-                Bot.server.request('DELETE', `users/${member.id}`);
+                Server.Database.request('DELETE', `users/${member.id}`);
             }
         });
     }

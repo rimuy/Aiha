@@ -1,3 +1,4 @@
+const { Server } = require('..');
 const LevelRoles = require('./LevelRoles');
 
 const usersOnCooldown = new Map();
@@ -16,7 +17,7 @@ module.exports = async (Bot, msg) => {
     };
 
     if (expCd && (new Date() - expCd) > cooldown) {
-        const data = await Bot.server.request('GET', `users/${user.id}`) || { level: 0, exp: 0 };
+        const data = await Server.Database.request('GET', `users/${user.id}`) || { level: 0, exp: 0 };
         usersOnCooldown.set(user.id, new Date());
         data.exp += Math.floor(earnXP(msg.content));
 
@@ -41,7 +42,7 @@ module.exports = async (Bot, msg) => {
 
         }
 
-        await Bot.server.request('PATCH', `users/${user.id}`, { 
+        await Server.Database.request('PATCH', `users/${user.id}`, { 
             level: data.level, 
             exp: data.exp,
         });

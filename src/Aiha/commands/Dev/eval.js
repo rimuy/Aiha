@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Command, Server } = require('../..');
 const { inspect } = require('util');
 const Discord = require('discord.js');
 
@@ -21,7 +21,7 @@ class Eval extends Command {
         let evaled;
 
         /* Shortcut variables */
-        const server = Bot.server;
+        const server = Server;
         const client = Bot.client;
         const api = Bot.api;
         const me = msg.author;

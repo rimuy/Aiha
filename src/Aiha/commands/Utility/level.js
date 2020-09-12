@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/03
+ *      Kevinwkz - 2020/09/03
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class Level extends Command {
     constructor() {
@@ -17,7 +17,7 @@ class Level extends Command {
 
     async run(Bot, msg) {
 
-        const users = await Bot.server.request('GET', 'users');
+        const users = await Server.Database.request('GET', 'users');
         const data = users[msg.author.id];
         const embed = new BaseEmbed();
 

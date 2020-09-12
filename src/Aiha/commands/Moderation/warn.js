@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/02
+ *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 const Logs = require('../../lib/Logs');
 
 class Warn extends Command {
@@ -38,7 +38,7 @@ class Warn extends Command {
         msg.guild.members.fetch(id)
             .then(member => {
 
-                Bot.server.request('POST', `infrations/${id}`, {
+                Server.Database.request('POST', `infrations/${id}`, {
                     description: infration,
                     createdTimestamp: new Date(),
                 })

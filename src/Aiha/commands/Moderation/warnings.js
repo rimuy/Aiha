@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/02
+ *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class Warnings extends Command {
     constructor() {
@@ -21,7 +21,7 @@ class Warnings extends Command {
         const id = (args[0] || msg.author.id)
             .replace(/[<@!>&]/g, '');
 
-        const infrations = (await Bot.server.request('GET', 'infrations'))[id];
+        const infrations = (await Server.Database.request('GET', 'infrations'))[id];
         const embed = new BaseEmbed();
         const error = Bot.emojis.get('bot2Cancel');
 

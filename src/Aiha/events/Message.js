@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Event, Developers } = require('..');
+const { Event, Server, Developers } = require('..');
 const { MessageEmbed } = require('discord.js');
 
 const LevelingSystem = require('../lib/LevelingSystem');
@@ -17,14 +17,14 @@ class MessageEvent extends Event {
             callback: async (Bot, msg) => {
 
                 const user = msg.author;
-                const settings = await Bot.server.request('GET', 'settings');
+                const settings = await Server.Database.request('GET', 'settings');
                 const prefix = settings.prefix;
 
                 if (user.bot) return;
                 if (!msg.guild || !msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
 
-                await Bot.server.request('GET', `users/${user.id}`)
-                    .catch(async () => await Bot.server.request('POST', `users/${user.id}`));
+                await Server.Database.request('GET', `users/${user.id}`)
+                    .catch(async () => await Server.Database.request('POST', `users/${user.id}`));
                 
                 if (msg.content.startsWith(prefix)) {
 

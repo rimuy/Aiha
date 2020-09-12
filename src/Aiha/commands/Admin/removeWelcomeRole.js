@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/11
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
 class RemoveWelcomeRole extends Command {
@@ -36,12 +36,12 @@ class RemoveWelcomeRole extends Command {
         }
 
         const embed = new BaseEmbed();
-        const welcomeRoles = (await Bot.server.request('GET', 'settings')).welcomeRoles || [];
+        const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
 
         const index = welcomeRoles.indexOf(role.id);
         index > -1 ? welcomeRoles.splice(index, 1) : false;
 
-        await Bot.server.request('PATCH', 'settings', { welcomeRoles })
+        await Server.Database.request('PATCH', 'settings', { welcomeRoles })
             .then(() => {
                 embed.setDescription(`${success} **Cargo de bem-vindo \`${role.name}\` foi removido da lista.**`);
             })

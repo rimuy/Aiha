@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/28
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class Help extends Command {
     constructor() {
@@ -21,7 +21,7 @@ class Help extends Command {
 
         const categories = new Map();
         const command = Bot.commands.get(cmd) || Bot.aliases.get(cmd);
-        const prefix = (await Bot.server.request('GET', 'settings')).prefix;
+        const prefix = (await Server.Database.request('GET', 'settings')).prefix;
 
         const embed = new BaseEmbed()
             .setFooter(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));

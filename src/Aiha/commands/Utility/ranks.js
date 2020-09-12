@@ -1,8 +1,8 @@
 /**
- *      Kevinwkz - 2020/08/05
+ *      Kevinwkz - 2020/09/05
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class Ranks extends Command {
     constructor() {
@@ -19,7 +19,7 @@ class Ranks extends Command {
         const error = Bot.emojis.get('bot2Cancel');
         const embed = new BaseEmbed();
         
-        await Bot.server.request('GET', 'levelroles')
+        await Server.Database.request('GET', 'levelroles')
             .then(res => {
                 embed
                     .setTitle('Sistema de Level')

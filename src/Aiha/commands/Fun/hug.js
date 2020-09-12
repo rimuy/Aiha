@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, API } = require('../..');
 
 class Hug extends Command {
     constructor() {
@@ -19,7 +19,7 @@ class Hug extends Command {
     async run(Bot, msg) {
 
         const hugged = msg.mentions.users.first() || msg.author;
-        const req = await Bot.api.NekosLife.hug;
+        const req = await API.NekosLife.hug;
 
         const error = Bot.emojis.get('bot2Cancel');
 

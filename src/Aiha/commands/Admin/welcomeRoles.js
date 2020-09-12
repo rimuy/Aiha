@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/11
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class WelcomeRoles extends Command {
     constructor() {
@@ -18,7 +18,7 @@ class WelcomeRoles extends Command {
 
     async run(Bot, msg) {
         
-        const welcomeRoles = (await Bot.server.request('GET', 'settings')).welcomeRoles || [];
+        const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
         
         msg.channel.send(
             new BaseEmbed()

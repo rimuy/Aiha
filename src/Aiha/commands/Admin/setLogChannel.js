@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/09
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class SetLogChannel extends Command {
     constructor() {
@@ -30,7 +30,7 @@ class SetLogChannel extends Command {
 
         if (channel) {
 
-            await Bot.server.request('PATCH', 'settings', { logChannel: channel.id })
+            await Server.Database.request('PATCH', 'settings', { logChannel: channel.id })
                 .then(res => {
                     embed
                         .setDescription(`${success} **O canal de logs foi setado para** <#${res.logChannel}>**!**`);

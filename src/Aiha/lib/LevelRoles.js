@@ -1,6 +1,7 @@
+const { Server } = require('..');
 
 module.exports = async (Bot, user, msg, level) => {
-    const roles = await Bot.server.request('GET', 'levelroles');
+    const roles = await Server.Database.request('GET', 'levelroles');
     const guild = msg.guild;
     const member = await guild.members.fetch(user);
 

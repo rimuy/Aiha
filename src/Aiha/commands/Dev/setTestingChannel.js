@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/09
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Command, BaseEmbed, Server } = require('../..');
 
 class SetTestingChannel extends Command {
     constructor() {
@@ -30,7 +30,7 @@ class SetTestingChannel extends Command {
 
         if (channel) {
 
-            await Bot.server.request('PATCH', 'settings', { testingChannel: channel.id })
+            await Server.Database.request('PATCH', 'settings', { testingChannel: channel.id })
                 .then(res => {
                     embed
                         .setDescription(`${success} **O canal de teste foi setado para** <#${res.testingChannel}>**!**`);
