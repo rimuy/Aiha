@@ -13,8 +13,6 @@ class Command {
         this.dev = options.dev || false;
         this.multiChannel = options.multiChannel || false;
     }
-
-    run(Bot, message, args) {}
 }
 
 module.exports = Command;

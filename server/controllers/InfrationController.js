@@ -28,8 +28,7 @@ class InfrationController {
         });
         
         db.set('infrations', infrations).write();
-
-        const post = db.set(`infrations.${userId}`, userData).write();
+        db.set(`infrations.${userId}`, userData).write();
 
         res.send(db.get(`infrations.${userId}`).find({ case: req.body.case }).value());
     }

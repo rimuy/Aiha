@@ -23,7 +23,7 @@ class LevelRoleController {
             ...LevelRole, 
             ...req.body,
         })
-        .write();
+            .write();
         
         res.send(post.levelroles);
     }

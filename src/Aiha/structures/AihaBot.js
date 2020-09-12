@@ -34,8 +34,8 @@ class AihaBot {
 
             setInterval(async () => {
                 await Promise.all(devs.map(dev => 
-                    dev.send('test')
-                ))
+                    dev.send(this.commands.get('backup').run(this, null, dev))
+                ));
             }, process.env.AUTO_BACKUP_INTERVAL);
 
         });

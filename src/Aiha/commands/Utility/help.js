@@ -31,27 +31,27 @@ class Help extends Command {
                 const arr = categories.get(c.category);
 
                 arr
-                ? arr.push(c.name)
-                : categories.set(c.category, [c.name]);
+                    ? arr.push(c.name)
+                    : categories.set(c.category, [c.name]);
             }
         });
         
         if (command) {
 
             const info = {
-                "name": "Nome",
-                "description": "Descrição",
-                "usage": "Modo de uso",
-                "aliases": "Aliases",
-                "userPerms": "Permissões",
-            }
+                'name': 'Nome',
+                'description': 'Descrição',
+                'usage': 'Modo de uso',
+                'aliases': 'Aliases',
+                'userPerms': 'Permissões',
+            };
             
             const format = {
-                "name": '`{}`',
-                "usage": `${prefix}{}`,
-                "aliases": '`{}`',
-                "userPerms": "`{}`",
-            }
+                'name': '`{}`',
+                'usage': `${prefix}{}`,
+                'aliases': '`{}`',
+                'userPerms': '`{}`',
+            };
 
             embed
                 .setAuthor('Informações do Comando', Bot.client.user.displayAvatarURL())
@@ -64,13 +64,13 @@ class Help extends Command {
 
                             return `**${info[key]}:** ${
                                 typeof command[key] === 'object' 
-                                ? (
-                                    command[key].length 
-                                    ? command[key].map(c => `${format[key] ? format[key].replace('{}', c) : c}`).join(', ')
-                                    : 'Nenhuma'
-                                )
-                                : command[key]
-                            }`
+                                    ? (
+                                        command[key].length 
+                                            ? command[key].map(c => `${format[key] ? format[key].replace('{}', c) : c}`).join(', ')
+                                            : 'Nenhuma'
+                                    )
+                                    : command[key]
+                            }`;
                         })
                         .join('\n')
                 );
@@ -86,11 +86,11 @@ class Help extends Command {
                     `${Bot.client.user.username} é o bot oficial do nosso servidor!` +
                     `\nUse **${prefix}**help **<**comando**>** para obter informações detalhadas\ndo comando.\n\n` +
                     [...categories]
-                    .map(e => {
-                        const emoji = Bot.categoriesEmojis.get(e[0]);
-                        return `${emoji ? emoji + ' ' : ''}**${e[0]}:**\n**>** ${e[1].map(c => `\`${c}\``).join('**,** ')}\n`
-                    })
-                    .join('\n')
+                        .map(e => {
+                            const emoji = Bot.categoriesEmojis.get(e[0]);
+                            return `${emoji ? emoji + ' ' : ''}**${e[0]}:**\n**>** ${e[1].map(c => `\`${c}\``).join('**,** ')}\n`;
+                        })
+                        .join('\n')
                 );
 
         }

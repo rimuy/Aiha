@@ -32,7 +32,7 @@ class Avatar extends Command {
                     size: 2048 
                 }));
         } else {
-            embed.setDescription(`🤷‍♀️ O usuário não possui um avatar.`);
+            embed.setDescription('🤷‍♀️ O usuário não possui um avatar.');
         }
 
         msg.channel.send(embed);

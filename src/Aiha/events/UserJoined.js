@@ -33,14 +33,14 @@ class MemberAddEvent extends Event {
 
                     mainChannel.send(
                         new MessageEmbed()
-                        .setColor(0xff0a68)
-                        .setTitle('Nova pessoinha :O')
-                        .setDescription(`Seja bem vindo (a) <@${member.id}>!`)
-                        .setAuthor(member.guild.name, member.guild.iconURL({ dynamic: true }))
-                        .addFields([
-                            { name: 'Com você, temos', value: `${count} membros!` }
-                        ])
-                        .setImage('https://i.imgur.com/V3ixT7M.png')
+                            .setColor(0xff0a68)
+                            .setTitle('Nova pessoinha :O')
+                            .setDescription(`Seja bem vindo (a) <@${member.id}>!`)
+                            .setAuthor(member.guild.name, member.guild.iconURL({ dynamic: true }))
+                            .addFields([
+                                { name: 'Com você, temos', value: `${count} membros!` }
+                            ])
+                            .setImage('https://i.imgur.com/V3ixT7M.png')
                     );
                 }
 

@@ -27,9 +27,9 @@ class Warn extends Command {
 
         if (!id.length) {
             return msg.channel.send(
-                    embed
-                        .setDescription(`${exclamation} **Mencione o usuário que deseja registrar a infração.**`)
-                        .setColor(0xe3c51b)
+                embed
+                    .setDescription(`${exclamation} **Mencione o usuário que deseja registrar a infração.**`)
+                    .setColor(0xe3c51b)
             );
         }
         
@@ -42,31 +42,31 @@ class Warn extends Command {
                     description: infration,
                     createdTimestamp: new Date(),
                 })
-                .then(async inf => {
+                    .then(async inf => {
 
-                    await msg.channel.send(
-                        embed
-                            .setDescription(`${success} **Foi registrada uma infração para ${member.user.tag}.**`)
-                    );
-    
-                    const logEmbed = new BaseEmbed()
-                        .setTitle('Infração Registrada')
-                        .addFields(
-                            { name: 'Usuário', value: `<@${member.id}>`, inline: true },
-                            { name: 'Motivo', value: `\`${infration}\``, inline: true },
-                            { name: 'Caso', value: `\`${inf.case}\`` },
+                        await msg.channel.send(
+                            embed
+                                .setDescription(`${success} **Foi registrada uma infração para ${member.user.tag}.**`)
                         );
     
-                    Logs(Bot, msg.channel, logEmbed);
+                        const logEmbed = new BaseEmbed()
+                            .setTitle('Infração Registrada')
+                            .addFields(
+                                { name: 'Usuário', value: `<@${member.id}>`, inline: true },
+                                { name: 'Motivo', value: `\`${infration}\``, inline: true },
+                                { name: 'Caso', value: `\`${inf.case}\`` },
+                            );
+    
+                        Logs(Bot, msg.channel, logEmbed);
 
-                })
-                .catch(() => {
-                    msg.channel.send(
-                        embed
-                            .setDescription(`${error} **Ocorreu um erro ao tentar registrar a infração.**`)
-                            .setColor(0xF44336)
-                    );
-                });
+                    })
+                    .catch(() => {
+                        msg.channel.send(
+                            embed
+                                .setDescription(`${error} **Ocorreu um erro ao tentar registrar a infração.**`)
+                                .setColor(0xF44336)
+                        );
+                    });
 
             })
             .catch(() => {

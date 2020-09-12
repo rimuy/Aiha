@@ -19,7 +19,7 @@ class Invite extends Command {
         const response = `> ${msg.content.split(' ')[0]}\nhttps://discord.gg/${process.env.GUILD_INVITE_CODE}`;
 
         msg.author.send(response)
-            .then(() => { msg.react('✅').catch() })
+            .then(() => { msg.react('✅').catch(); })
             .catch(() => msg.channel.send(response));
     }
 }

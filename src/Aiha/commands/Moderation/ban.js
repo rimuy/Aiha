@@ -2,8 +2,9 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Command, BaseEmbed } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const Logs = require('../../lib/Logs');
 
 class Ban extends Command {
     constructor() {
@@ -30,19 +31,19 @@ class Ban extends Command {
 
         if (!members.size) {
             embed
-              .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
-              .setColor(0xe3c51b);
+                .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
+                .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
-        };
+        }
 
         const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
         
         await Promise.all(
-            [...members].map(member => new Promise(async res => {
+            [...members].map(member => new Promise(res => {
 
                 if (member.bannable && !member.permissions.has(this.userPerms)) 
-                    await member.ban({ days: soft ? 7 : 1, reason })
+                    member.ban({ days: soft ? 7 : 1, reason })
                         .then(member => {
                             bannedMembers.add(member.id);
 
@@ -58,8 +59,6 @@ class Ban extends Command {
                         .catch()
                         .finally(res);
                 
-                res(false);
-                
             }))
         );
 
@@ -72,34 +71,34 @@ class Ban extends Command {
     
                 if (bannedMembers.has(member.id)) {
                     embed
-                      .setDescription(`${success} \`${member.user.tag}\` **foi banido(a) com sucesso.**`)
-                      .setColor(0x27db27);
+                        .setDescription(`${success} \`${member.user.tag}\` **foi banido(a) com sucesso.**`)
+                        .setColor(0x27db27);
                     
                     return;
                 }
 
                 embed
-                  .setDescription(`:person_gesturing_no: **Não foi possivel realizar o banimento do membro.**`)
-                  .setColor(0xF44336);
+                    .setDescription(':person_gesturing_no: **Não foi possivel realizar o banimento do membro.**')
+                    .setColor(0xF44336);
     
             } else {
     
                 if (bannedMembers.size) {
                     embed
-                      .setTitle('Membros banidos')
-                      .setDescription([...members].map(m => 
-                        `${bannedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
-                      );
+                        .setTitle('Membros banidos')
+                        .setDescription([...members].map(m => 
+                            `${bannedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
+                        );
 
                     return;
                 }
 
                 embed
-                  .setDescription(`:person_gesturing_no: **Não foi possivel realizar o banimento de nenhum dos membros citados.**`)
-                  .setColor(0xF44336);
+                    .setDescription(':person_gesturing_no: **Não foi possivel realizar o banimento de nenhum dos membros citados.**')
+                    .setColor(0xF44336);
                 
             }
-        }
+        };
 
         MakeEmbed();
 

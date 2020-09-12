@@ -61,7 +61,7 @@ class MessageEvent extends Event {
                             msg.channel.send(
                                 new MessageEmbed()
                                     .setColor(0xF44336)
-                                    .setDescription(`:person_gesturing_no: **Permissões insuficientes.**`)
+                                    .setDescription(':person_gesturing_no: **Permissões insuficientes.**')
                             );
                         }
 
@@ -90,7 +90,7 @@ class MessageEvent extends Event {
 }
 
 const messagesWithResponses = {
-    "a": "b"
-}
+    'a': 'b'
+};
 
 module.exports = MessageEvent;

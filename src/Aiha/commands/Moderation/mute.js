@@ -2,9 +2,10 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Command, BaseEmbed } = require('../..');
 const { MessageEmbed } = require('discord.js');
 const MuteRule = require('../../lib/MuteRole');
+const Logs = require('../../lib/Logs');
 
 class Mute extends Command {
     constructor() {
@@ -42,19 +43,19 @@ class Mute extends Command {
 
         if (!members.size) {
             embed
-              .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
-              .setColor(0xe3c51b);
+                .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
+                .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
-        };
+        }
 
         const reason = args.slice(members.size).join(' ');
         
         await Promise.all(
-            [...members].map(member => new Promise(async res => {
+            [...members].map(member => new Promise(res => {
 
                 if (member.manageable && !member.permissions.has(this.userPerms)) 
-                    await member.roles.add(muteRole, reason || 'Nenhum motivo foi registrado.')
+                    member.roles.add(muteRole, reason || 'Nenhum motivo foi registrado.')
                         .then(member => {
                             mutedMembers.add(member.id);
 
@@ -67,9 +68,8 @@ class Mute extends Command {
 
                             Logs(Bot, msg.channel, logEmbed);
                         })
-                        .catch();
-                
-                res();
+                        .catch()
+                        .finally(res);
                 
             }))
         );
@@ -81,34 +81,34 @@ class Mute extends Command {
     
                 if (mutedMembers.has(member.id)) {
                     embed
-                      .setDescription(`${success} \`${member.user.tag}\` **foi mutado(a) com sucesso.**`)
-                      .setColor(0x27db27);
+                        .setDescription(`${success} \`${member.user.tag}\` **foi mutado(a) com sucesso.**`)
+                        .setColor(0x27db27);
                     
                     return;
                 }
 
                 embed
-                  .setDescription(`:person_gesturing_no: **Não foi possivel realizar o mute do membro.**`)
-                  .setColor(0xF44336);
+                    .setDescription(':person_gesturing_no: **Não foi possivel realizar o mute do membro.**')
+                    .setColor(0xF44336);
     
             } else {
     
                 if (mutedMembers.size) {
                     embed
-                      .setTitle('Membros mutados')
-                      .setDescription([...members].map(m => 
-                        `${mutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
-                      );
+                        .setTitle('Membros mutados')
+                        .setDescription([...members].map(m => 
+                            `${mutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
+                        );
 
                     return;
                 }
 
                 embed
-                  .setDescription(`:person_gesturing_no: **Não foi possivel realizar o mute de nenhum dos membros citados.**`)
-                  .setColor(0xF44336);
+                    .setDescription(':person_gesturing_no: **Não foi possivel realizar o mute de nenhum dos membros citados.**')
+                    .setColor(0xF44336);
                 
             }
-        }
+        };
 
         MakeEmbed();
 

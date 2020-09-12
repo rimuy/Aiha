@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Command, BaseEmbed } = require('../..');
 const { MessageEmbed } = require('discord.js');
 const Logs = require('../../lib/Logs');
 
@@ -31,19 +31,19 @@ class Kick extends Command {
 
         if (!members.size) {
             embed
-              .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
-              .setColor(0xe3c51b);
+                .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
+                .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
-        };
+        }
 
         const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
         
         await Promise.all(
-            [...members].map(member => new Promise(async res => {
+            [...members].map(member => new Promise(res => {
 
                 if (member.kickable && !member.permissions.has(this.userPerms)) 
-                    await member.kick(reason)
+                    member.kick(reason)
                         .then(member => {
                             kickedMembers.add(member.id);
 
@@ -56,9 +56,8 @@ class Kick extends Command {
 
                             Logs(Bot, msg.channel, logEmbed);
                         })
-                        .catch(() => {});
-                
-                res();
+                        .catch()
+                        .finally(res);
                 
             }))
         );
@@ -70,34 +69,34 @@ class Kick extends Command {
     
                 if (kickedMembers.has(member.id)) {
                     embed
-                      .setDescription(`${success} \`${member.user.tag}\` **foi expulso(a) com sucesso.**`)
-                      .setColor(0x27db27);
+                        .setDescription(`${success} \`${member.user.tag}\` **foi expulso(a) com sucesso.**`)
+                        .setColor(0x27db27);
                     
                     return;
                 }
 
                 embed
-                  .setDescription(`:person_gesturing_no: **Não foi possivel realizar o kick do membro.**`)
-                  .setColor(0xF44336);
+                    .setDescription(':person_gesturing_no: **Não foi possivel realizar o kick do membro.**')
+                    .setColor(0xF44336);
     
             } else {
     
                 if (kickedMembers.size) {
                     embed
-                      .setTitle('Membros expulsos')
-                      .setDescription([...members].map(m => 
-                        `${kickedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
-                      );
+                        .setTitle('Membros expulsos')
+                        .setDescription([...members].map(m => 
+                            `${kickedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
+                        );
 
                     return;
                 }
 
                 embed
-                  .setDescription(`:person_gesturing_no: **Não foi possivel realizar o kick de nenhum dos membros citados.**`)
-                  .setColor(0xF44336);
+                    .setDescription(':person_gesturing_no: **Não foi possivel realizar o kick de nenhum dos membros citados.**')
+                    .setColor(0xF44336);
                 
             }
-        }
+        };
 
         MakeEmbed();
 

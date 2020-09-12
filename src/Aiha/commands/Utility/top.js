@@ -22,7 +22,7 @@ class Top extends Command {
 
         if (!Object.keys(users).length) {
             return msg.channel.send(
-                embed.setDescription(`Este servidor não possui nenhum membro com level.`)
+                embed.setDescription('Este servidor não possui nenhum membro com level.')
             );
         }
 

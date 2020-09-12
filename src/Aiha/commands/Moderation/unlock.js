@@ -14,7 +14,7 @@ class Unlock extends Command {
         });
     }
 
-    run(Bot, msg, args) {
+    run(Bot, msg) {
 
         const everyone = msg.guild.roles.everyone;
         const channel = msg.channel;
@@ -26,7 +26,7 @@ class Unlock extends Command {
             channel.createOverwrite(everyone, { SEND_MESSAGES: true })
                 .then(() => msg.react(success))
                 .catch(() => msg.react(error).catch());
-        };
+        }
         
     }
 }

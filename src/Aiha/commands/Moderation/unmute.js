@@ -38,23 +38,22 @@ class Unmute extends Command {
 
         if (!members.size) {
             embed
-              .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
-              .setColor(0xe3c51b);
+                .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
+                .setColor(0xe3c51b);
 
             return msg.channel.send(embed);
-        };
+        }
 
         const reason = args.slice(members.size).join(' ');
         
         await Promise.all(
-            [...members].map(member => new Promise(async res => {
+            [...members].map(member => new Promise(res => {
 
                 if (member.manageable) 
-                    await member.roles.remove(muteRole, reason || 'Nenhum motivo foi registrado.')
+                    member.roles.remove(muteRole, reason || 'Nenhum motivo foi registrado.')
                         .then(member => unmutedMembers.add(member.id))
-                        .catch();
-                
-                res();
+                        .catch()
+                        .finally(res);
                 
             }))
         );
@@ -66,34 +65,34 @@ class Unmute extends Command {
     
                 if (unmutedMembers.has(member.id)) {
                     embed
-                      .setDescription(`${success} \`${member.user.tag}\` **foi desmutado(a) com sucesso.**`)
-                      .setColor(0x27db27);
+                        .setDescription(`${success} \`${member.user.tag}\` **foi desmutado(a) com sucesso.**`)
+                        .setColor(0x27db27);
                     
                     return;
                 }
 
                 embed
-                  .setDescription(`:person_gesturing_no: **Não foi possivel realizar o desmute do membro.**`)
-                  .setColor(0xF44336);
+                    .setDescription(':person_gesturing_no: **Não foi possivel realizar o desmute do membro.**')
+                    .setColor(0xF44336);
     
             } else {
     
                 if (unmutedMembers.size) {
                     embed
-                      .setTitle('Membros desmutados')
-                      .setDescription([...members].map(m => 
-                        `${unmutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
-                      );
+                        .setTitle('Membros desmutados')
+                        .setDescription([...members].map(m => 
+                            `${unmutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
+                        );
 
                     return;
                 }
 
                 embed
-                  .setDescription(`:person_gesturing_no: **Não foi possivel realizar o desmute de nenhum dos membros citados.**`)
-                  .setColor(0xF44336);
+                    .setDescription(':person_gesturing_no: **Não foi possivel realizar o desmute de nenhum dos membros citados.**')
+                    .setColor(0xF44336);
                 
             }
-        }
+        };
 
         MakeEmbed();
 

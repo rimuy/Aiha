@@ -47,14 +47,14 @@ class SetRank extends Command {
             roleId: id,
             requiredLevel: parseInt(reqLevel),
         })
-        .then(res => {
-            embed.setDescription(`${Bot.emojis.get('bot2Success')} **Cargo \`${role.name}\` foi adicionado com o level requerido de ${res[id].requiredLevel}.**`);
-        })
-        .catch(() => {
-            embed
-                .setDescription(`${Bot.emojis.get('bot2Cancel')} **Ocorreu um erro ao tentar registrar o cargo.**`)
-                .setColor(0xF44336);
-        });
+            .then(res => {
+                embed.setDescription(`${Bot.emojis.get('bot2Success')} **Cargo \`${role.name}\` foi adicionado com o level requerido de ${res[id].requiredLevel}.**`);
+            })
+            .catch(() => {
+                embed
+                    .setDescription(`${Bot.emojis.get('bot2Cancel')} **Ocorreu um erro ao tentar registrar o cargo.**`)
+                    .setColor(0xF44336);
+            });
         
         msg.channel.send(embed);
     }

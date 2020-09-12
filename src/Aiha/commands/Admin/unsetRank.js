@@ -3,6 +3,7 @@
  */
 
 const { Command, BaseEmbed, Server } = require('../..');
+const { MessageEmbed } = require('discord.js');
 
 class UnsetRank extends Command {
     constructor() {

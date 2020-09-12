@@ -35,7 +35,7 @@ class Prefix extends Command {
                     embed
                         .setDescription(`${error} **Ocorreu um erro ao tentar definir o prefixo dos comandos.**`)
                         .setColor(0xF44336);
-                })
+                });
         } else {
             embed
                 .setDescription(`${exclamation} **É preciso definir um prefixo.**`)

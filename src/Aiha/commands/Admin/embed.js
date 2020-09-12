@@ -43,7 +43,7 @@ class Embed extends Command {
             result = JSON.parse(raw);
         } catch(e) { 
             result = `${Bot.emojis.get('bot2Cancel')} **Formato de embed inválido.**`;
-        } ;
+        } 
 
         msg.channel.send(result);
 

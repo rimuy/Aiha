@@ -7,7 +7,7 @@ const { MessageAttachment } = require('discord.js');
 const moment = require('moment-timezone');
 const Logs = require('../lib/Logs');
 const fs = require('fs');
-fs.readF
+fs.readF;
 
 class MessageDeleteBulkEvent extends Event {
     constructor() {

@@ -19,7 +19,7 @@ class Purge extends Command {
     run(Bot, msg, args) {
 
         const max = 100;
-        const embed = new MessageEmbed()
+        const embed = new MessageEmbed();
         const num = parseInt(args[0] || toString(max));
 
         const error = Bot.emojis.get('bot2Cancel');
@@ -27,13 +27,13 @@ class Purge extends Command {
         msg.channel.bulkDelete(num < max ? num + 1 : max)
             .then(msgs => {
                 embed
-                  .setDescription(`🗑️ **Foram deletadas** \`${msgs.size - 1}\` **mensagens!**`)
-                  .setColor(0x1ba4e3);
+                    .setDescription(`🗑️ **Foram deletadas** \`${msgs.size - 1}\` **mensagens!**`)
+                    .setColor(0x1ba4e3);
             })
             .catch(() => {
                 embed
-                  .setDescription(`${error} Ocorreu um erro ao tentar realizar este comando.`)
-                  .setColor(0xF44336);
+                    .setDescription(`${error} Ocorreu um erro ao tentar realizar este comando.`)
+                    .setColor(0xF44336);
             })
             .finally(() => msg.channel.send(embed));
         

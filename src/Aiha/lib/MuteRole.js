@@ -22,20 +22,20 @@ module.exports = async guild => {
                     .each(ch => {
       
                         switch(ch.type) {
-                            case 'text':
+                        case 'text':
 
-                                ch.createOverwrite(role, { SEND_MESSAGES: false }).catch();
-                                break;
-                            case 'voice':
+                            ch.createOverwrite(role, { SEND_MESSAGES: false }).catch();
+                            break;
+                        case 'voice':
                                 
-                                ch.createOverwrite(role, { SPEAK: false }).catch();
-                                break;
+                            ch.createOverwrite(role, { SPEAK: false }).catch();
+                            break;
                         }
 
-                    })
+                    });
             })
             .catch(console.log);
     }
 
     return role;
-}
+};

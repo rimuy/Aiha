@@ -30,38 +30,31 @@ class RemoveWarn extends Command {
         
         if (!id.length) {
             return msg.channel.send(
-                    embed
-                        .setDescription(`${exclamation} **Mencione o usuário que deseja retirar a infração.**`)
-                        .setColor(0xe3c51b)
+                embed
+                    .setDescription(`${exclamation} **Mencione o usuário que deseja retirar a infração.**`)
+                    .setColor(0xe3c51b)
             );
         }
 
         if (warnCase) {
             const infrations = await Server.Database.request('GET', `infrations/${id}`);
-            
-            if (!infrations || !infrations.length) {
+            const infration = infrations.find(inf => inf.case === warnCase);
 
-                embed.setDescription(`👼 **${member.user.username} não possui nenhuma infração registrada.**`);
+            if (infration) {
+                await Server.Database.request('DELETE', `infrations/${id}/${warnCase}`)
+                    .then(() => {
+                        embed.setDescription(`${success} **O Caso #${warnCase} foi removido com sucesso.**`);
+                    })
+                    .catch(() => {
+                        embed
+                            .setDescription(`${error} **Ocorreu um erro ao tentar remover a infração.**`)
+                            .setColor(0xF44336);
+                    });
+
             } else {
-                const infration = infrations.find(inf => inf.case === warnCase);
-
-                if (infration) {
-                    await Server.Database.request('DELETE', `infrations/${id}/${warnCase}`)
-                        .then(() => {
-                            embed.setDescription(`${success} **O Caso #${warnCase} foi removido com sucesso.**`);
-                        })
-                        .catch(() => {
-                            embed
-                                .setDescription(`${error} **Ocorreu um erro ao tentar remover a infração.**`)
-                                .setColor(0xF44336);
-                        });
-
-                } else {
-                    embed
-                        .setDescription(`${exclamation} **O Caso #${warnCase} não foi encontrado.**`)
-                        .setColor(0xe3c51b);
-                }
-
+                embed
+                    .setDescription(`${exclamation} **O Caso #${warnCase} não foi encontrado.**`)
+                    .setColor(0xe3c51b);
             }
 
         }

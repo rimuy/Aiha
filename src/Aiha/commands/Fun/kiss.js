@@ -19,7 +19,7 @@ class Kiss extends Command {
     async run(Bot, msg) {
 
         const kissed = msg.mentions.users.first();
-        const embed = new BaseEmbed()
+        const embed = new BaseEmbed();
         const req = await API.NekosLife.kiss;
 
         const error = Bot.emojis.get('bot2Cancel');

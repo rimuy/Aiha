@@ -14,7 +14,7 @@ module.exports = async (Bot, msg) => {
     let expCd = usersOnCooldown.get(user.id);
     if (!expCd) { 
         expCd = usersOnCooldown.set(user.id, 1).get(user.id);
-    };
+    }
 
     if (expCd && (new Date() - expCd) > cooldown) {
         const data = await Server.Database.request('GET', `users/${user.id}`) || { level: 0, exp: 0 };

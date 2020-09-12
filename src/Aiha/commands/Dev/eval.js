@@ -34,8 +34,8 @@ class Eval extends Command {
 
             await msg.channel.send(
                 embed
-                  .setColor(0x2F3136)
-                  .setDescription(`\`\`\`js\n${evaled}\n\`\`\``)
+                    .setColor(0x2F3136)
+                    .setDescription(`\`\`\`js\n${evaled}\n\`\`\``)
             );
         } catch(e) {
             evaled = e;

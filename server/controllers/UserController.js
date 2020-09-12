@@ -19,7 +19,7 @@ class UserController {
             ...User, 
             ...req.body || {},
         })
-        .write();
+            .write();
         
         res.send(db.get(`users.${userId}`).value());
     }

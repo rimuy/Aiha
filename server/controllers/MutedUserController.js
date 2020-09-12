@@ -12,17 +12,9 @@ class MutedUserController {
             ...MutedUser, 
             ...req.body,
         })
-        .write();
+            .write();
 
         res.send(post);
-    }
-
-    static update(req, res, db) {
-
-    }
-
-    static remove(req, res, db) {
-
     }
 }
 

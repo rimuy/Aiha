@@ -1,0 +1,5 @@
+/assets/**
+/docs/**
+/test/**
+/src/Aiha/commands/Dev/**
+!.eslintrc.json
