@@ -12,6 +12,7 @@ class Embed extends Command {
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
+            multiChannel: true,
         });
     }
 

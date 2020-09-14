@@ -28,6 +28,7 @@ class Poll extends Command {
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
+            multiChannel: true,
         });
     }
     
