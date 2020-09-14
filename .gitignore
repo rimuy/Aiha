@@ -9,5 +9,4 @@
 /server/Adapter.json
 
 # Temp
-/src/Aiha/commands/Economy
-/src/Aiha/commands/Music
+/api/rest

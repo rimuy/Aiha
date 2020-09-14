@@ -2,10 +2,10 @@
   "name": "aiha",
   "version": "1.0.0",
   "description": "",
-  "main": "bot.js",
+  "main": "./src/Aiha/index.js",
   "scripts": {
-    "start": "node bot.js",
-    "dev": "nodemon bot.js",
+    "start": "node ./src/Aiha/bot.js",
+    "dev": "nodemon ./src/Aiha/bot.js",
     "lint": "yarn eslint '**/*.js'",
     "test": "jest",
     "test:watch": "jest --watch",
