@@ -55,6 +55,8 @@ class PageEmbed extends MessageEmbed {
         message.channel.send(this)
             .then(async msg => {
 
+                if (pages.length < 2) return;
+
                 const filter = (reaction, user) => 
                     reactions[reaction.emoji.name] && user.equals(message.author);
 
