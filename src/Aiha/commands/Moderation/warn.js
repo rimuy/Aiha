@@ -56,7 +56,7 @@ class Warn extends Command {
                             .addFields(
                                 { name: 'Usuário', value: `<@${member.id}>`, inline: true },
                                 { name: 'Moderador', value: `<@${msg.author.id}>`, inline: true },
-                                { name: 'Caso', value: `\`${inf.case}\`` },
+                                { name: 'Caso', value: `\`${inf._case}\`` },
                                 { name: 'Motivo', value: `\`${infration}\`` },
                             );
     
