@@ -18,30 +18,18 @@ class RemoveWarn extends Command {
 
     async run(Bot, msg, args) {
 
-        const id = (args[0] || msg.author.id)
-            .replace(/[<@!>&]/g, '');
-
-        const warnCase = parseInt((args[1] || '#0').match(/#(\d+)/)[1]);
+        const warnCase = parseInt((args[0] || '#0').replace(/#/g, ''));
         const embed = new BaseEmbed();
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
         const exclamation = Bot.emojis.get('bot2Exclamation');
-        
-        if (!id.length) {
-            return msg.channel.send(
-                embed
-                    .setDescription(`${exclamation} **Mencione o usuário que deseja retirar a infração.**`)
-                    .setColor(0xe3c51b)
-            );
-        }
 
         if (warnCase) {
-            const infrations = await Server.Database.request('GET', `infrations/${id}`);
-            const infration = infrations.find(inf => inf.case === warnCase);
+            const infration = await Server.Database.request('GET', `infrations/${warnCase}`);
 
             if (infration) {
-                await Server.Database.request('DELETE', `infrations/${id}/${warnCase}`)
+                await Server.Database.request('DELETE', `infrations/${warnCase}`)
                     .then(() => {
                         embed.setDescription(`${success} **O Caso #${warnCase} foi removido com sucesso.**`);
                     })

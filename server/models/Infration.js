@@ -1,6 +1,8 @@
 
 module.exports = {
-    case: 0,
+    _case: 0,
+    userId: '',
+    moderatorId: '',
     description: '',
     createdTimestamp: 0,
 };

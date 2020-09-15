@@ -22,14 +22,14 @@ class ClearWarnings extends Command {
             .replace(/[<@!>&]/g, '');
 
         const embed = new BaseEmbed();
-        const response = await Server.Database.request('DELETE', `infrations/${id}`);
+        const response = await Server.Database.request('PURGE', `infrations/${id}`);
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
 
         if (response) {
             embed
-                .setDescription(`${success} **As infrações do usuários foram limpas com sucesso.**`);
+                .setDescription(`${success} **As infrações do usuário foram limpas com sucesso.**`);
         } else {
             embed
                 .setDescription(`${error} **Erro na tentativa de deletar as infrações do usuário.**`)

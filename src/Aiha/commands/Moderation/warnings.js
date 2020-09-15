@@ -2,7 +2,8 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Command, BaseEmbed, PageEmbed, Server } = require('../..');
+const moment = require('moment-timezone');
 
 class Warnings extends Command {
     constructor() {
@@ -21,29 +22,30 @@ class Warnings extends Command {
         const id = (args[0] || msg.author.id)
             .replace(/[<@!>&]/g, '');
 
-        const infrations = (await Server.Database.request('GET', 'infrations'))[id];
-        const embed = new BaseEmbed();
-        const error = Bot.emojis.get('bot2Cancel');
+        const infrations = (await Server.Database.request('GET', 'infrations') || [])
+            .filter(inf => inf.userId === id);
 
-        const member = await msg.guild.members.fetch(id || '').catch();
-
-        if (!member) {
-            return msg.channel.send(
-                embed
-                    .setDescription(`${error} **Usuário não encontrado.**`)
-                    .setColor(0xF44336)
-            );
-        }
+        const member = await msg.guild.members.fetch(id || '').catch(() => {});
 
         if (!infrations || !infrations.length) {
-            embed.setDescription(`👼 **${member.user.username} não possui nenhuma infração registrada.**`);
+            msg.channel.send(
+                new BaseEmbed()
+                    .setDescription(`👼 **${member ? member.user.username : 'Este usuário'} não possui nenhuma infração registrada.**`)
+            );
         } else {
-            embed
-                .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
-                .setDescription(infrations.map(w => `**Case #${w.case}** ${w.description}`).join('\n'));
+            new PageEmbed(
+                msg, 
+                infrations.map(w => 
+                    `> 📕 \`#${w._case}\`\n`+ 
+                    `> **Moderador:** <@${w.moderatorId}>\n` + 
+                    `> **Data de Registro:** ${moment(w.createdTimestamp).format('hh:mm DD/MM/YYYY')}\n` +
+                    `> **Descrição:** ${w.description}`
+                ).join('\n\n'), 
+                7
+            )
+                .setAuthor(member ? member.user.tag : id, member ? member.user.displayAvatarURL({ dynamic: true }) : null)
+                .send();
         }
-        
-        msg.channel.send(embed);
         
     }
 }

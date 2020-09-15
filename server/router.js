@@ -11,7 +11,7 @@ db.defaults({
     settings: require('./models/Settings'),
     users: {},
     muted: {},
-    infrations: { _cases: 0 },
+    infrations: [],
     levelroles: {},
 }).write();
 

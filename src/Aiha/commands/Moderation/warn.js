@@ -38,7 +38,9 @@ class Warn extends Command {
         msg.guild.members.fetch(id)
             .then(member => {
 
-                Server.Database.request('POST', `infrations/${id}`, {
+                Server.Database.request('POST', 'infrations', {
+                    userId: id,
+                    moderatorId: msg.author.id,
                     description: infration,
                     createdTimestamp: new Date(),
                 })
@@ -53,8 +55,9 @@ class Warn extends Command {
                             .setTitle('Infração Registrada')
                             .addFields(
                                 { name: 'Usuário', value: `<@${member.id}>`, inline: true },
-                                { name: 'Motivo', value: `\`${infration}\``, inline: true },
+                                { name: 'Moderador', value: `<@${msg.author.id}>`, inline: true },
                                 { name: 'Caso', value: `\`${inf.case}\`` },
+                                { name: 'Motivo', value: `\`${infration}\`` },
                             );
     
                         Logs(Bot, msg.channel, logEmbed);
