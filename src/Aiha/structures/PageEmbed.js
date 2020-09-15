@@ -31,6 +31,8 @@ class PageEmbed extends MessageEmbed {
                 sizeCount += e.length;
             });
 
+            current = 0;
+
         } else {
             let n = 0;
 

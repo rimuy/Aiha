@@ -39,8 +39,8 @@ class Warnings extends Command {
                     `> 📕 \`#${w._case}\`\n`+ 
                     `> **Moderador:** <@${w.moderatorId}>\n` + 
                     `> **Data de Registro:** ${moment(w.createdTimestamp).format('hh:mm DD/MM/YYYY')}\n` +
-                    `> **Descrição:** ${w.description}`
-                ).join('\n\n'), 
+                    `> **Descrição:** ${w.description}\n\n`
+                ), 
                 7
             )
                 .setAuthor(member ? member.user.tag : id, member ? member.user.displayAvatarURL({ dynamic: true }) : null)
