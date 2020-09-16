@@ -5,6 +5,7 @@ module.exports = {
     commandsChannel: '',
     testingChannel: '',
     logChannel: '',
+    mudaeChannel: '',
     muteRole: '',
     prefix: '.',
 };

@@ -1,0 +1,10 @@
+{
+    "claims": {
+        "every": 10800,
+        "startTimestamp": 5400
+    },
+    "rolls": {
+        "every": 3600,
+        "startTimestamp": 2700
+    }
+}

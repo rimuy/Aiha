@@ -12,6 +12,8 @@ module.exports = {
     API: require('../../api'),
 
     // Misc
+    MudaeObserver: require('./monitors/MudaeObserver'),
+
     Developers: require('./config/json/devs.json'),
     version: require('../../package.json').version
 };

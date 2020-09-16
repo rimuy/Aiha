@@ -2,10 +2,11 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Event, Server, Developers } = require('..');
+const { Event, Server, Developers, MudaeObserver } = require('..');
 const { MessageEmbed } = require('discord.js');
 
 const LevelingSystem = require('../lib/LevelingSystem');
+const mudae = new MudaeObserver();
 
 const usersOnCooldown = new Map();
 const cooldown = 1000;
@@ -22,6 +23,31 @@ class MessageEvent extends Event {
 
                 if (user.bot) return;
                 if (!msg.guild || !msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
+
+                /* Mudae Observer */
+                const mudaeChannel = (await Server.Database.request('GET', 'settings')).mudaeChannel;
+
+                if (mudaeChannel === msg.channel.id) {
+                    const props = {
+                        claimMembers: [
+                            '$mu',
+                            '$ku',
+                            '$tu',
+                        ],
+                        rollMembers: [
+                            '$w',
+                            '$h',
+                            '$m',
+                        ],
+                    }
+    
+                    Object.keys(props).forEach(key => {
+                        if (props[key].some(c => msg.content.toLowerCase().startsWith(c))) 
+                            mudae[key].add(user.id);
+                    });
+                }
+
+                //
 
                 await Server.Database.request('GET', `users/${user.id}`)
                     .catch(async () => await Server.Database.request('POST', `users/${user.id}`));
