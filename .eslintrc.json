@@ -9,6 +9,10 @@
     "parserOptions": {
         "ecmaVersion": 12
     },
+    "plugins": [
+        "classPrivateMethods",
+        "babel"
+    ],
     "rules": {
         "indent": [
             "error",
