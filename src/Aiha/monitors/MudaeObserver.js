@@ -22,12 +22,11 @@ class MudaeObserver {
         return keyMap.get('rolls');
     }
 
-};
+}
 
 Object.keys(config).forEach(key => {
 
-    setInterval
-    (async () => {
+    setInterval(async () => {
 
         if (!bot) return;
 
@@ -45,7 +44,7 @@ Object.keys(config).forEach(key => {
         }
 
     },
-        (config[key].every - CurrentInterval(key)) * 1000
+    (config[key].every - CurrentInterval(key)) * 1000
     );
 
 });
