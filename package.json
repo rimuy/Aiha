@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node ./src/Aiha/bot.js",
     "dev": "nodemon ./src/Aiha/bot.js",
-    "lint": "yarn eslint --ext .js --ignore-path .gitignore",
+    "lint": "yarn eslint --ext *.js --ignore-path .gitignore",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:staged": "jest --findRelatedTests"
@@ -22,9 +22,7 @@
   "author": "Kevinwkz",
   "license": "GPL-3.0",
   "dependencies": {
-    "@babel/plugin-proposal-private-methods": "^7.10.4",
     "babel": "^6.23.0",
-    "class-private-method-decorator": "^2.1.2",
     "consign": "^0.1.6",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
