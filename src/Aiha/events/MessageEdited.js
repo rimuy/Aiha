@@ -11,7 +11,7 @@ class MessageEditedEvent extends Event {
             event: 'messageUpdate',
             callback: (Bot, oldMsg, newMsg) => {
 
-                if (!oldMsg.content) return;
+                if (!oldMsg.content || oldMsg.content === newMsg.content) return;
                 
                 const embed = new BaseEmbed()
                     .setAuthor('Mensagem Editada', newMsg.author.displayAvatarURL({ dynamic: true }))
