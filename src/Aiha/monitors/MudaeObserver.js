@@ -4,8 +4,8 @@ const config = require('../config/json/MudaeObserver.json');
 var bot;
 
 const keyMap = new Map()
-.set('claims', new Set())
-.set('rolls', new Set());
+    .set('claims', new Set())
+    .set('rolls', new Set());
 
 class MudaeObserver {
 
@@ -45,14 +45,14 @@ Object.keys(config).forEach(key => {
         }
 
     },
-        (config[key].every - CurrentInterval()) * 1000
+        (config[key].every - CurrentInterval(key)) * 1000
     );
 
-    function CurrentInterval() {
-        const timeOfTheDay = (Date.now() % 86400000) + (config[key].startTimestamp * 1000);
-        return (timeOfTheDay / 1000) % config[key].every;
-    }
-
 });
+
+function CurrentInterval(key) {
+    const timeOfTheDay = (Date.now() % 86400000) + (config[key].startTimestamp * 1000);
+    return (timeOfTheDay / 1000) % config[key].every;
+}
 
 module.exports = MudaeObserver;

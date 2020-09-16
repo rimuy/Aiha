@@ -25,7 +25,7 @@ class MessageEvent extends Event {
                 if (!msg.guild || !msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
 
                 /* Mudae Observer */
-                const mudaeChannel = (await Server.Database.request('GET', 'settings')).mudaeChannel;
+                const mudaeChannel = settings.mudaeChannel;
 
                 if (mudaeChannel === msg.channel.id) {
                     const props = {
@@ -42,8 +42,9 @@ class MessageEvent extends Event {
                     }
     
                     Object.keys(props).forEach(key => {
-                        if (props[key].some(c => msg.content.toLowerCase().startsWith(c))) 
+                        if (props[key].some(c => msg.content.toLowerCase().split(' ')[0] === c)) {
                             mudae[key].add(user.id);
+                        }
                     });
                 }
 
