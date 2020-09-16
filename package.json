@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node ./src/Aiha/bot.js",
     "dev": "nodemon ./src/Aiha/bot.js",
-    "lint": "yarn eslint '**/*.js'",
+    "lint": "yarn eslint --ext .js --ignore-path .gitignore",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:staged": "jest --findRelatedTests"
@@ -24,8 +24,10 @@
   "dependencies": {
     "@babel/plugin-proposal-private-methods": "^7.10.4",
     "babel": "^6.23.0",
+    "class-private-method-decorator": "^2.1.2",
     "consign": "^0.1.6",
     "discord.js": "^12.3.1",
+    "eslint-plugin-babel": "^5.3.1",
     "express": "^4.17.1",
     "lowdb": "^1.0.0",
     "moment-timezone": "^0.5.31",
