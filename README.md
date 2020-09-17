@@ -9,12 +9,16 @@ Aiha
 
 <img align="left" width="150" height="150" src="/assets/images/avatar.jpg" style="border-radius: 50%">
 
+About
+----
+
 Aiha is a multi-purpose local bot that I created for a **Brazilian** anime server that I manage.
 It has all the features for a core discord bot, and a lot more!
 
-About
-----
-#### Features:
+<br>
+
+Features
+--------
 
 - [x] Utility
 - [x] Fun
