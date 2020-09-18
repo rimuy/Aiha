@@ -10,4 +10,4 @@ bot.client.login(
         ? process.env.TESTER 
         : process.env.TOKEN
 )
-.then(() => MudaeObserver.setBot(bot));
+    .then(() => MudaeObserver.setBot(bot));
