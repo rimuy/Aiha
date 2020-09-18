@@ -19,13 +19,16 @@ module.exports = async message => {
     timeout = setTimeout(() => messages.clear(), spamInterval);
 
     if (messages.size >= maxMessages) {
-        await message.channel.bulkDelete(messages.size)
-            .then(() => {
-                spammed = true;
-                clearTimeout(timeout);
-                messages.clear();
-            })
-            .catch();
+        const collected = [...messages.values()];
+
+        collected.forEach(async messageId => {
+            await message.channel.messages.delete(messageId)
+                .catch(() => false);
+        });
+
+        spammed = true;
+        clearTimeout(timeout);
+        messages.clear();
     }
 
     return spammed;
