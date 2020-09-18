@@ -39,7 +39,7 @@ module.exports = async message => {
                 .setAuthor('Spam Detectado', user.displayAvatarURL({ dynamic: true }))
                 .addFields(
                     { name: 'Usuário', value: `<@${user.id}>`, inline: true },
-                    { name: 'Quantidade', value: collected.length, inline: true },
+                    { name: 'Quantidade', value: `\`${collected.length}\``, inline: true },
                     { name: 'Canal', value: `<#${message.channel.id}>` },
                 )
                 .setFooter(`ID: ${user.id}`)
