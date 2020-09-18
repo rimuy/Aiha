@@ -8,7 +8,7 @@ class SetMudaeChannel extends Command {
     constructor() {
         super('setMudaeChannel', {
             description: 'Define o canal de comandos que a Mudae é usada.',
-            usage: 'setCommandsChannel `<canal>`',
+            usage: 'setMudaeChannel `<canal>`',
             aliases: ['setmc', 'mudaeChannel'],
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
