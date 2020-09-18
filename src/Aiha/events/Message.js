@@ -68,7 +68,7 @@ class MessageEvent extends Event {
                         if ([
                             msg.channel.id !== settings.commandsChannel,
                             msg.channel.id !== settings.testingChannel,
-                            !command.multiChannel || command.category !== 'Moderação',
+                            !command.multiChannel && command.category !== 'Moderação',
                             !msg.member.permissionsIn(msg.channel).has('ADMINISTRATOR'),
                         ].every(isTrue => isTrue)) return;
                         
