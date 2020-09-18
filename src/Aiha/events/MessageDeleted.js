@@ -9,9 +9,14 @@ class MessageDeleteEvent extends Event {
     constructor() {
         super({
             event: 'messageDelete',
-            callback: (Bot, msg) => {
+            callback: async (Bot, msg) => {
 
                 if (!msg.content) return;
+
+                const logs = await msg.guild.fetchAuditLogs({ type: 72 });
+                const entry = logs.entries.first();
+
+                if (entry.reason === 'spam') return;
                 
                 const embed = new BaseEmbed()
                     .setAuthor('Mensagem Deletada', msg.author.displayAvatarURL({ dynamic: true }))
