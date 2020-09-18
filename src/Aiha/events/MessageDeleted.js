@@ -27,7 +27,7 @@ class MessageDeleteEvent extends Event {
                 await Util.delayFor(900);
 
                 const size = collected.size;
-                collected.clear();
+                setTimeout(() => collected.clear(), 1100);
 
                 if (size > 1) return;
                 
