@@ -6,6 +6,8 @@ const { Event, Server, Developers, MudaeObserver } = require('..');
 const { MessageEmbed } = require('discord.js');
 
 const LevelingSystem = require('../lib/LevelingSystem');
+const AntiAds = require('../lib/AntiAds');
+const AntiSpam = require('../lib/AntiSpam');
 const mudae = new MudaeObserver();
 
 const usersOnCooldown = new Map();
@@ -24,6 +26,9 @@ class MessageEvent extends Event {
                 if (user.bot) return;
                 if (!msg.guild || !msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
 
+                if (await AntiAds(msg)) return;
+                if (await AntiSpam(msg)) return;
+
                 /* Mudae Observer */
                 const mudaeChannel = settings.mudaeChannel;
 
@@ -39,7 +44,7 @@ class MessageEvent extends Event {
                             '$h',
                             '$m',
                         ],
-                    }
+                    };
     
                     Object.keys(props).forEach(key => {
                         if (props[key].some(c => msg.content.toLowerCase().split(' ')[0] === c)) {
@@ -47,7 +52,6 @@ class MessageEvent extends Event {
                         }
                     });
                 }
-
                 //
 
                 await Server.Database.request('GET', `users/${user.id}`)
@@ -61,18 +65,17 @@ class MessageEvent extends Event {
 
                     if (command) {
 
-                        if (
-                            (
-                                msg.channel.id !== settings.commandsChannel 
-                                && msg.channel.id !== settings.testingChannel
-                            ) 
-                            && (!command.multiChannel && command.category !== 'Moderação')
-                        ) return;
+                        if ([
+                            msg.channel.id !== settings.commandsChannel,
+                            msg.channel.id !== settings.testingChannel,
+                            !command.multiChannel || command.category !== 'Moderação',
+                            !msg.member.permissionsIn(msg.channel).has('ADMINISTRATOR'),
+                        ].every(isTrue => isTrue)) return;
                         
                         const userCd = usersOnCooldown.get(user.id);
 
                         if (userCd && (new Date() - userCd) <= cooldown) {
-                            return msg.reply('Não precisa ter pressa.').delete({ timeout: 3000 });
+                            return msg.channel.send(`<@${user.id}> Não precisa ter pressa.`).delete({ timeout: 3000 });
                         }
 
                         if (
@@ -105,7 +108,7 @@ class MessageEvent extends Event {
 
                 if (r) {
                     const userCd = usersOnCooldown.get(user.id);
-                    if (userCd && (new Date() - userCd) <= cooldown) return;
+                    if (userCd && (new Date() - userCd) <= 5000) return;
 
                     usersOnCooldown.set(user.id, new Date());
                     await msg.channel.send(r);
