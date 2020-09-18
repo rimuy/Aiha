@@ -7,13 +7,17 @@ module.exports = {
     Event: require('./structures/Event'),
     PageEmbed: require('./structures/PageEmbed'),
 
+    // Monitors
+    MudaeObserver: require('./monitors/MudaeObserver'),
+
     // External
     Server: require('../../server'),
     API: require('../../api'),
 
-    // Misc
-    MudaeObserver: require('./monitors/MudaeObserver'),
-
+    // Assets
     Developers: require('./config/json/devs.json'),
-    version: require('../../package.json').version
+    Social: require('./config/json/Social.json'),
+
+    // Misc
+    VERSION: require('../../package.json').version
 };
