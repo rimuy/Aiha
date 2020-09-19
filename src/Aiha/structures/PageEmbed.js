@@ -4,18 +4,17 @@ const { ReactionCollector, MessageEmbed } = require('discord.js');
 class PageEmbed extends MessageEmbed {
 
     #message;
+    embedData = [];
     pages = [''];
     current = 0;
 
-    constructor(message, listOrString, limit = 20) {
+    constructor(message, listOrString, limit = 20, page = 0, embedData = []) {
         super();
 
         this.#message = message;
+        this.embedData = embedData;
         this.setColor(BaseEmbed.defaultColor);
-        
-        let pages = this.pages;
-        let current = this.current;
-
+    
         if (typeof listOrString === 'string') {
             
             const maxSize = 400; // 2048
@@ -24,26 +23,34 @@ class PageEmbed extends MessageEmbed {
             listOrString.split('').forEach(e => {
                 if (sizeCount + e.length > maxSize) {
                     sizeCount = 0;
-                    pages[++current] = '';
+                    this.pages[++this.current] = '';
                 }
 
-                pages[current] += e;
+                this.pages[this.current] += e;
                 sizeCount += e.length;
             });
-
-            current = 0;
 
         } else {
             let n = 0;
 
             listOrString.forEach((e, i) => {
-                if (i > 0 && !(i % limit)) pages[++n] = '';
-                pages[n] += e + '\n';
+                if (i > 0 && !(i % limit)) this.pages[++n] = '';
+                this.pages[n] += e + '\n';
             });
         }
 
-        this.setDescription(pages[current]);
-        this.setFooter(`Página ${current + 1}/${pages.length}`);
+        this.current = this.current = page > this.pages.length
+            ? this.pages.length - 1 
+            : Math.max(0, page);
+
+        if (this.pages.length > 1) {
+            this.setDescription(this.pages[this.current]);
+            this.setFooter(`Página ${this.current + 1}/${this.pages.length}`);
+        } else {
+            this.setTimestamp();
+        }
+
+        this.loadEmbedData();
 
         return this;
     }
@@ -80,11 +87,12 @@ class PageEmbed extends MessageEmbed {
 
                 const timer = () => {
                     if (Date.now() - startTime >= unfreezeTime || !timeout) {
+                        const timeToWait = timeout ? unfreezeTime : duration;
                         timeout && clearTimeout(timeout);
                         timeout = setTimeout(() => {
                             collector.stop(); 
                             timeout = null;
-                        }, duration);
+                        }, timeToWait);
                     }
                 };
 
@@ -95,9 +103,11 @@ class PageEmbed extends MessageEmbed {
 
                     if (newIndex >= 0 && newIndex <= pages.length - 1) {
                         current = newIndex;
+                        this.current = current;
 
                         this.setDescription(pages[current]);
                         this.setFooter(`Página ${current + 1}/${pages.length}`);
+                        this.loadEmbedData();
 
                         await msg.edit(this);
                         timer();
@@ -105,11 +115,25 @@ class PageEmbed extends MessageEmbed {
                     
                 });
 
-                collector.on('end', () => msg.edit(this.setTimestamp().setFooter('')));
+                collector.on('end', async () => {
+                    await msg.reactions.removeAll();
+                    msg.edit(this.setTimestamp().setFooter(`Página ${current + 1}`));
+                });
 
                 timer();
             })
             .catch();
+    }
+
+    loadEmbedData() {
+        const data = this.embedData[this.current];
+
+        if (data) {
+            Object.keys(data).forEach(key => {
+                this[key] = data[key];
+            });
+        }
+
     }
 }
 
