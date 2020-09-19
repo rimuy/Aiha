@@ -26,7 +26,7 @@ class Profile extends Command {
         const user = mention 
             ? (await Server.Database.request('GET', `users/${mention.id}`)).mal // Mention
             : (
-                (await Server.Database.request('GET', `users/${args[0]}`)).mal || args[0] // ID or string
+                args[0] // ID or string
             ) || (await Server.Database.request('GET', `users/${msg.author.id}`)).mal; // Own
 
         const page = Math.max(0, parseInt(args[1] || '0') - 1);
@@ -39,7 +39,7 @@ class Profile extends Command {
         msg.channel.startTyping();
         await API.request('GET', url + `user/${user}`)
             .then(u => {
-
+                
                 const animeStats = {
                     'mean_score': 'Pontuação média',
                     'watching': 'Assistindo',
@@ -71,11 +71,14 @@ class Profile extends Command {
                     {
                         title: `${Bot.emojis.get('mal')} ${u.username}`,
                         description: `🔍 [Página da web](${u.url})\n\n📘 **Descrição**\n\n${
-                            u.about
-                                .replace(/<(.+?)>/g, '')
-                                .trim()
-                                .slice(0, maxDescription)
-                        }${u.about.length > maxDescription ? '...' : ''}\n${ZeroWidthSpace}`,
+                            u.about 
+                                ? u.about
+                                    .replace(/<(.+?)>/g, '')
+                                    .trim()
+                                    .slice(0, maxDescription)
+                                : ZeroWidthSpace
+                                
+                        }${u.about && u.about.length > maxDescription ? '...' : ''}\n${ZeroWidthSpace}`,
                         thumbnail: { url: u.image_url },
                         fields: [
                             { 
@@ -164,7 +167,9 @@ class Profile extends Command {
                     .send();
 
             })
-            .catch(async () => {
+            .catch(async e => {
+                console.log(e);
+
                 await msg.channel.send(
                     new BaseEmbed()
                         .setDescription(`${Bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
