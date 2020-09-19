@@ -141,17 +141,23 @@ class Profile extends Command {
                         fields: [
                             { 
                                 name: 'Top Animes', 
-                                value: u.favorites.anime.slice(0, 10).map(a => `[${a.name}](${a.url})`), 
+                                value: u.favorites.anime.length 
+                                    ? u.favorites.anime.slice(0, 10).map(a => `[${a.name}](${a.url})`) 
+                                    : 'N/A', 
                                 inline: true 
                             },
                             { 
                                 name: 'Top Mangás', 
-                                value: u.favorites.manga.slice(0, 10).map(a => `[${a.name}](${a.url})`), 
+                                value: u.favorites.manga.length
+                                    ? u.favorites.manga.slice(0, 10).map(a => `[${a.name}](${a.url})`) 
+                                    : 'N/A', 
                                 inline: true 
                             },
                             { 
                                 name: 'Top Personagens', 
-                                value: u.favorites.characters.slice(0, 10).map(a => `[${a.name}](${a.url})`), 
+                                value: u.favorites.characters.length 
+                                    ? u.favorites.characters.slice(0, 10).map(a => `[${a.name}](${a.url})`) 
+                                    : 'N/A', 
                                 inline: true 
                             },
                         ],
