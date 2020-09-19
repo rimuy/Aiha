@@ -19,5 +19,6 @@ module.exports = {
     Social: require('./config/json/Social.json'),
 
     // Misc
+    ZeroWidthSpace: '​',
     VERSION: require('../../package.json').version
 };
