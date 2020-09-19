@@ -73,7 +73,7 @@ class Verify extends Command {
             setTimeout(async () => {
                 await API.request('GET', `https://myanimelist.net/profile/${username}`, null, 'text')
                     .then(web => {
-                        const num = (web.match(/<span class="user-status-data di-ib fl-r">(\d+?)<\/span>/gs)[0] || '')
+                        const num = ((web.match(/<span class="user-status-data di-ib fl-r">(\d+?)<\/span>/gs) || [])[0] || '')
                             .replace(/<.*?>(\d+)<.*?>/g, '$1');
 
                         if (num === generatedNumber.toString()) {
@@ -87,7 +87,6 @@ class Verify extends Command {
                                                 '**A verificação foi completada com sucesso! Use o comando** `profile` **para exibir seu perfil.**'
                                             )
                                             .setColor(color)
-                        
                                     );
                                 })
                                 .catch(async () => {
@@ -108,9 +107,10 @@ class Verify extends Command {
                             request();
                         }
                     })
-                    .catch(async () => {
+                    .catch(async e => {
                         await m.delete();
                         pending.delete(msg.author.id);
+                        console.log(e);
 
                         msg.channel.send(
                             new BaseEmbed()
