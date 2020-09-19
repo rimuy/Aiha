@@ -10,6 +10,7 @@ class Eval extends Command {
     constructor() {
         super('eval', {
             category: 'Developer',
+            aliases: ['$'],
             hidden: true,
             dev: true,
         });
