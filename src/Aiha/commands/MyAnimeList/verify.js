@@ -11,6 +11,8 @@ const imgPath = Path.join(
     __dirname, '..', '..', '..', '..', 'assets', 'images', imgName
 );
 
+const pending = new Map();
+
 class Verify extends Command {
     constructor() {
         super('verify', {
@@ -22,6 +24,8 @@ class Verify extends Command {
 
     async run(Bot, msg, args) {
         
+        if (pending.has(msg.author.id)) return;
+
         const username = args[0] || msg.author.username;
 
         const embed = new BaseEmbed();
@@ -47,6 +51,8 @@ class Verify extends Command {
             .setImage('attachment://' + imgName)
             .setColor(color);
 
+        pending.set(msg.author.id, true);
+
         const m = await msg.channel.send(embed);
         let reqs = 0;
         
@@ -55,6 +61,7 @@ class Verify extends Command {
 
             if (reqs >= maxRequisitions) {
                 await m.delete();
+                pending.delete(msg.author.id);
 
                 return msg.channel.send(
                     new BaseEmbed()
@@ -91,7 +98,10 @@ class Verify extends Command {
                                             .setColor(0xF44336)
                                     );
                                 })
-                                .finally(() => m.delete());
+                                .finally(() => {
+                                    m.delete();
+                                    pending.delete(msg.author.id);
+                                });
 
                             
                         } else {
@@ -100,6 +110,7 @@ class Verify extends Command {
                     })
                     .catch(async () => {
                         await m.delete();
+                        pending.delete(msg.author.id);
 
                         msg.channel.send(
                             new BaseEmbed()
