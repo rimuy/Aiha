@@ -6,4 +6,5 @@ module.exports = {
         money: 500,
         bank: 0,
     },
+    mal: '',
 };

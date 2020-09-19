@@ -27,7 +27,7 @@ Features
 - [x] GIFs & Images API
 - [ ] Economy
 - [ ] Image editing
-- [ ] MyAnimeList Integration
+- [x] MyAnimeList Integration
 - [ ] AniList Integration
 - [ ] Minecraft Server
 
