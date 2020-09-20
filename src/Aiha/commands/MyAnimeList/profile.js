@@ -1,5 +1,5 @@
 /**
- *      Kevinwkz - 2020/09/19
+ *      Kevinwkz - 2020/09/20
  */
 
 const { 
@@ -40,8 +40,9 @@ class Profile extends Command {
         await API.request('GET', url + `user/${user}`)
             .then(async u => {
 
-                const friendList = await API.request('GET', url + `user/${user}/friends`)
+                let friendList = await API.request('GET', url + `user/${user}/friends`)
                     .then(res => res.friends);
+                friendList = friendList || [];
 
                 const friends = [];
                 let p = -1;
@@ -206,9 +207,11 @@ class Profile extends Command {
                     // 4
                     {
                         title: `${Bot.emojis.get('mal')} ${u.username}`,
-                        description: '📙 **Lista de Amigos**',
+                        description: `📙 **Lista de Amigos**${
+                            !friendList.length ? `\n\n${u.username} não possui amigos.` : ''
+                        }`,
                         thumbnail: { url: u.image_url },
-                        fields: friends.length ? friends.slice(0, 6) : `${u.username} não possui amigos.`,
+                        fields: friends.slice(0, 6),
                     },
                 ];
 
