@@ -41,7 +41,7 @@ class Warnings extends Command {
                     `> **Data de Registro:** ${moment(w.createdTimestamp).format('hh:mm DD/MM/YYYY')}\n` +
                     `> **Descrição:** ${w.description}\n\n`
                 ), 
-                7
+                5
             )
                 .setAuthor(member ? member.user.tag : id, member ? member.user.displayAvatarURL({ dynamic: true }) : null)
                 .send();

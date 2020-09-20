@@ -2,8 +2,8 @@ const { BaseEmbed } = require('..');
 const Logs = require('./Logs');
 
 const users = new Map();
-const maxMessages = 3;
-const spamInterval = 1000;
+const maxMessages = 4;
+const spamInterval = 650;
 
 let timeout;
 

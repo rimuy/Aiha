@@ -19,7 +19,7 @@ class Schedule extends Command {
     async run(Bot, msg, args) {
         args = args.join(' ').split('$');
 
-        const weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         const weekDaysBR = {
             'segunda': 'monday',
             'terça': 'tuesday',
@@ -30,7 +30,7 @@ class Schedule extends Command {
             'domingo': 'sunday',
         };
 
-        let day = (args[0] || weekDays[moment().weekday() - 1])
+        let day = (args[0] || weekDays[moment().weekday()])
             .toLowerCase()
             .replace(/-feira/g, '');
 

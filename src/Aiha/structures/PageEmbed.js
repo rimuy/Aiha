@@ -43,15 +43,6 @@ class PageEmbed extends MessageEmbed {
             ? this.pages.length - 1 
             : Math.max(0, page);
 
-        if (this.pages.length > 1) {
-            this.setDescription(this.pages[this.current]);
-            this.setFooter(`Página ${this.current + 1}/${this.pages.length}`);
-        } else {
-            this.setTimestamp();
-        }
-
-        this.loadEmbedData();
-
         return this;
     }
 
@@ -60,6 +51,16 @@ class PageEmbed extends MessageEmbed {
         const message = this.#message;
         const pages = this.pages;
         let current = this.current;
+
+        this.setDescription(this.pages[this.current]);
+
+        if (this.pages.length > 1) {
+            this.setFooter(`Página ${this.current + 1}/${this.pages.length}`);
+        } else {
+            this.setTimestamp();
+        }
+
+        this.loadEmbedData();
 
         message.channel.send(this)
             .then(async msg => {
