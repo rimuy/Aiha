@@ -35,8 +35,16 @@ class Level extends Command {
             embed
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
                 .addFields(
-                    { name: 'Level', value: data.level, inline: true },
-                    { name: 'Rank', value: '#' + ranking.find(obj => obj.id === msg.author.id).order, inline: true },
+                    { 
+                        name: `🔸 Level ${data.level}`, 
+                        value: `EXP: \`${data.exp}\`**/**\`${150 + ( 225 * data.level )}\``, 
+                        inline: true 
+                    },
+                    { 
+                        name: '📊 Rank', 
+                        value: `#**${(ranking.find(obj => obj.id === msg.author.id) || { order: 'N/A' } ).order}**`, 
+                        inline: true 
+                    },
                 );
         } else {
             embed.setDescription('Você ainda não possui uma conta registrada.');

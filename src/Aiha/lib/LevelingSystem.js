@@ -21,7 +21,7 @@ module.exports = async (Bot, msg) => {
         usersOnCooldown.set(user.id, new Date());
         data.exp += Math.floor(earnXP(msg.content));
 
-        const eq = data.exp >= 150 + ( 225 * data.level );
+        const eq = data.exp >= Bot.levelEquation(data.level);
 
         if (data.exp > 0 && eq) {
             data.exp = 0;

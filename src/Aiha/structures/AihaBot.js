@@ -64,6 +64,10 @@ class AihaBot {
         this.client.user.setActivity(
             (await Server.Database.request('GET', 'settings')).prefix + 'help');
     }
+
+    levelEquation(level) {
+        return 150 + ( 225 * level );
+    }
     
 }
 
