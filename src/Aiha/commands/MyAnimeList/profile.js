@@ -38,7 +38,21 @@ class Profile extends Command {
 
         msg.channel.startTyping();
         await API.request('GET', url + `user/${user}`)
-            .then(u => {
+            .then(async u => {
+
+                const animeUpdates = await API.request('GET', url + `user/${user}/history/anime`)
+                    .then(res => res.history);
+                const mangaUpdates = await API.request('GET', url + `user/${user}/history/manga`)
+                    .then(res => res.history);
+
+                const cached = new Set();
+                const history = [];
+                animeUpdates.concat(mangaUpdates).forEach(e => {
+                    if (!cached.has(e.meta.name)) {
+                        cached.add(e.meta.name);
+                        history.push(e);
+                    }
+                });
                 
                 const animeStats = {
                     'mean_score': 'Pontuação média',
@@ -129,6 +143,17 @@ class Profile extends Command {
                                 value: Object.keys(u.manga_stats)
                                     .filter(key => mangaStats[key])
                                     .map(key => `\`${mangaStats[key]}\` **${u.manga_stats[key]}**`), 
+                                inline: true 
+                            },
+                            { 
+                                name: 'Histórico', 
+                                value: history.length ? history
+                                    .slice(0, 4)
+                                    .map(e => 
+                                        `> [ **Título:** [${e.meta.name}](${e.meta.url}) ]\n` +
+                                        `> [ **Finalizado:** ${e.increment} ]\n` +
+                                        `> [ **Data:** ${moment(e.date).format('hh:mm DD/MM/YYYY')} ]`
+                                    ).join(`\n> ${ZeroWidthSpace}\n`) : 'N/A', 
                                 inline: true 
                             },
                         ],
