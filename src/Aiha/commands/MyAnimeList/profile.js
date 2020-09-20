@@ -40,6 +40,22 @@ class Profile extends Command {
         await API.request('GET', url + `user/${user}`)
             .then(async u => {
 
+                const friendList = await API.request('GET', url + `user/${user}/friends`)
+                    .then(res => res.friends);
+
+                const friends = [];
+                let p = -1;
+
+                friendList.forEach((friend, i) => {
+                    if (!(i % 10)) friends[++p] = { 
+                        name: ZeroWidthSpace, 
+                        value: '', 
+                        inline: true,
+                    };
+
+                    friends[p].value += `👤 [${friend.username}](${friend.url})\n`;
+                });
+
                 const animeUpdates = await API.request('GET', url + `user/${user}/history/anime`)
                     .then(res => res.history);
                 const mangaUpdates = await API.request('GET', url + `user/${user}/history/manga`)
@@ -187,10 +203,13 @@ class Profile extends Command {
                             },
                         ],
                     },
-                    /*
                     // 4
-                    {},
-                    */
+                    {
+                        title: `${Bot.emojis.get('mal')} ${u.username}`,
+                        description: '📙 **Lista de Amigos**',
+                        thumbnail: { url: u.image_url },
+                        fields: friends.length ? friends.slice(0, 6) : `${u.username} não possui amigos.`,
+                    },
                 ];
 
                 new PageEmbed(msg, embedData.map(() => ZeroWidthSpace), 1, page, embedData)
