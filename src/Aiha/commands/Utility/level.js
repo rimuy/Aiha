@@ -24,6 +24,7 @@ class Level extends Command {
         if (data) {
 
             const ranking = Object.keys(users)
+                .filter(u => users[u].level > 0)
                 .sort((a, b) => {
                     return users[b].level - users[a].level;
                 })
