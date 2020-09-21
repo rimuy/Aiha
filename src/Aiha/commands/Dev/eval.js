@@ -2,8 +2,13 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command, Server } = require('../..');
+const { 
+    Command, BaseEmbed, PageEmbed, 
+    API, Server, ZeroWidthSpace 
+} = require('../..');
+
 const { inspect } = require('util');
+const { color } = require('./.config.json');
 const Discord = require('discord.js');
 
 class Eval extends Command {
@@ -18,33 +23,48 @@ class Eval extends Command {
     
     async run(Bot, msg, args) {
        
-        const embed = new Discord.MessageEmbed().setTitle('Saída:');
-        let evaled;
+        args = args.join(' ').split('$', 2);
+        const page = Math.max(0, parseInt(args[1] || '0') - 1);
+
+        const md = 'js';
+        const limit = 30;
 
         /* Shortcut variables */
-        const server = Server;
-        const client = Bot.client;
-        const api = Bot.api;
+        const Client = Bot.client;
         const me = msg.author;
-        const users = client.users;
-        const members = client.members;
-
+        const users = Client.users;
+        const members = Client.members;
+        
         try {
-            evaled = await eval(args.join(' '));
+            let evaled = await eval(args[0]);
             if (typeof evaled !== 'string') evaled = inspect(evaled);
+            
+            evaled = evaled.split('\n');
 
-            await msg.channel.send(
-                embed
-                    .setColor(0x2F3136)
-                    .setDescription(`\`\`\`js\n${evaled}\n\`\`\``)
-            );
+            new PageEmbed(
+                msg, 
+                evaled
+                    .map((e, i) => {
+                        if (!(i % limit)) return `\`\`\`${md}\n${e}${i === evaled.length - 1 ? `\`\`\`` : ''}`;
+                        if (!((i + 1) % limit) || i === evaled.length - 1) return `${e}\n\`\`\``;
+    
+                        return e;
+                    }),
+                limit,
+                page,
+            )
+                .setTitle(`${Bot.emojis.get('botdev')}${`\ ${ZeroWidthSpace}`.repeat(4)}Saída`)
+                .setColor(color)
+                .send();
         } catch(e) {
-            evaled = e;
-            embed.setColor(0xF44336);
-
-            await msg.channel.send(
-                embed.setDescription(`\`\`\`js\n${evaled}\n\`\`\``)
+            
+            msg.channel.send(
+                new BaseEmbed()
+                    .setTitle(`${Bot.emojis.get('bot2Cancel')}${`\ ${ZeroWidthSpace}`.repeat(4)}Erro`)
+                    .setDescription(`\`\`\`${md}\n${e}\n\`\`\``)
+                    .setColor(0xF44336)
             );
+
         }
 
     }

@@ -26,26 +26,32 @@ class MudaeObserver {
 
 Object.keys(config).forEach(key => {
 
-    setInterval(async () => {
+    const timer = () => {
+        const resetTime = (config[key].every - CurrentInterval(key)) * 1000;
 
-        if (!bot) return;
+        setTimeout(async () => {
 
-        const channelId = (await Server.Database.request('GET', 'settings')).mudaeChannel;
-        const channel = bot.client.channels.cache.get(channelId);
-        const waiting = keyMap.get(key);
+            if (!bot) return;
+    
+            const channelId = (await Server.Database.request('GET', 'settings')).mudaeChannel;
+            const channel = bot.client.channels.cache.get(channelId);
+            const waiting = keyMap.get(key);
+    
+            if (channel && waiting.size) {
+    
+                await channel.send(`Os ${key} foram resetados! ${
+                    [...waiting.values()].map(id => `<@${id}>`).join(' ')
+                }`);
+    
+                waiting.clear();
+            }
 
-        if (channel && waiting.size) {
+            timer();
+    
+        }, resetTime);
+    };
 
-            await channel.send(`Os ${key} foram resetados! ${
-                [...waiting.values()].map(id => `<@${id}>`).join(' ')
-            }`);
-
-            waiting.clear();
-        }
-
-    },
-    (config[key].every - CurrentInterval(key)) * 1000
-    );
+    timer();
 
 });
 
