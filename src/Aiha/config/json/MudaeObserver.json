@@ -5,6 +5,6 @@
     },
     "rolls": {
         "every": 1800,
-        "startTimestamp": 0
+        "startTimestamp": 900
     }
 }
