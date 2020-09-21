@@ -4,7 +4,7 @@
         "startTimestamp": 5400
     },
     "rolls": {
-        "every": 3600,
-        "startTimestamp": 2700
+        "every": 1800,
+        "startTimestamp": 0
     }
 }
