@@ -38,7 +38,6 @@ class MessageEvent extends Event {
                         .find(m => m.user.username === married.groups.user);
 
                     marriedMember && mudae.claimMembers.add(marriedMember.id);
-                    console.log('sim');
                 }
                 //
 
