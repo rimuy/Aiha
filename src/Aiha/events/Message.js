@@ -22,6 +22,25 @@ class MessageEvent extends Event {
                 const user = msg.author;
                 const settings = await Server.Database.request('GET', 'settings');
                 const prefix = settings.prefix;
+                const mudaeChannel = settings.mudaeChannel;
+
+                /* Mudae Observer [Claims] */
+                const married = msg.content
+                    .match(/\*\*(?<user>.+)\*\* and \*\*(?<waifu>.+)\*\* are now married!/s)
+                    || msg.content.match(/\*\*(?<user>.+)\*\* e \*\*(?<waifu>.+)\*\* agora são casados!/s);
+
+                if ([
+                    user.bot,
+                    user.username.match(/Mudae|Muda(maid|butler)\s?\d*/),
+                    married,
+                ].every(isTrue => isTrue)) {
+                    const marriedMember = msg.guild.members.cache
+                        .find(m => m.user.username === married.groups.user);
+
+                    marriedMember && mudae.claimMembers.add(marriedMember.id);
+                    console.log('sim');
+                }
+                //
 
                 if (user.bot) return;
                 if (!msg.guild || !msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
@@ -29,16 +48,9 @@ class MessageEvent extends Event {
                 if (await AntiAds(msg)) return;
                 if (await AntiSpam(msg)) return;
 
-                /* Mudae Observer */
-                const mudaeChannel = settings.mudaeChannel;
-
+                /* Mudae Observer [Rolls] */
                 if (mudaeChannel === msg.channel.id) {
                     const props = {
-                        claimMembers: [
-                            '$mu',
-                            '$ku',
-                            '$tu',
-                        ],
                         rollMembers: [
                             '$w',
                             '$h',
