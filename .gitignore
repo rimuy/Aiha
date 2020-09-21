@@ -1,6 +1,9 @@
 /node_modules
 /.env
 
+# Hosting service that I use for the bot
+/discloud.js
+
 *.bat
 *.log
 *.zip
