@@ -46,6 +46,8 @@ class AihaBot {
         ws: { intents: Intents.ALL }
     });
 
+    fetched = false;
+
     events = new Collection();
 
     commands = new Collection();

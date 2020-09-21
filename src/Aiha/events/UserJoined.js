@@ -5,8 +5,6 @@
 const { Event, Server } = require('..');
 const { MessageEmbed } = require('discord.js');
 
-var fetched;
-
 class MemberAddEvent extends Event {
     constructor() {
         super({
@@ -17,10 +15,10 @@ class MemberAddEvent extends Event {
 
                 await Server.Database.request('POST', `users/${member.id}`);
 
-                if (!fetched) {
+                if (!Bot.fetched) {
                     await member.guild.fetch();
                     await member.guild.members.fetch();
-                    fetched = true;
+                    Bot.fetched = true;
                 }
 
                 const guild = member.guild;

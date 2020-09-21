@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/28
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Command, BaseEmbed, Server, ZeroWidthSpace } = require('../..');
 
 class Help extends Command {
     constructor() {
@@ -88,7 +88,7 @@ class Help extends Command {
                     [...categories]
                         .map(e => {
                             const emoji = Bot.categoriesEmojis.get(e[0]);
-                            return `${emoji ? emoji + ' ' : ''}**${e[0]}:**\n**>** ${e[1].map(c => `\`${c}\``).join('**,** ')}\n`;
+                            return `${emoji ? emoji + ' ' : ''}**${e[0]}:**\n**>** ${e[1].map(c => `\`${c}\`${ZeroWidthSpace}`).join('**,** ')}\n`;
                         })
                         .join('\n')
                 );
