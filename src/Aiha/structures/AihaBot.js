@@ -5,6 +5,8 @@ const log = require('../util/Log');
 const Server = require('../../../server');
 const Developers = require('../config/json/devs.json');
 
+var fetched = false;
+
 class AihaBot {
     constructor() {
         
@@ -46,7 +48,13 @@ class AihaBot {
         ws: { intents: Intents.ALL }
     });
 
-    fetched = false;
+    get fetched() {
+        return fetched;
+    }
+
+    set fetched(value) {
+        fetched = value;
+    }
 
     events = new Collection();
 
