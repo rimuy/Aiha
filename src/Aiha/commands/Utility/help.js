@@ -27,7 +27,7 @@ class Help extends Command {
             .setFooter(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));
 
         Bot.commands.forEach(c => {
-            if(c.category && !c.hidden && !c.dev) {
+            if(c.category && !c.hidden && !c.dev && c.category !== 'Admin') {
                 const arr = categories.get(c.category);
 
                 arr
