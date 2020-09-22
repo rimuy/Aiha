@@ -29,7 +29,7 @@ class MemberAddEvent extends Event {
                 const mainChannel = guild.channels.cache.get(id);
 
                 if (mainChannel) {
-                    const count = guild.members.cache.filter(m => !m.bot).size;
+                    const count = guild.members.cache.filter(m => !m.user.bot).size;
 
                     mainChannel.send(
                         new MessageEmbed()
