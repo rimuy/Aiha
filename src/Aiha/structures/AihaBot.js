@@ -13,8 +13,8 @@ class AihaBot {
         this.client.once('ready', async () => {
             log('FG_YELLOW', 'Ready.');
 
-            require('../monitors/CommandHandler')(this);
-            require('../monitors/EventListener')(this);
+            this.CommandHandler = new (require('../monitors/CommandHandler'))(this);
+            this.EventListener = new (require('../monitors/EventListener'))(this);
 
             const devGuild = this.client.guilds.cache.get(process.env.DEV_GUILD);
             devGuild.emojis.cache.forEach(e => this.emojis.set(e.name, e));
@@ -47,6 +47,9 @@ class AihaBot {
     client = new Client({
         ws: { intents: Intents.ALL }
     });
+
+    CommandHandler;
+    EventListener;
 
     get fetched() {
         return fetched;

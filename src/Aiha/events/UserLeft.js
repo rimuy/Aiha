@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/06
  */
 
-const { Event, BaseEmbed, Server, MudaeObserver, ZeroWidthSpace } = require('..');
+const { Event, BaseEmbed, Status, Server, MudaeObserver, ZeroWidthSpace } = require('..');
 const mudae = new MudaeObserver();
 
 class MemberRemoveEvent extends Event {
@@ -22,6 +22,8 @@ class MemberRemoveEvent extends Event {
                     await member.guild.fetch();
                     Bot.fetched = true;
                 }
+
+                await Status.update(member.guild);
             
                 const id = (await Server.Database.request('GET', 'settings')).logChannel;
                 const logChannel = member.guild.channels.cache.get(id);

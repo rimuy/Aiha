@@ -9,6 +9,7 @@ module.exports = {
 
     // Monitors
     MudaeObserver: require('./monitors/MudaeObserver'),
+    Status: require('./monitors/GuildStatus'),
 
     // External
     Server: require('../../server'),

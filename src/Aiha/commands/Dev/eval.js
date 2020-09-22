@@ -4,6 +4,7 @@
 
 const { 
     Command, BaseEmbed, PageEmbed, 
+    MudaeObserver, Status,
     API, Server, ZeroWidthSpace 
 } = require('../..');
 
@@ -32,6 +33,7 @@ class Eval extends Command {
         /* Shortcut variables */
         const Client = Bot.client;
         const me = msg.author;
+        const guild = msg.guild;
         const users = Client.users;
         const members = Client.members;
         

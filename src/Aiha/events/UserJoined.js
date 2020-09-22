@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/06
  */
 
-const { Event, Server } = require('..');
+const { Event, Status, Server } = require('..');
 const { MessageEmbed } = require('discord.js');
 
 class MemberAddEvent extends Event {
@@ -22,6 +22,8 @@ class MemberAddEvent extends Event {
                 }
 
                 const guild = member.guild;
+
+                await Status.update(guild);
                 
                 const id = (await Server.Database.request('GET', 'settings')).welcomeChannel;
                 const mainChannel = guild.channels.cache.get(id);
