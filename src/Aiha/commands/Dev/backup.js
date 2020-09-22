@@ -13,6 +13,7 @@ class Backup extends Command {
     constructor() {
         super('backup', {
             category: 'Developer',
+            aliases: ['b'],
             hidden: true,
             dev: true,
         });
