@@ -50,15 +50,12 @@ class MessageEvent extends Event {
                 /* Mudae Observer [Rolls] */
                 if (mudaeChannel === msg.channel.id) {
                     const props = {
-                        rollMembers: [
-                            '$w',
-                            '$h',
-                            '$m',
-                        ],
+                        rollMembers: msg.content.match(/\$(m|w|h)[ag]+/i)
+                            || msg.content.match(/^\$(m|w|h)$/i),
                     };
     
                     Object.keys(props).forEach(key => {
-                        if (props[key].some(c => msg.content.toLowerCase().split(' ')[0] === c)) {
+                        if (props[key]) {
                             mudae[key].add(user.id);
                         }
                     });
