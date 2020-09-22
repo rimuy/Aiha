@@ -16,8 +16,6 @@ class AihaBot {
             this.CommandHandler = new (require('../monitors/CommandHandler'))(this);
             this.EventListener = new (require('../monitors/EventListener'))(this);
 
-            await require('../monitors/GuildStatus').update();
-
             const devGuild = this.client.guilds.cache.get(process.env.DEV_GUILD);
             devGuild.emojis.cache.forEach(e => this.emojis.set(e.name, e));
 
