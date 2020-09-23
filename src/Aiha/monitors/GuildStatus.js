@@ -22,16 +22,16 @@ class GuildStatus {
         }
 
         const emojis = {
-            '0': guild.emojis.cache.get('0_'),
-            '1': guild.emojis.cache.get('1_'),
-            '2': guild.emojis.cache.get('2_'),
-            '3': guild.emojis.cache.get('3_'),
-            '4': guild.emojis.cache.get('4_'),
-            '5': guild.emojis.cache.get('5_'),
-            '6': guild.emojis.cache.get('6_'),
-            '7': guild.emojis.cache.get('7_'),
-            '8': guild.emojis.cache.get('8_'),
-            '9': guild.emojis.cache.get('9_'),
+            '0': guild.emojis.cache.find(e => e.name === '0_'),
+            '1': guild.emojis.cache.find(e => e.name === '1_'),
+            '2': guild.emojis.cache.find(e => e.name === '2_'),
+            '3': guild.emojis.cache.find(e => e.name === '3_'),
+            '4': guild.emojis.cache.find(e => e.name === '4_'),
+            '5': guild.emojis.cache.find(e => e.name === '5_'),
+            '6': guild.emojis.cache.find(e => e.name === '6_'),
+            '7': guild.emojis.cache.find(e => e.name === '7_'),
+            '8': guild.emojis.cache.find(e => e.name === '8_'),
+            '9': guild.emojis.cache.find(e => e.name === '9_'),
         };
 
         membersSize = (' ' + ZeroWidthSpace).repeat(64) + '00000'.slice(0, -(membersSize.toString()).length) + membersSize.toString();
