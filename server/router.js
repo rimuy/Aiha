@@ -9,6 +9,7 @@ const db = low(adapter);
 
 db.defaults({
     settings: require('./models/Settings'),
+    mudae: require('./models/Mudae'),
     users: {},
     muted: {},
     infrations: [],

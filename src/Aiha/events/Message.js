@@ -2,13 +2,12 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Event, Server, Developers, MudaeObserver } = require('..');
+const { Event, Server, Developers } = require('..');
 const { MessageEmbed } = require('discord.js');
 
 const LevelingSystem = require('../lib/LevelingSystem');
 const AntiAds = require('../lib/AntiAds');
 const AntiSpam = require('../lib/AntiSpam');
-const mudae = new MudaeObserver();
 
 const usersOnCooldown = new Map();
 const cooldown = 1000;
@@ -37,7 +36,7 @@ class MessageEvent extends Event {
                     const marriedMember = msg.guild.members.cache
                         .find(m => m.user.username === married.groups.user);
 
-                    marriedMember && mudae.claimMembers.add(marriedMember.id);
+                    marriedMember && await Server.Database.request('POST', `mudae/claims/${marriedMember.id}`);
                 }
                 //
 
@@ -50,13 +49,13 @@ class MessageEvent extends Event {
                 /* Mudae Observer [Rolls] */
                 if (mudaeChannel === msg.channel.id) {
                     const props = {
-                        rollMembers: msg.content.match(/\$(m|w|h)[ag]+/i)
+                        rolls: msg.content.match(/\$(m|w|h)[ag]+/i)
                             || msg.content.match(/^\$(m|w|h)$/i),
                     };
     
-                    Object.keys(props).forEach(key => {
+                    Object.keys(props).forEach(async key => {
                         if (props[key]) {
-                            mudae[key].add(user.id);
+                            await Server.Database.request('POST', `mudae/${key}/${user.id}`);
                         }
                     });
                 }

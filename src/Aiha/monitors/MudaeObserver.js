@@ -3,23 +3,11 @@ const config = require('../config/json/MudaeObserver.json');
 
 var bot;
 
-const keyMap = new Map()
-    .set('claims', new Set())
-    .set('rolls', new Set());
-
 class MudaeObserver {
 
     static setBot(obj) {
         bot = obj;
         return this;
-    }
-
-    get claimMembers() {
-        return keyMap.get('claims');
-    }
-
-    get rollMembers() {
-        return keyMap.get('rolls');
     }
 
 }
@@ -35,15 +23,15 @@ Object.keys(config).forEach(key => {
     
             const channelId = (await Server.Database.request('GET', 'settings')).mudaeChannel;
             const channel = bot.client.channels.cache.get(channelId);
-            const waiting = keyMap.get(key);
+            const waiting = await Server.Database.request('GET', `mudae/${key}`);
     
-            if (channel && waiting.size) {
+            if (channel && waiting.length) {
     
                 await channel.send(`Os ${key} foram resetados! ${
-                    [...waiting.values()].map(id => `<@${id}>`).join(' ')
+                    waiting.map(id => `<@${id}>`).join(' ')
                 }`);
     
-                waiting.clear();
+                await Server.Database.request('PURGE', `mudae/${key}`);
             }
 
             timer();

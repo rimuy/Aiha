@@ -2,8 +2,7 @@
  *      Kevinwkz - 2020/09/06
  */
 
-const { Event, BaseEmbed, Status, Server, MudaeObserver, ZeroWidthSpace } = require('..');
-const mudae = new MudaeObserver();
+const { Event, BaseEmbed, Status, Server, ZeroWidthSpace } = require('..');
 
 class MemberRemoveEvent extends Event {
     constructor() {
@@ -14,9 +13,13 @@ class MemberRemoveEvent extends Event {
 
                 Server.Database.request('DELETE', `users/${member.id}`);
                 
-                ['claimMembers', 'rollMembers'].forEach(key => {
-                    if (mudae[key] && mudae[key].has(member.id)) mudae[key].delete(member.id);
-                });
+                await Server.Database.request('GET', 'mudae')
+                    .then(res => {
+                        Object.keys(res).forEach(async key => 
+                            await Server.Database.request('DELETE', `mudae/${key}/${member.id}`)
+                        );
+                    })
+                    .catch(console.log);
 
                 if (!Bot.fetched) {
                     await member.guild.fetch();
