@@ -8,7 +8,7 @@ Aiha
 ![Last Commit](https://img.shields.io/github/last-commit/Kevinwkz/Aiha/master?color=%23038cfc&style=for-the-badge)
 [![Patrons](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2FKevinwkz&style=for-the-badge)](https://www.patreon.com/Kevinwkz)
 
-<img align="left" width="150" height="150" src="/assets/images/avatar.jpg" style="border-radius: 50%">
+<img align="left" width="150" height="150" src="/Assets/Images/avatar.jpg" style="border-radius: 50%">
 
 About
 ----
