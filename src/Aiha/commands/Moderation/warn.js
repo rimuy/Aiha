@@ -2,10 +2,9 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
-const Logs = require('../../lib/Logs');
+const { Internals, Modules, Server } = require('../..');
 
-class Warn extends Command {
+class Warn extends Internals.Command {
     constructor() {
         super('warn', {
             description: 'Registra uma infração aos usuários marcados.',
@@ -19,7 +18,7 @@ class Warn extends Command {
     run(Bot, msg, args) {
         
         const id = (args[0] || '').replace(/[<@!>&]/g, '');
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
@@ -51,7 +50,7 @@ class Warn extends Command {
                                 .setDescription(`${success} **Foi registrada uma infração para ${member.user.tag}.**`)
                         );
     
-                        const logEmbed = new BaseEmbed()
+                        const logEmbed = new Internals.BaseEmbed()
                             .setTitle('Infração Registrada')
                             .addFields(
                                 { name: 'Usuário', value: `<@${member.id}>`, inline: true },
@@ -60,7 +59,7 @@ class Warn extends Command {
                                 { name: 'Motivo', value: `\`${infration}\`` },
                             );
     
-                        Logs(Bot, msg.channel, logEmbed);
+                        Modules.Logs(Bot, msg.channel, logEmbed);
 
                     })
                     .catch(() => {

@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/24
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Feed extends Command {
+class Feed extends Internals.Command {
     constructor() {
         super('feed', {
             description: 'Alimenta o usuário mencionado.',
@@ -23,7 +23,7 @@ class Feed extends Command {
 
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setDescription(`🍣 **${msg.author.username}** ${
                 pet.equals(msg.author) ? 'alimentou a si mesmo D:' : `alimentou <@${pet.id}>`
             }`)

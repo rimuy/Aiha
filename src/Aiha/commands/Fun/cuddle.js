@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Cuddle extends Command {
+class Cuddle extends Internals.Command {
     constructor() {
         super('cuddle', {
             description: 'Acaricia o usuário mencionado.',
@@ -19,7 +19,7 @@ class Cuddle extends Command {
     async run(Bot, msg) {
 
         const target = msg.mentions.users.first();
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const req = await API.NekosLife.cuddle;
 
         const error = Bot.emojis.get('bot2Cancel');

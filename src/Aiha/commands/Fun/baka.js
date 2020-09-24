@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/24
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Baka extends Command {
+class Baka extends Internals.Command {
     constructor() {
         super('baka', {
             description: 'Chama o usuário mencionado de idiota.',
@@ -23,7 +23,7 @@ class Baka extends Command {
 
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setDescription(`💢 **${msg.author.username}** ${
                 target.equals(msg.author) ? 'chamou a si mesmo de idiota.' : `chamou <@${target.id}> de idiota.`
             }`)

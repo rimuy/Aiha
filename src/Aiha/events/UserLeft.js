@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/06
  */
 
-const { Event, BaseEmbed, Status, Server, ZeroWidthSpace } = require('..');
+const { Internals, Monitors, Server, ZeroWidthSpace } = require('..');
 
-class MemberRemoveEvent extends Event {
+class MemberRemoveEvent extends Internals.Event {
     constructor() {
         super({
             event: 'guildMemberRemove',
@@ -26,7 +26,7 @@ class MemberRemoveEvent extends Event {
                     Bot.fetched = true;
                 }
 
-                await Status.update(Bot, member.guild);
+                await Monitors.MemberCounter.update(Bot, member.guild);
             
                 const id = (await Server.Database.request('GET', 'settings')).logChannel;
                 const logChannel = member.guild.channels.cache.get(id);
@@ -36,7 +36,7 @@ class MemberRemoveEvent extends Event {
                     .sort((a, b) => b.position - a.position)
                     .first();
                 
-                const embed = new BaseEmbed()
+                const embed = new Internals.BaseEmbed()
                     .setTitle('Usuário saiu do servidor')
                     .addFields(
                         { name: 'Tag', value: member.user.tag, inline: true },

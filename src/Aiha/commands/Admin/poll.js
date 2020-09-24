@@ -3,7 +3,7 @@
  *      Kevinwkz - 2020/09/07
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals } = require('../..');
 
 const separator = ':';
 const emojis = [
@@ -19,7 +19,7 @@ const emojis = [
     '�'
 ];
 
-class Poll extends Command {
+class Poll extends Internals.Command {
     constructor() {
         super('poll', {
             description: 'Cria uma enquete com reactions para cada opção.',
@@ -34,7 +34,7 @@ class Poll extends Command {
     
     async run(Bot, msg, args) {
        
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
 
         const error = Bot.emojis.get('bot2Cancel');
         const exclamation = Bot.emojis.get('bot2Exclamation');

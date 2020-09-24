@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/07
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 
-class Embed extends Command {
+class Embed extends Internals.Command {
     constructor() {
         super('embed', {
             description: 'Constrói um embed com conteúdo (opcional).\n**Embed Builder:** https://embedbuilder.nadekobot.me/',

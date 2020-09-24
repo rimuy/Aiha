@@ -2,12 +2,12 @@
  *      Kevinwkz - 2020/09/20
  */
 
-const { Command, PageEmbed, ZeroWidthSpace } = require('../..');
+const { Internals, ZeroWidthSpace } = require('../..');
 const { color } = require('./.config.json');
 const Path = require('path');
 const { readdirSync, lstatSync } = require('fs');
 
-class CD extends Command {
+class CD extends Internals.Command {
     constructor() {
         super('cd', {
             category: 'Developer',

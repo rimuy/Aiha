@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 
-class Invite extends Command {
+class Invite extends Internals.Command {
     constructor() {
         super('invite', {
             description: 'Retorna o link do convite do servidor.',

@@ -1,9 +1,9 @@
 const { Client, Collection, Intents } = require('discord.js');
-const CategoriesEmojis = require('../config/json/CategoriesEmojis.json');
-const log = require('../util/Log');
+const Monitors = require('../../Monitors');
+const Configuration = require('../../Configuration');
+const Server = require('../../Server');
 
-const Server = require('../../../server');
-const Developers = require('../config/json/devs.json');
+const log = require('../Log');
 
 var fetched = false;
 
@@ -13,31 +13,23 @@ class AihaBot {
         this.client.once('ready', async () => {
             log('FG_YELLOW', 'Ready.');
 
-            this.CommandHandler = new (require('../monitors/CommandHandler'))(this);
-            this.EventListener = new (require('../monitors/EventListener'))(this);
+            this.CommandHandler = new Monitors.CommandHandler(this);
+            this.EventListener = new Monitors.EventListener(this);
 
             const devGuild = this.client.guilds.cache.get(process.env.DEV_GUILD);
             devGuild.emojis.cache.forEach(e => this.emojis.set(e.name, e));
 
-            Object.keys(CategoriesEmojis).forEach(key => 
-                this.categoriesEmojis.set(key, CategoriesEmojis[key])
+            Object.keys(Configuration.CategoriesEmojis).forEach(key => 
+                this.categoriesEmojis.set(key, Configuration.CategoriesEmojis[key])
             );
 
             this.updateStatus();
 
             /* Auto-Backup */
-            const devs = [];
-
-            Developers.forEach(async id => {
-                const dev = await this.client.users.fetch(id);
-
-                dev && devs.push(dev);
-            });
-
             setInterval(async () => {
-                await Promise.all(devs.map(dev => 
-                    dev.send(this.commands.get('backup').run(this, null, dev))
-                ));
+                const dev = await this.client.users.fetch(process.env.OWNER);
+                dev.send(this.commands.get('backup').run(this, null, dev));
+                
             }, process.env.AUTO_BACKUP_INTERVAL);
 
         });
@@ -71,7 +63,7 @@ class AihaBot {
 
     timedMutes = new Collection();
 
-    report = require('../lib/BotReport');
+    report = require('../../Modules/BotReport');
 
     async updateStatus() {
         this.client.user.setActivity(

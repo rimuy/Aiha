@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
-class SoftBan extends Command {
+class SoftBan extends Internals.Command {
     constructor() {
         super('softban', {
             description: 'Executa os comandos de banimento e desbanimento nos membros citados, apagando suas mensagens recentes.',

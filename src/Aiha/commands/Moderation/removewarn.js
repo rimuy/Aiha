@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class RemoveWarn extends Command {
+class RemoveWarn extends Internals.Command {
     constructor() {
         super('removewarn', {
             description: 'Limpa todos as infrações registradas do membro citado.',
@@ -19,7 +19,7 @@ class RemoveWarn extends Command {
     async run(Bot, msg, args) {
 
         const warnCase = parseInt((args[0] || '#0').replace(/#/g, ''));
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');

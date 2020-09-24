@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Slap extends Command {
+class Slap extends Internals.Command {
     constructor() {
         super('slap', {
             description: 'Dá um tapa no usuário mencionado.',
@@ -23,7 +23,7 @@ class Slap extends Command {
 
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setDescription(`💢 **${msg.author.username}** ${
                 slapped.equals(msg.author) ? 'deu um tapa em si mesmo.' : `deu um tapa em <@${slapped.id}>`
             }`)

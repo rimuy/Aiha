@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed, PageEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 const moment = require('moment-timezone');
 
-class Warnings extends Command {
+class Warnings extends Internals.Command {
     constructor() {
         super('warnings', {
             description: 'Exibe todos as suas infrações ou as do usuário marcado.',
@@ -29,11 +29,11 @@ class Warnings extends Command {
 
         if (!infrations || !infrations.length) {
             msg.channel.send(
-                new BaseEmbed()
+                new Internals.BaseEmbed()
                     .setDescription(`👼 **${member ? member.user.username : 'Este usuário'} não possui nenhuma infração registrada.**`)
             );
         } else {
-            new PageEmbed(
+            new Internals.PageEmbed(
                 msg, 
                 infrations.map(w => 
                     `> 📕 \`#${w._case}\`\n`+ 

@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/05
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class Ranks extends Command {
+class Ranks extends Internals.Command {
     constructor() {
         super('ranks', {
             description: 'Retorna uma lista com todos os cargos de level disponíveis.',
@@ -17,7 +17,7 @@ class Ranks extends Command {
     async run(Bot, msg) {
 
         const error = Bot.emojis.get('bot2Cancel');
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         
         await Server.Database.request('GET', 'levelroles')
             .then(res => {

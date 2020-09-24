@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals } = require('../..');
 
-class Avatar extends Command {
+class Avatar extends Internals.Command {
     constructor() {
         super('avatar', {
             description: 'Exibe o avatar do usuário ou do membro citado.',
@@ -17,7 +17,7 @@ class Avatar extends Command {
 
     run(_, msg) {
 
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const user = msg.mentions.users.first() || msg.author;
         const url = user.avatarURL({ dynamic: true, size: 2048 });
 

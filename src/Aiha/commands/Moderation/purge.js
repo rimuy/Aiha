@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
-class Purge extends Command {
+class Purge extends Internals.Command {
     constructor() {
         super('purge', {
             description: 'Limpa o histórico do canal.',

@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/08/28
  */
 
-const { Command, BaseEmbed, Server, ZeroWidthSpace } = require('../..');
+const { Internals, Server, ZeroWidthSpace } = require('../..');
 
-class Help extends Command {
+class Help extends Internals.Command {
     constructor() {
         super('help', {
             description: 'Retorna a lista de comandos do bot, ou informações sobre um comando específico.',
@@ -23,7 +23,7 @@ class Help extends Command {
         const command = Bot.commands.get(cmd) || Bot.aliases.get(cmd);
         const prefix = (await Server.Database.request('GET', 'settings')).prefix;
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setFooter(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));
 
         Bot.commands.forEach(c => {

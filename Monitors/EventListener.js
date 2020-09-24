@@ -1,6 +1,6 @@
 const { readdirSync } = require('fs');
-const path = require('path').join(__dirname, '..', 'events/');
-const Log = require('../util/Log');
+const path = require('path').join(__dirname, '..', 'src', 'Aiha', 'Events/');
+const { Internals } = require('../src/Aiha');
 
 const eventsDir = readdirSync(path);
 
@@ -17,7 +17,7 @@ class EventListener {
                 Bot.client.on(event.name, (...args) => event.run(Bot, ...args));
                 Bot.events.set(event.name, event);
             } catch(e) {
-                Log('FG_RED', `[${f}] ` + e.message);
+                Internals.Log('FG_RED', `[${f}] ` + e.message);
             }
             
         });

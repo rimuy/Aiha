@@ -3,16 +3,21 @@
  */
 
 const { 
-    Command, BaseEmbed, PageEmbed, 
-    MudaeObserver, Status,
-    API, Server, ZeroWidthSpace 
+    Internals, 
+    Modules,
+    Monitors, 
+    Configuration,
+    API, 
+    Server, 
+    ZeroWidthSpace,
+    VERSION,
 } = require('../..');
 
 const { inspect } = require('util');
 const { color } = require('./.config.json');
 const Discord = require('discord.js');
 
-class Eval extends Command {
+class Eval extends Internals.Command {
     constructor() {
         super('eval', {
             category: 'Developer',
@@ -43,7 +48,7 @@ class Eval extends Command {
             
             evaled = evaled.split('\n');
 
-            new PageEmbed(
+            new Internals.PageEmbed(
                 msg, 
                 evaled
                     .map((e, i) => {
@@ -61,7 +66,7 @@ class Eval extends Command {
         } catch(e) {
             
             msg.channel.send(
-                new BaseEmbed()
+                new Internals.BaseEmbed()
                     .setTitle(`${Bot.emojis.get('bot2Cancel')}${`\ ${ZeroWidthSpace}`.repeat(4)}Erro`)
                     .setDescription(`\`\`\`${md}\n${e}\n\`\`\``)
                     .setColor(0xF44336)

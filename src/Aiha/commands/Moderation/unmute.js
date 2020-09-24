@@ -2,11 +2,10 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Internals, Modules } = require('../..');
 const { MessageEmbed } = require('discord.js');
-const MuteRule = require('../../lib/MuteRole');
 
-class Unmute extends Command {
+class Unmute extends Internals.Command {
     constructor() {
         super('unmute', {
             description: 'Tira o cargo de silenciamento de todos os membros citados.',
@@ -20,7 +19,7 @@ class Unmute extends Command {
     async run(Bot, msg, args) {
 
         const embed = new MessageEmbed().setColor(0xe3c51b);
-        const muteRole = await MuteRule(msg.guild);
+        const muteRole = await Modules.MuteRule(msg.guild);
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');

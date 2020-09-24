@@ -2,11 +2,11 @@
  *      Kevinwkz - 2020/09/19
  */
 
-const { Command, PageEmbed, BaseEmbed, API, ZeroWidthSpace } = require('../..');
+const { Internals, API, ZeroWidthSpace } = require('../..');
 const moment = require('moment-timezone');
 const { color, url } = require('./.config.json');
 
-class Schedule extends Command {
+class Schedule extends Internals.Command {
     constructor() {
         super('schedule', {
             description: 'Retorna uma lista de animes em lançamento que são exibidos no dia atual ou selecionado.',
@@ -65,14 +65,14 @@ class Schedule extends Command {
                     };
                 });
 
-                new PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, page, embedData)
                     .setColor(color)
                     .send();
 
             })
             .catch(async () => {
                 await msg.channel.send(
-                    new BaseEmbed()
+                    new Internals.BaseEmbed()
                         .setDescription(`${Bot.emojis.get('bot2Cancel')} **Não foi possível realizar esta ação.**`)
                         .setColor(0xF44336)
                 );

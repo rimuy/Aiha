@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Hug extends Command {
+class Hug extends Internals.Command {
     constructor() {
         super('hug', {
             description: 'Abraça o usuário mencionado.',
@@ -23,7 +23,7 @@ class Hug extends Command {
 
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setDescription(`💓 **${msg.author.username}** ${
                 hugged.equals(msg.author) ? 'abraçou a si mesmo D:' : `abraçou <@${hugged.id}>`
             }`)

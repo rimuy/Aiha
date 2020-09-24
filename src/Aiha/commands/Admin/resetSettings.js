@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/07
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class ResetSettings extends Command {
+class ResetSettings extends Internals.Command {
     constructor() {
         super('resetSettings', {
             description: 'Reseta as configurações do servidor para o padrão.',
@@ -18,7 +18,7 @@ class ResetSettings extends Command {
 
     async run(Bot, msg) {
        
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
 

@@ -2,11 +2,10 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals, Modules } = require('../..');
 const { MessageEmbed } = require('discord.js');
-const Logs = require('../../lib/Logs');
 
-class Ban extends Command {
+class Ban extends Internals.Command {
     constructor() {
         super('ban', {
             description: 'Bane todos os membros citados.',
@@ -47,14 +46,14 @@ class Ban extends Command {
                         .then(member => {
                             bannedMembers.add(member.id);
 
-                            const logEmbed = new BaseEmbed()
+                            const logEmbed = new Internals.BaseEmbed()
                                 .setTitle('Membro Banido')
                                 .addFields(
                                     { name: 'Usuário', value: `<@${member.id}>`, inline: true },
                                     { name: 'Motivo', value: `\`${reason}\``, inline: true },
                                 );
 
-                            Logs(Bot, msg.channel, logEmbed);
+                            Modules.Logs(Bot, msg.channel, logEmbed);
                         })
                         .catch()
                         .finally(res);

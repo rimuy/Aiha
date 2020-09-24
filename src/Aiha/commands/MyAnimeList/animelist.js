@@ -2,15 +2,12 @@
  *      Kevinwkz - 2020/09/20
  */
 
-const { 
-    Command, PageEmbed, BaseEmbed, 
-    Server, API, ZeroWidthSpace 
-} = require('../..');
+const { Internals, Server, API, ZeroWidthSpace } = require('../..');
 
 const moment = require('moment-timezone');
 const { color, url } = require('./.config.json');
 
-class AnimeList extends Command {
+class AnimeList extends Internals.Command {
     constructor() {
         super('animelist', {
             description: 'Exibe sua lista de animes da MyAnimeList ou a do usuário mencionado.',
@@ -84,7 +81,7 @@ class AnimeList extends Command {
                     ],
                 }));
 
-                new PageEmbed(msg, animes.map(() => ZeroWidthSpace), 1, page, embedData)
+                new Internals.PageEmbed(msg, animes.map(() => ZeroWidthSpace), 1, page, embedData)
                     .setColor(color)
                     .send();
 
@@ -93,7 +90,7 @@ class AnimeList extends Command {
                 console.log(e);
 
                 await msg.channel.send(
-                    new BaseEmbed()
+                    new Internals.BaseEmbed()
                         .setDescription(`${Bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)
                 );

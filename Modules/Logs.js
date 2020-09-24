@@ -1,4 +1,4 @@
-const { Server } = require('..');
+const Server = require('../Server');
 
 module.exports = async (Bot, channel, content) => {
 

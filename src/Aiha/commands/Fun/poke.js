@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/24
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Poke extends Command {
+class Poke extends Internals.Command {
     constructor() {
         super('poke', {
             description: 'Cutuca o usuário mencionado.',
@@ -23,7 +23,7 @@ class Poke extends Command {
 
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setDescription(`👉 **${msg.author.username}** ${
                 pet.equals(msg.author) ? 'cutucou a si mesmo D:' : `cutucou <@${pet.id}>`
             }`)

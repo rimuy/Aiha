@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/24
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Tickle extends Command {
+class Tickle extends Internals.Command {
     constructor() {
         super('tickle', {
             description: 'Faz cócegas no usuário mencionado.',
@@ -23,7 +23,7 @@ class Tickle extends Command {
 
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setDescription(`✨ **${msg.author.username}** ${
                 pet.equals(msg.author) ? 'fez cócegas em si mesmo D:' : `fez cócegas em <@${pet.id}>`
             }`)

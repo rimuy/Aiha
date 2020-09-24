@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
-class Unban extends Command {
+class Unban extends Internals.Command {
     constructor() {
         super('unban', {
             description: 'Desbane todos os usuários citados.',

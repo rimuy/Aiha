@@ -2,11 +2,11 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals } = require('../..');
 
 const tails = ['Cara', 'Coroa'];
 
-class CoinFlip extends Command {
+class CoinFlip extends Internals.Command {
     constructor() {
         super('coinflip', {
             description: '',
@@ -21,7 +21,7 @@ class CoinFlip extends Command {
         const result = Math.floor(Math.random() * 2);
 
         msg.channel.send(
-            new BaseEmbed()
+            new Internals.BaseEmbed()
                 .setDescription(`${['👤', '👑'][result]} Você tirou **${tails[result]}**!`)
         );
         

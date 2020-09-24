@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/09/19
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 const { color } = require('./.config.json');
 
-class ResetProfile extends Command {
+class ResetProfile extends Internals.Command {
     constructor() {
         super('resetprofile', {
             description: 'Desvincula o seu perfil do MyAnimeList.',
@@ -17,7 +17,7 @@ class ResetProfile extends Command {
 
     async run(Bot, msg) {
         
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
 
         Server.Database.request('PATCH', `users/${msg.author.id}`, { mal: '' })
             .then(() => {

@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/07
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class Prefix extends Command {
+class Prefix extends Internals.Command {
     constructor() {
         super('prefix', {
             description: 'Altera o prefixo dos comandos do bot.',
@@ -20,7 +20,7 @@ class Prefix extends Command {
         
         const prefix = args[0];
        
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
         const exclamation = Bot.emojis.get('bot2Exclamation');

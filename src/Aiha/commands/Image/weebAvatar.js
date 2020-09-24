@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/24
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class WeebAvatar extends Command {
+class WeebAvatar extends Internals.Command {
     constructor() {
         super('weebAvatar', {
             description: 'Imagem aleatória de avatar.',
@@ -20,7 +20,7 @@ class WeebAvatar extends Command {
         const req = await API.NekosLife.avatar;
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setTitle('Avatar aleatório')
             .setFooter(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setImage(req.url);

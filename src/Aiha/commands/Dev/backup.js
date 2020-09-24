@@ -2,14 +2,14 @@
  *      Kevinwkz - 2020/08/03
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 const { MessageAttachment, User } = require('discord.js');
 const moment = require('moment-timezone');
 const Path = require('path');
 
 const filePath = Path.resolve(__dirname, '..', '..', '..', '..', 'server', 'Adapter.json');
 
-class Backup extends Command {
+class Backup extends Internals.Command {
     constructor() {
         super('backup', {
             category: 'Developer',

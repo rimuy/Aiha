@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
 const choices = [
@@ -11,7 +11,7 @@ const choices = [
     'Tesoura'
 ];
 
-class RPS extends Command {
+class RPS extends Internals.Command {
     constructor() {
         super('rps', {
             description: 'Pedra, papel ou tesoura :D',
@@ -36,7 +36,7 @@ class RPS extends Command {
         }
 
         msg.channel.send(
-            new BaseEmbed()
+            new Internals.BaseEmbed()
                 .setDescription(`**Minha escolha:** ${botChoice}`)
         );
 

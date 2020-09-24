@@ -1,5 +1,5 @@
-const Server = require('../../../server');
-const config = require('../config/json/MudaeObserver.json');
+const Server = require('../Server');
+const config = require('../Configuration/json/MudaeObserver.json');
 
 var bot;
 

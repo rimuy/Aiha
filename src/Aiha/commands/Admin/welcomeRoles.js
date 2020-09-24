@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/11
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class WelcomeRoles extends Command {
+class WelcomeRoles extends Internals.Command {
     constructor() {
         super('welcomeRoles', {
             description: 'Exibe a lista de cargos de bem-vindo.',
@@ -21,7 +21,7 @@ class WelcomeRoles extends Command {
         const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
         
         msg.channel.send(
-            new BaseEmbed()
+            new Internals.BaseEmbed()
                 .setTitle('Cargos de Bem-vindo')
                 .setDescription(
                     welcomeRoles && welcomeRoles.length

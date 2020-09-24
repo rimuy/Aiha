@@ -1,4 +1,4 @@
-const { Server } = require('..');
+const Server = require('../Server');
 const LevelRoles = require('./LevelRoles');
 
 const usersOnCooldown = new Map();

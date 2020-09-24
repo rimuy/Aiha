@@ -1,0 +1,30 @@
+{
+  "settings": {
+    "welcomeRoles": [],
+    "welcomeChannel": "",
+    "commandsChannel": "",
+    "testingChannel": "",
+    "logChannel": "",
+    "mudaeChannel": "",
+    "muteRole": "",
+    "prefix": "."
+  },
+  "mudae": {
+    "claims": [],
+    "rolls": []
+  },
+  "users": {
+    "197429905514954752": {
+      "level": 0,
+      "exp": 5,
+      "economy": {
+        "money": 500,
+        "bank": 0
+      },
+      "mal": ""
+    }
+  },
+  "muted": {},
+  "infrations": [],
+  "levelroles": {}
+}

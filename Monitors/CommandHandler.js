@@ -1,7 +1,7 @@
 
 class CommandHandler {
     constructor(Bot) {
-        const cmds = require('../config/js/Commands');
+        const cmds = require('../Configuration/js/Commands');
 
         cmds.forEach(cmdClass => {
             const cmd = new cmdClass();

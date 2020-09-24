@@ -2,11 +2,11 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals } = require('../..');
 
 const defaultN = 6;
 
-class Roll extends Command {
+class Roll extends Internals.Command {
     constructor() {
         super('roll', {
             description: '',
@@ -22,7 +22,7 @@ class Roll extends Command {
         const result = Math.floor(Math.random() * max) + 1;
         
         msg.channel.send(
-            new BaseEmbed()
+            new Internals.BaseEmbed()
                 .setDescription(`🎲 Você jogou um \`${result}\`!`)
         );
 

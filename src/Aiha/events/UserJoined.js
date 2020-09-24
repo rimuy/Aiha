@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/09/06
  */
 
-const { Event, Status, Server } = require('..');
+const { Internals, Monitors, Server } = require('..');
 const { MessageEmbed } = require('discord.js');
 
-class MemberAddEvent extends Event {
+class MemberAddEvent extends Internals.Event {
     constructor() {
         super({
             event: 'guildMemberAdd',
@@ -23,7 +23,7 @@ class MemberAddEvent extends Event {
 
                 const guild = member.guild;
 
-                await Status.update(Bot, guild);
+                await Monitors.MemberCounter.update(Bot, guild);
                 
                 const id = (await Server.Database.request('GET', 'settings')).welcomeChannel;
                 const mainChannel = guild.channels.cache.get(id);

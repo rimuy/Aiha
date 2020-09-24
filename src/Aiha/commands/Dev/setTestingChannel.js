@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/09
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class SetTestingChannel extends Command {
+class SetTestingChannel extends Internals.Command {
     constructor() {
         super('setTestingChannel', {
             description: 'Altera o canal de teste do bot.',
@@ -21,7 +21,7 @@ class SetTestingChannel extends Command {
         const id = (args[0] || '')
             .replace(/[<#>]/g, '');
        
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
 

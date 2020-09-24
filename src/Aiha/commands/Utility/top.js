@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/03
  */
 
-const { Command, BaseEmbed, PageEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class Top extends Command {
+class Top extends Internals.Command {
     constructor() {
         super('top', {
             description: 'Exibe o ranking dos membros do servidor.',
@@ -21,7 +21,7 @@ class Top extends Command {
 
         if (!Object.keys(users).length) {
             return msg.channel.send(
-                new BaseEmbed().setDescription('Este servidor não possui nenhum membro com level.')
+                new Internals.BaseEmbed().setDescription('Este servidor não possui nenhum membro com level.')
             );
         }
 
@@ -44,7 +44,7 @@ class Top extends Command {
             })
         );
 
-        new PageEmbed(msg, membersRanking, 10)
+        new Internals.PageEmbed(msg, membersRanking, 10)
             .setAuthor('Placar do Servidor', msg.guild.iconURL({ dynamic: true }))
             .send();
         

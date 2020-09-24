@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals } = require('../..');
 
 const responses = [
     'Sim',
@@ -11,7 +11,7 @@ const responses = [
     'Nunca'
 ];
 
-class EightBall extends Command {
+class EightBall extends Internals.Command {
     constructor() {
         super('8ball', {
             description: '🔮 Adivinhação',
@@ -30,7 +30,7 @@ class EightBall extends Command {
             .split('\n')
             .join('\n> ');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
             .setDescription(`> ${question}\n\n🔮 **Resposta:** ${responses[Math.floor(Math.random() * responses.length)]}.`);
 

@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/09/05
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
-class UnsetRank extends Command {
+class UnsetRank extends Internals.Command {
     constructor() {
         super('unsetrank', {
             description: 'Retira o cargo de level citado.',
@@ -32,7 +32,7 @@ class UnsetRank extends Command {
             );
         }
 
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
 
         await Server.Database.request('DELETE', `levelroles/${id}`)
             .then(() => {

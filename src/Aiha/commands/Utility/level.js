@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/03
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class Level extends Command {
+class Level extends Internals.Command {
     constructor() {
         super('level', {
             description: 'Exibe o seu level ou o do membro citado e ranking do servidor.',
@@ -19,7 +19,7 @@ class Level extends Command {
 
         const users = await Server.Database.request('GET', 'users');
         const data = users[msg.author.id];
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
 
         if (data) {
 

@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
-class Ping extends Command {
+class Ping extends Internals.Command {
     constructor() {
         super('ping', {
             description: 'Exibe o ping do bot.',

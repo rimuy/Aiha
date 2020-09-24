@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/18
  */
 
-const { Command, Social } = require('../..');
+const { Internals, Social } = require('../..');
 
-class GitHub extends Command {
+class GitHub extends Internals.Command {
     constructor() {
         super('github', {
             description: 'Exibe o link do repositório oficial do bot.',

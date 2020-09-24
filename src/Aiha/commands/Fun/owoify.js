@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class OwOify extends Command {
+class OwOify extends Internals.Command {
     constructor() {
         super('owoify', {
             description: 'Transforma o texto.',
@@ -31,7 +31,7 @@ class OwOify extends Command {
 
         if (!text) {
             return msg.channel.send(
-                new BaseEmbed()
+                new Internals.BaseEmbed()
                     .setDescription(`${error} **Ocorreu um erro ao executar o comando.**`)
                     .setColor(0xF44336)
             );

@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 
-class Lock extends Command {
+class Lock extends Internals.Command {
     constructor() {
         super('lock', {
             description: 'Bloqueia o chat em que o comando foi executado.',

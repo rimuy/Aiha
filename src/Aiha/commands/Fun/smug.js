@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/24
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Smug extends Command {
+class Smug extends Internals.Command {
     constructor() {
         super('smug', {
             description: 'Sorriso pretensioso.',
@@ -23,7 +23,7 @@ class Smug extends Command {
 
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setDescription(`💮 **${msg.author.username}** ${
                 target.equals(msg.author) ? 'sorriu pretensiosamente.' : `sorriu pretensiosamente para <@${target.id}>`
             }`)

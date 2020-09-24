@@ -2,10 +2,9 @@
  *      Kevinwkz - 2020/09/09
  */
 
-const { Event, BaseEmbed } = require('..');
-const Logs = require('../lib/Logs');
+const { Modules, Internals } = require('..');
 
-class MessageEditedEvent extends Event {
+class MessageEditedEvent extends Internals.Event {
     constructor() {
         super({
             event: 'messageUpdate',
@@ -13,7 +12,7 @@ class MessageEditedEvent extends Event {
 
                 if (!oldMsg.content || oldMsg.content === newMsg.content) return;
                 
-                const embed = new BaseEmbed()
+                const embed = new Internals.BaseEmbed()
                     .setAuthor('Mensagem Editada', newMsg.author.displayAvatarURL({ dynamic: true }))
                     .addFields(
                         { name: 'Usuário', value: `<@${newMsg.author.id}>`, inline: true },
@@ -22,7 +21,7 @@ class MessageEditedEvent extends Event {
                         { name: 'Nova', value: `\`\`\`\n${newMsg.content}\n\`\`\`` },
                     );
 
-                Logs(Bot, newMsg.channel, embed);
+                Modules.Logs(Bot, newMsg.channel, embed);
             }
         });
     }

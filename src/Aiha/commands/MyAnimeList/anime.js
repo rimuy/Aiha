@@ -2,11 +2,11 @@
  *      Kevinwkz - 2020/09/19
  */
 
-const { Command, PageEmbed, API, ZeroWidthSpace } = require('../..');
+const { Internals, API, ZeroWidthSpace } = require('../..');
 const moment = require('moment-timezone');
 const { color, url } = require('./.config.json');
 
-class Anime extends Command {
+class Anime extends Internals.Command {
     constructor() {
         super('anime', {
             description: 'Exibe o anime ou uma lista de animes semelhantes ao título inserido.',
@@ -55,7 +55,7 @@ class Anime extends Command {
                     };
                 });
 
-                new PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, page, embedData)
                     .setColor(color)
                     .send();
 

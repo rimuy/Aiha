@@ -2,15 +2,12 @@
  *      Kevinwkz - 2020/09/20
  */
 
-const { 
-    Command, PageEmbed, BaseEmbed, 
-    Server, API, ZeroWidthSpace 
-} = require('../..');
+const { Internals, Server, API, ZeroWidthSpace } = require('../..');
 
 const moment = require('moment-timezone');
 const { color, url } = require('./.config.json');
 
-class MangaList extends Command {
+class MangaList extends Internals.Command {
     constructor() {
         super('mangalist', {
             description: 'Exibe sua lista de mangás da MyAnimeList ou a do usuário mencionado.',
@@ -85,7 +82,7 @@ class MangaList extends Command {
                     ],
                 }));
 
-                new PageEmbed(msg, mangas.map(() => ZeroWidthSpace), 1, page, embedData)
+                new Internals.PageEmbed(msg, mangas.map(() => ZeroWidthSpace), 1, page, embedData)
                     .setColor(color)
                     .send();
 
@@ -94,7 +91,7 @@ class MangaList extends Command {
                 console.log(e);
 
                 await msg.channel.send(
-                    new BaseEmbed()
+                    new Internals.BaseEmbed()
                         .setDescription(`${Bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)
                 );

@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command, BaseEmbed, ZeroWidthSpace } = require('../..');
+const { Internals, ZeroWidthSpace } = require('../..');
 
-class HelpDev extends Command {
+class HelpDev extends Internals.Command {
     constructor() {
         super('helpdev', {
             category: 'Developer',
@@ -16,7 +16,7 @@ class HelpDev extends Command {
        
         const commands = Bot.commands.filter(c => c.dev);
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setTitle(`${Bot.emojis.get('botdev')} **Developer**`)
             .setDescription(commands.map((c, i) => `**<**\`${c.name}\`**/>**${ZeroWidthSpace}${i && !(i % 4) ? '\n' : ' '}`).join(''))
             .setColor(0x03b6fc);

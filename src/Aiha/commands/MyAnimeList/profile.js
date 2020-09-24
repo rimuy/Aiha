@@ -2,15 +2,12 @@
  *      Kevinwkz - 2020/09/20
  */
 
-const { 
-    Command, PageEmbed, BaseEmbed, 
-    Server, API, ZeroWidthSpace 
-} = require('../..');
+const { Internals, Server, API, ZeroWidthSpace } = require('../..');
 
 const moment = require('moment-timezone');
 const { color, url } = require('./.config.json');
 
-class Profile extends Command {
+class Profile extends Internals.Command {
     constructor() {
         super('profile', {
             description: 'Exibe seu perfil da MyAnimeList ou o do usuário mencionado.',
@@ -215,7 +212,7 @@ class Profile extends Command {
                     },
                 ];
 
-                new PageEmbed(msg, embedData.map(() => ZeroWidthSpace), 1, page, embedData)
+                new Internals.PageEmbed(msg, embedData.map(() => ZeroWidthSpace), 1, page, embedData)
                     .setColor(color)
                     .send();
 
@@ -224,7 +221,7 @@ class Profile extends Command {
                 console.log(e);
 
                 await msg.channel.send(
-                    new BaseEmbed()
+                    new Internals.BaseEmbed()
                         .setDescription(`${Bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)
                 );

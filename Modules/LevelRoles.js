@@ -1,4 +1,4 @@
-const { Server } = require('..');
+const Server = require('../Server');
 
 module.exports = async (Bot, user, msg, level) => {
     const roles = await Server.Database.request('GET', 'levelroles');

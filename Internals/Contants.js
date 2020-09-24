@@ -1,6 +1,7 @@
-'use strict';
 
 module.exports = {
+    Package: require('../package.json'),
+    Errors: require('./Errors'),
     ConsoleColors: {
         NORMAL:     '[0m',
         BRIGHT:     '[1m',

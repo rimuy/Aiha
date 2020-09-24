@@ -2,11 +2,11 @@
  *      Kevinwkz - 2020/09/19
  */
 
-const { Command, PageEmbed, BaseEmbed, API, ZeroWidthSpace } = require('../..');
+const { Internals, API, ZeroWidthSpace } = require('../..');
 const moment = require('moment-timezone');
 const { color, url } = require('./.config.json');
 
-class Season extends Command {
+class Season extends Internals.Command {
     constructor() {
         super('season', {
             description: 'Retorna uma lista de animes da temporada do ano atual ou selecionado.',
@@ -44,7 +44,7 @@ class Season extends Command {
 
         if (!seasons.has(season)) {
             return msg.channel.send(
-                new BaseEmbed()
+                new Internals.BaseEmbed()
                     .setDescription(`${Bot.emojis.get('bot2Cancel')} **Estação do ano inválida.**`)
                     .setColor(0xF44336)
             );
@@ -75,14 +75,14 @@ class Season extends Command {
                     };
                 });
 
-                new PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, page, embedData)
                     .setColor(color)
                     .send();
 
             })
             .catch(async () => {
                 await msg.channel.send(
-                    new BaseEmbed()
+                    new Internals.BaseEmbed()
                         .setDescription(`${Bot.emojis.get('bot2Cancel')} **Não foi possível realizar esta ação.**`)
                         .setColor(0xF44336)
                 );

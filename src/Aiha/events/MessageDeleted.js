@@ -2,13 +2,12 @@
  *      Kevinwkz - 2020/09/09
  */
 
-const { Event, BaseEmbed } = require('..');
+const { Internals, Modules } = require('..');
 const { Util } = require('discord.js');
-const Logs = require('../lib/Logs');
 
 const userMessages = new Map();
 
-class MessageDeleteEvent extends Event {
+class MessageDeleteEvent extends Internals.Event {
     constructor() {
         super({
             event: 'messageDelete',
@@ -31,7 +30,7 @@ class MessageDeleteEvent extends Event {
 
                 if (size > 1) return;
                 
-                const embed = new BaseEmbed()
+                const embed = new Internals.BaseEmbed()
                     .setAuthor('Mensagem Deletada', msg.author.displayAvatarURL({ dynamic: true }))
                     .addFields(
                         { name: 'Usuário', value: `<@${msg.author.id}>`, inline: true },
@@ -39,7 +38,7 @@ class MessageDeleteEvent extends Event {
                         { name: 'Conteúdo', value: `\`\`\`\n${msg.content}\n\`\`\`` },
                     );
 
-                Logs(Bot, msg.channel, embed);
+                Modules.Logs(Bot, msg.channel, embed);
             }
         });
     }

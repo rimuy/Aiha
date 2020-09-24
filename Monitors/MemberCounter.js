@@ -1,7 +1,7 @@
-const Server = require('../../../server');
-const { ZeroWidthSpace } = require('..');
+const Server = require('../Server');
+const { ZeroWidthSpace } = require('../src/Aiha');
 
-class GuildStatus {
+class MemberCounter {
     static async update(Bot, guild, fetch) {
         const id = (await Server.Database.request('GET', 'settings')).welcomeChannel;
         if (!id || !id.length) throw 'ReferenceError: Welcome Channel is not defined';
@@ -50,4 +50,4 @@ class GuildStatus {
     }
 }
 
-module.exports = GuildStatus;
+module.exports = MemberCounter;

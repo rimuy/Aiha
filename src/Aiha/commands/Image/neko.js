@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/24
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Neko extends Command {
+class Neko extends Internals.Command {
     constructor() {
         super('neko', {
             description: 'Imagem aleatória de gatos em anime.',
@@ -26,7 +26,7 @@ class Neko extends Command {
 
         const error = Bot.emojis.get('bot2Cancel');
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setTitle('🐱 ~ Meow')
             .setFooter(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setImage(req.url);

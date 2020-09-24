@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/09/19
  */
 
-const { Command, PageEmbed, BaseEmbed, API, ZeroWidthSpace } = require('../..');
+const { Internals, API, ZeroWidthSpace } = require('../..');
 const { color, url } = require('./.config.json');
 
-class Character extends Command {
+class Character extends Internals.Command {
     constructor() {
         super('character', {
             description: 'Retorna o personagem ou uma lista de personagens com o nome semelhante.',
@@ -49,14 +49,14 @@ class Character extends Command {
                     ],
                 }));
 
-                new PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, page, embedData)
                     .setColor(color)
                     .send();
 
             })
             .catch(async () => {
                 await msg.channel.send(
-                    new BaseEmbed()
+                    new Internals.BaseEmbed()
                         .setDescription(`${Bot.emojis.get('bot2Cancel')} **Nenhum personagem foi encontrado.**`)
                         .setColor(0xF44336)
                 );

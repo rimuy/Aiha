@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/22
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals } = require('../..');
 
-class HelpAdmin extends Command {
+class HelpAdmin extends Internals.Command {
     constructor() {
         super('helpadm', {
             description: 'Comando de help, só que pra admin.',
@@ -19,7 +19,7 @@ class HelpAdmin extends Command {
 
     run(Bot, msg) {
 
-        const embed = new BaseEmbed()
+        const embed = new Internals.BaseEmbed()
             .setFooter(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));
 
         embed

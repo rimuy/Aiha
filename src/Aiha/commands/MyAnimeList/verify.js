@@ -2,18 +2,18 @@
  *      Kevinwkz - 2020/09/19
  */
 
-const { Command, BaseEmbed, Server, API } = require('../..');
+const { Internals, Server, API } = require('../..');
 const { color, url } = require('./.config.json');
 const Path = require('path');
 
 const imgName = 'example_mal.png';
 const imgPath = Path.join(
-    __dirname, '..', '..', '..', '..', 'assets', 'images', imgName
+    __dirname, '..', '..', '..', '..', 'Assets', 'images', imgName
 );
 
 const pending = new Map();
 
-class Verify extends Command {
+class Verify extends Internals.Command {
     constructor() {
         super('verify', {
             description: 'Executa a verificação para vincular o seu perfil do MyAnimeList ao seu usuário.',
@@ -28,7 +28,7 @@ class Verify extends Command {
 
         const username = args[0] || msg.author.username;
 
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const status = (await API.request('GET', url + `user/${username}`)).status;
 
         if (status && status >= 400) {
@@ -64,7 +64,7 @@ class Verify extends Command {
                 pending.delete(msg.author.id);
 
                 return msg.channel.send(
-                    new BaseEmbed()
+                    new Internals.BaseEmbed()
                         .setDescription('**Tempo esgotado.**')
                         .setColor(color)
                 );
@@ -81,7 +81,7 @@ class Verify extends Command {
                                 .then(async () => {
 
                                     await msg.channel.send(
-                                        new BaseEmbed()
+                                        new Internals.BaseEmbed()
                                             .setDescription(
                                                 `${Bot.emojis.get('bot2Success')} ` + 
                                                 '**A verificação foi completada com sucesso! Use o comando** `profile` **para exibir seu perfil.**'
@@ -92,7 +92,7 @@ class Verify extends Command {
                                 .catch(async () => {
 
                                     await msg.channel.send(
-                                        new BaseEmbed()
+                                        new Internals.BaseEmbed()
                                             .setDescription(`${Bot.emojis.get('bot2Cancel')} **Erro ao completar a verificação.**`)
                                             .setColor(0xF44336)
                                     );
@@ -113,7 +113,7 @@ class Verify extends Command {
                         console.log(e);
 
                         msg.channel.send(
-                            new BaseEmbed()
+                            new Internals.BaseEmbed()
                                 .setDescription(`${Bot.emojis.get('bot2Cancel')} **Não foi possível realizar a verificação.**`)
                                 .setColor(0xF44336)
                         );

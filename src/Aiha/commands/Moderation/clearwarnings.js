@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class ClearWarnings extends Command {
+class ClearWarnings extends Internals.Command {
     constructor() {
         super('clearwarnings', {
             description: 'Limpa todos as infrações registradas do membro citado.',
@@ -21,7 +21,7 @@ class ClearWarnings extends Command {
         const id = (args[0] || msg.author.id)
             .replace(/[<@!>&]/g, '');
 
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const response = await Server.Database.request('PURGE', `infrations/${id}`);
 
         const success = Bot.emojis.get('bot2Success');

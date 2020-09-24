@@ -2,12 +2,10 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command, BaseEmbed } = require('../..');
+const { Internals, Modules } = require('../..');
 const { MessageEmbed } = require('discord.js');
-const MuteRule = require('../../lib/MuteRole');
-const Logs = require('../../lib/Logs');
 
-class Mute extends Command {
+class Mute extends Internals.Command {
     constructor() {
         super('mute', {
             description: 'Silencia todos os membros citados.',
@@ -21,7 +19,7 @@ class Mute extends Command {
     async run(Bot, msg, args) {
 
         const embed = new MessageEmbed().setColor(0xe3c51b);
-        const muteRole = await MuteRule(msg.guild);
+        const muteRole = await Modules.MuteRule(msg.guild);
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
@@ -59,14 +57,14 @@ class Mute extends Command {
                         .then(member => {
                             mutedMembers.add(member.id);
 
-                            const logEmbed = new BaseEmbed()
+                            const logEmbed = new Internals.BaseEmbed()
                                 .setTitle('Membro Silenciado')
                                 .addFields(
                                     { name: 'Usuário', value: `<@${member.id}>`, inline: true },
                                     { name: 'Motivo', value: `\`${reason}\``, inline: true },
                                 );
 
-                            Logs(Bot, msg.channel, logEmbed);
+                            Modules.Logs(Bot, msg.channel, logEmbed);
                         })
                         .catch()
                         .finally(res);

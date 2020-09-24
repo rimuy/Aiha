@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/09/05
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
-class SetRank extends Command {
+class SetRank extends Internals.Command {
     constructor() {
         super('setrank', {
             description: 'Define o level requerido para ganhar o cargo.',
@@ -41,7 +41,7 @@ class SetRank extends Command {
             );
         }
 
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
 
         await Server.Database.request('POST', `levelroles/${id}`, {
             roleId: id,

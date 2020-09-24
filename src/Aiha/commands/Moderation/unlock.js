@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Command } = require('../..');
+const { Internals } = require('../..');
 
-class Unlock extends Command {
+class Unlock extends Internals.Command {
     constructor() {
         super('unlock', {
             description: 'Desbloqueia o chat em que o comando foi executado.',

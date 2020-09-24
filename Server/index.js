@@ -1,6 +1,6 @@
 const express = require('express');
 const router = require('./router');
-const log = require('../src/Aiha/util/Log');
+const log = require('../Internals/Log');
 
 const app = express();
 
@@ -14,5 +14,5 @@ app.listen(PORT, () => log('FG_GREEN','[Server] Listening on port ' + PORT));
 module.exports = {
     Recipient: app,
     Router: router,
-    Database: require('./config/Database'),
+    Database: require('../Configuration/Database/Requests'),
 };

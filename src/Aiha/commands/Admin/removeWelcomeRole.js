@@ -2,10 +2,10 @@
  *      Kevinwkz - 2020/09/11
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
-class RemoveWelcomeRole extends Command {
+class RemoveWelcomeRole extends Internals.Command {
     constructor() {
         super('removeWelcomeRole', {
             description: 'Remove o cargo da lista de cargos de bem-vindo.',
@@ -35,7 +35,7 @@ class RemoveWelcomeRole extends Command {
             );
         }
 
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
 
         const index = welcomeRoles.indexOf(role.id);

@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/16
  */
 
-const { Command, BaseEmbed, Server } = require('../..');
+const { Internals, Server } = require('../..');
 
-class SetMudaeChannel extends Command {
+class SetMudaeChannel extends Internals.Command {
     constructor() {
         super('setMudaeChannel', {
             description: 'Define o canal de comandos que a Mudae é usada.',
@@ -21,7 +21,7 @@ class SetMudaeChannel extends Command {
         const id = (args[0] || '')
             .replace(/[<#>]/g, '');
        
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
 

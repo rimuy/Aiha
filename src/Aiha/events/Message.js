@@ -2,17 +2,13 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Event, Server, Developers } = require('..');
+const { Modules, Internals, Configuration, Server } = require('..');
 const { MessageEmbed } = require('discord.js');
-
-const LevelingSystem = require('../lib/LevelingSystem');
-const AntiAds = require('../lib/AntiAds');
-const AntiSpam = require('../lib/AntiSpam');
 
 const usersOnCooldown = new Map();
 const cooldown = 1000;
 
-class MessageEvent extends Event {
+class MessageEvent extends Internals.Event {
     constructor() {
         super({
             event: 'message',
@@ -43,8 +39,8 @@ class MessageEvent extends Event {
                 if (user.bot) return;
                 if (!msg.guild || !msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
 
-                if (await AntiAds(msg)) return;
-                if (await AntiSpam(msg)) return;
+                if (await Modules.AntiAds(msg)) return;
+                if (await Modules.AntiSpam(msg)) return;
 
                 /* Mudae Observer [Rolls] */
                 if (mudaeChannel === msg.channel.id) {
@@ -86,9 +82,9 @@ class MessageEvent extends Event {
                         }
 
                         if (
-                            ( !command.dev || Developers.includes(user.id) ) &&
+                            ( !command.dev || Configuration.Developers.includes(user.id) ) &&
                             msg.guild.me.permissionsIn(msg.channel).has(command.botPerms.concat(command.userPerms) || []) &&
-                            ( Developers.includes(user.id) || msg.member.permissionsIn(msg.channel).has(command.userPerms || []))
+                            ( Configuration.Developers.includes(user.id) || msg.member.permissionsIn(msg.channel).has(command.userPerms || []))
                         ) { // <-- Exec
     
                             usersOnCooldown.set(user.id, new Date());
@@ -108,7 +104,7 @@ class MessageEvent extends Event {
                 }
 
                 if (msg.channel.id !== settings.commandsChannel) {
-                    await LevelingSystem(Bot, msg);
+                    await Modules.LevelingSystem(Bot, msg);
                 }
 
                 const r = messagesWithResponses[msg.content.toLowerCase().trim()];

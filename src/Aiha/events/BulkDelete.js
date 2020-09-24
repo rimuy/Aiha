@@ -2,19 +2,18 @@
  *      Kevinwkz - 2020/09/09
  */
 
-const { Event, BaseEmbed } = require('..');
+const { Modules, Internals } = require('..');
 const { MessageAttachment } = require('discord.js');
 const moment = require('moment-timezone');
-const Logs = require('../lib/Logs');
 
-class MessageDeleteBulkEvent extends Event {
+class MessageDeleteBulkEvent extends Internals.Event {
     constructor() {
         super({
             event: 'messageDeleteBulk',
             callback: async (Bot, msgs) => {
                 
                 const channel = msgs.first().channel;
-                const embed = new BaseEmbed()
+                const embed = new Modules.BaseEmbed()
                     .setTitle('🗑️ Coleção de mensagens deletadas')
                     .addFields(
                         { name: 'Canal', value: `<#${channel.id}>`, inline: true },
@@ -30,8 +29,8 @@ class MessageDeleteBulkEvent extends Event {
 
                 const attachment = new MessageAttachment(buffer, `${Date.now()}-${channel.id}-${channel.name}.log`);
 
-                await Logs(Bot, channel, embed);
-                Logs(Bot, channel, attachment);
+                await Modules.Logs(Bot, channel, embed);
+                Modules.Logs(Bot, channel, attachment);
             }
         });
     }

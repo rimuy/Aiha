@@ -2,11 +2,11 @@
  *      Kevinwkz - 2020/09/19
  */
 
-const { Command, PageEmbed, API, ZeroWidthSpace } = require('../..');
+const { Internals, API, ZeroWidthSpace } = require('../..');
 const moment = require('moment-timezone');
 const { color, url } = require('./.config.json');
 
-class Manga extends Command {
+class Manga extends Internals.Command {
     constructor() {
         super('manga', {
             description: 'Exibe o mangá ou uma lista de mangás semelhantes ao título inserido.',
@@ -54,7 +54,7 @@ class Manga extends Command {
                     };
                 });
 
-                new PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, page, embedData)
                     .setColor(color)
                     .send();
 

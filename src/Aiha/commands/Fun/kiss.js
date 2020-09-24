@@ -2,9 +2,9 @@
  *      Kevinwkz - 2020/09/10
  */
 
-const { Command, BaseEmbed, API } = require('../..');
+const { Internals, API } = require('../..');
 
-class Kiss extends Command {
+class Kiss extends Internals.Command {
     constructor() {
         super('kiss', {
             description: 'Beija o usuário mencionado.',
@@ -19,7 +19,7 @@ class Kiss extends Command {
     async run(Bot, msg) {
 
         const kissed = msg.mentions.users.first();
-        const embed = new BaseEmbed();
+        const embed = new Internals.BaseEmbed();
         const req = await API.NekosLife.kiss;
 
         const error = Bot.emojis.get('bot2Cancel');
