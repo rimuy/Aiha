@@ -39,7 +39,7 @@ class OwOify extends Command {
 
         msg.channel.startTyping();
         const transform = await API.NekosLife.owoify(text);
-        msg.channel.send(transform.owo)
+        msg.channel.send(transform.owo.replace(/:(.+):/g, ''))
             .finally(() => msg.channel.stopTyping());
 
     }

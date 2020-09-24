@@ -12,7 +12,6 @@ class WeebAvatar extends Command {
             aliases: [],
             category: 'Imagem',
             botPerms: ['EMBED_LINKS'],
-            multiChannel: true,
         });
     }
 
