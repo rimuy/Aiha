@@ -14,8 +14,26 @@ class NekosLife {
         return func();
     }
 
+    static owoify(text) {
+        const self = this;
+
+        async function transform() { 
+            return await self.client.sfw.OwOify({ text });
+        }
+
+        return transform();
+    }
+
     static get neko() {
         return this.get('neko');
+    }
+
+    static get nekogif() {
+        return this.get('nekoGif');
+    }
+
+    static get fox() {
+        return this.get('foxGirl');
     }
 
     static get hug() {
@@ -56,6 +74,18 @@ class NekosLife {
 
     static get cuddle() {
         return this.get('cuddle');
+    }
+
+    static get waifu() {
+        return this.get('waifu');
+    }
+
+    static get avatar() {
+        return this.get('avatar');
+    }
+
+    static get wallpaper() {
+        return this.get('wallpaper');
     }
 
 }
