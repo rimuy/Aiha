@@ -2,9 +2,13 @@ const Server = require('../../../server');
 const { ZeroWidthSpace } = require('..');
 
 class GuildStatus {
-    static async update(guild, fetch) {
+    static async update(Bot, guild, fetch) {
         const id = (await Server.Database.request('GET', 'settings')).welcomeChannel;
         if (!id || !id.length) throw 'ReferenceError: Welcome Channel is not defined';
+
+        if (!Bot) {
+            throw 'ReferenceError: Bot is not defined';
+        }
 
         if (fetch) {
             await guild.fetch();
@@ -22,16 +26,16 @@ class GuildStatus {
         }
 
         const emojis = {
-            '0': guild.emojis.cache.find(e => e.name === '0_'),
-            '1': guild.emojis.cache.find(e => e.name === '1_'),
-            '2': guild.emojis.cache.find(e => e.name === '2_'),
-            '3': guild.emojis.cache.find(e => e.name === '3_'),
-            '4': guild.emojis.cache.find(e => e.name === '4_'),
-            '5': guild.emojis.cache.find(e => e.name === '5_'),
-            '6': guild.emojis.cache.find(e => e.name === '6_'),
-            '7': guild.emojis.cache.find(e => e.name === '7_'),
-            '8': guild.emojis.cache.find(e => e.name === '8_'),
-            '9': guild.emojis.cache.find(e => e.name === '9_'),
+            '0': Bot.emojis.get('0_'),
+            '1': Bot.emojis.get('1_'),
+            '2': Bot.emojis.get('2_'),
+            '3': Bot.emojis.get('3_'),
+            '4': Bot.emojis.get('4_'),
+            '5': Bot.emojis.get('5_'),
+            '6': Bot.emojis.get('6_'),
+            '7': Bot.emojis.get('7_'),
+            '8': Bot.emojis.get('8_'),
+            '9': Bot.emojis.get('9_'),
         };
 
         membersSize = (' ' + ZeroWidthSpace).repeat(64) + '00000'.slice(0, -(membersSize.toString()).length) + membersSize.toString();

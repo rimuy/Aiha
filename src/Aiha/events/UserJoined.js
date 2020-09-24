@@ -23,7 +23,7 @@ class MemberAddEvent extends Event {
 
                 const guild = member.guild;
 
-                await Status.update(guild);
+                await Status.update(Bot, guild);
                 
                 const id = (await Server.Database.request('GET', 'settings')).welcomeChannel;
                 const mainChannel = guild.channels.cache.get(id);
