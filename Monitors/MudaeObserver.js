@@ -27,7 +27,7 @@ Object.keys(config).forEach(key => {
     
             if (channel && waiting.length) {
     
-                await channel.send(`Os ${key} foram resetados! ${
+                await channel.send(`Os **${key}** foram resetados! ${
                     waiting.map(id => `<@${id}>`).join(' ')
                 }`);
     

@@ -6,5 +6,9 @@
     "rolls": {
         "every": 3600,
         "startTimestamp": 1800
+    },
+    "kakera": {
+        "every": 14400,
+        "startTimestamp": 9000
     }
 }

@@ -19,20 +19,29 @@ class MessageEvent extends Internals.Event {
                 const prefix = settings.prefix;
                 const mudaeChannel = settings.mudaeChannel;
 
-                /* Mudae Observer [Claims] */
-                const married = msg.content
-                    .match(/\*\*(?<user>.+)\*\* and \*\*(?<waifu>.+)\*\* are now married!/s)
-                    || msg.content.match(/\*\*(?<user>.+)\*\* e \*\*(?<waifu>.+)\*\* agora são casados!/s);
+                /* Mudae Observer [Claims, Kakera] */
+                if (user.bot && user.username.match(/Mudae|Muda(maid|butler)\s?\d*/i)) {
+                    const married = msg.content
+                        .match(/\*\*(?<user>.+)\*\* and \*\*(?<waifu>.+)\*\* are now married!/s)
+                        || msg.content.match(/\*\*(?<user>.+)\*\* e \*\*(?<waifu>.+)\*\* agora são casados!/s);
 
-                if ([
-                    user.bot,
-                    user.username.match(/Mudae|Muda(maid|butler)\s?\d*/),
-                    married,
-                ].every(isTrue => isTrue)) {
-                    const marriedMember = msg.guild.members.cache
-                        .find(m => m.user.username === married.groups.user);
+                    if (married) {
+                        const marriedMember = msg.guild.members.cache
+                            .find(m => m.user.username === married.groups.user);
 
-                    marriedMember && await Server.Database.request('POST', `mudae/claims/${marriedMember.id}`);
+                        marriedMember && await Server.Database.request('POST', `mudae/claims/${marriedMember.id}`);
+                    }
+                    //
+
+                    const collectedKakera = msg.content
+                        .match(/\*\*(?<user>.+)\*\* \*\*\+(?<kakera>\d+)\*\* \(\$k\)/s);
+
+                    if (collectedKakera) {
+                        const kakeraMember = msg.guild.members.cache
+                            .find(m => m.user.username === collectedKakera.groups.user);
+
+                        kakeraMember && await Server.Database.request('POST', `mudae/kakera/${kakeraMember.id}`);
+                    }
                 }
                 //
 
