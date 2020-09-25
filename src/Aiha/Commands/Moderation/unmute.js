@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Internals, Modules } = require('../..');
+const { Internals, Modules, Monitors } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
 class Unmute extends Internals.Command {
@@ -19,7 +19,7 @@ class Unmute extends Internals.Command {
     async run(Bot, msg, args) {
 
         const embed = new MessageEmbed().setColor(0xe3c51b);
-        const muteRole = await Modules.MuteRule(msg.guild);
+        const muteRole = Modules.MuteRole.get(msg.guild) || await Modules.MuteRole.create(msg.guild);
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
@@ -50,7 +50,11 @@ class Unmute extends Internals.Command {
 
                 if (member.manageable) 
                     member.roles.remove(muteRole, reason || 'Nenhum motivo foi registrado.')
-                        .then(member => unmutedMembers.add(member.id))
+                        .then(async member => {
+
+                            await Monitors.Muteds.delete(member.id);
+                            unmutedMembers.add(member.id);
+                        })
                         .catch()
                         .finally(res);
                 

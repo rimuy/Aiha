@@ -1,9 +1,13 @@
 const { Permissions } = require('discord.js');
 
-module.exports = async guild => {
-    let role = guild.roles.cache.find(r => r.name.toUpperCase() === 'MUTED');
+class MuteRole {
+    static get(guild) {
+        return guild.roles.cache.find(r => r.name.toUpperCase() === 'MUTED');
+    }
 
-    if (!role) {
+    static async create(guild) {
+        let role;
+
         await guild.roles.create({
             data: {
                 name: 'Muted',
@@ -20,7 +24,7 @@ module.exports = async guild => {
                 guild.channels.cache
                     .filter(ch => ['VIEW_CHANNEL', 'MANAGE_ROLES'].every(p => guild.me.permissionsIn(ch).has(p)))
                     .each(ch => {
-      
+    
                         switch(ch.type) {
                         case 'text':
 
@@ -35,7 +39,9 @@ module.exports = async guild => {
                     });
             })
             .catch(console.log);
+            
+        return role;
     }
+}
 
-    return role;
-};
+module.exports = MuteRole;

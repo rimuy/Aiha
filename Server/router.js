@@ -11,7 +11,7 @@ db.defaults({
     settings: require('./models/Settings'),
     mudae: require('./models/Mudae'),
     users: {},
-    muted: {},
+    muted: [],
     infrations: [],
     levelroles: {},
 }).write();

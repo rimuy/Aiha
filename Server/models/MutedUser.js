@@ -1,5 +1,8 @@
 
 module.exports = {
-    reason: '',
-    timestamp: 0,
+    id: '',
+    moderator: null,
+    time: null,
+    reason: null,
+    timestamp: null,
 };

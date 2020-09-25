@@ -5,6 +5,9 @@ module.exports = (routes, db) => {
     routes.get('/muted', (req, res) => 
         Controller.index(req, res, db));
 
+    routes.get('/muted/:userId', (req, res) => 
+        Controller.index(req, res, db));
+
     routes.post('/muted/:userId', (req, res) => 
         Controller.store(req, res, db));
 

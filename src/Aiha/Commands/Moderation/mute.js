@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Internals, Modules } = require('../..');
+const { Internals, Modules, Monitors } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
 class Mute extends Internals.Command {
@@ -19,7 +19,7 @@ class Mute extends Internals.Command {
     async run(Bot, msg, args) {
 
         const embed = new MessageEmbed().setColor(0xe3c51b);
-        const muteRole = await Modules.MuteRule(msg.guild);
+        const muteRole = Modules.MuteRole.get(msg.guild) || await Modules.MuteRole.create(msg.guild);
 
         const success = Bot.emojis.get('bot2Success');
         const error = Bot.emojis.get('bot2Cancel');
@@ -47,14 +47,14 @@ class Mute extends Internals.Command {
             return msg.channel.send(embed);
         }
 
-        const reason = args.slice(members.size).join(' ');
+        const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
         
         await Promise.all(
             [...members].map(member => new Promise(res => {
 
                 if (member.manageable && !member.permissions.has(this.userPerms)) 
-                    member.roles.add(muteRole, reason || 'Nenhum motivo foi registrado.')
-                        .then(member => {
+                    member.roles.add(muteRole, reason)
+                        .then(async member => {
                             mutedMembers.add(member.id);
 
                             const logEmbed = new Internals.BaseEmbed()
@@ -63,6 +63,11 @@ class Mute extends Internals.Command {
                                     { name: 'Usuário', value: `<@${member.id}>`, inline: true },
                                     { name: 'Motivo', value: `\`${reason}\``, inline: true },
                                 );
+
+                            await Monitors.Muteds.add(member.id, { 
+                                moderator: msg.author.id,
+                                reason,
+                            });
 
                             Modules.Logs(Bot, msg.channel, logEmbed);
                         })

@@ -1,21 +1,56 @@
 const MutedUser = require('../models/MutedUser');
 
-class MutedUserController {
+class MuteUserController {
     static index(req, res, db) {
-        const user = db.get('muted').value();
+        const userId = req.params.userId;
+        const muteds = db.get('muted').value();
+        
+        if (!muteds) {
+            return res.status(400);
+        }
 
-        res.send(user);
+        const muted = muteds.find(m => userId && m.id === userId);
+
+        if (userId && !muted) {
+            return res.status(400).send('User is not muted.');
+        }
+
+        res.send(muted || muteds);
     }
 
     static store(req, res, db) {
-        const post = db.set(`muted.${req.params.userId}`, {
-            ...MutedUser, 
-            ...req.body,
-        })
+        const userId = req.params.userId;
+        const muteds = db.get('muted');
+
+        if (!userId) {
+            return res.status(400).send('Invalid user id.');
+        }
+
+        req.body.id = userId;
+        req.body.timestamp = new Date();
+
+        muteds
+            .push({ ...MutedUser, ...req.body })
+            .write();
+        
+        res.send(muteds.find({ id: userId }).value());
+    }
+
+    static remove(req, res, db) {
+        const id = req.params.userId;
+
+        if (!db.get('muted').find({ id }).value()) {
+            return res.status(400).send('Invalid user id.');
+        }
+
+        const muteds = db.get('muted');
+
+        muteds
+            .remove({ id })
             .write();
 
-        res.send(post);
+        res.send(muteds.value());
     }
 }
 
-module.exports = MutedUserController;
+module.exports = MuteUserController;
