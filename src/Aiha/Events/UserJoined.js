@@ -30,7 +30,6 @@ class MemberAddEvent extends Internals.Event {
                 if (isMuted) {
                     
                     const MuteRole = Modules.MuteRole.get(guild);
-                    console.log('MuteRole', MuteRole);
 
                     if (MuteRole) {
                         await member.roles.add(MuteRole);
