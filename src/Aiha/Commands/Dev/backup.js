@@ -7,7 +7,7 @@ const { MessageAttachment, User } = require('discord.js');
 const moment = require('moment-timezone');
 const Path = require('path');
 
-const filePath = Path.resolve(__dirname, '..', '..', '..', '..', 'server', 'Adapter.json');
+const filePath = Path.resolve(__dirname, '..', '..', '..', '..', 'Server', 'Adapter.json');
 
 class Backup extends Internals.Command {
     constructor() {
