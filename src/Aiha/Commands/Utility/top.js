@@ -26,7 +26,7 @@ class Top extends Internals.Command {
         }
 
         const ranking = Object.keys(users)
-            .filter(u => users[u].level > 0)
+            .filter(u => users[u].level > 0 && users[u].level < 999999)
             .sort((a, b) => {
                 return users[b].level - users[a].level;
             })

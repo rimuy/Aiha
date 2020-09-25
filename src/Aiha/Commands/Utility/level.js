@@ -17,14 +17,15 @@ class Level extends Internals.Command {
 
     async run(Bot, msg) {
 
+        const user = msg.mentions.users.first() || msg.author;
         const users = await Server.Database.request('GET', 'users');
-        const data = users[msg.author.id];
+        const data = users[user.id];
         const embed = new Internals.BaseEmbed();
 
         if (data) {
 
             const ranking = Object.keys(users)
-                .filter(u => users[u].level > 0)
+                .filter(u => users[u].level > 0 && users[u].level < 999999)
                 .sort((a, b) => {
                     return users[b].level - users[a].level;
                 })
@@ -33,21 +34,25 @@ class Level extends Internals.Command {
                 });
 
             embed
-                .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
+                .setAuthor(user.tag, user.displayAvatarURL({ dynamic: true }))
                 .addFields(
                     { 
                         name: `🔸 Level ${data.level}`, 
-                        value: `EXP: \`${data.exp}\`**/**\`${150 + ( 225 * data.level )}\``, 
+                        value: data.level < 999999 
+                            ? `EXP: \`${data.exp}\`**/**\`${150 + ( 225 * data.level )}\``
+                            : 'EXP: `inf`**/**`inf`', 
                         inline: true 
                     },
                     { 
                         name: '📊 Rank', 
-                        value: `#**${(ranking.find(obj => obj.id === msg.author.id) || { order: 'N/A' } ).order}**`, 
+                        value: data.level < 999999 
+                            ? `#**${(ranking.find(obj => obj.id === user.id) || { order: 'N/A' } ).order}**`
+                            : '#**0**', 
                         inline: true 
                     },
                 );
         } else {
-            embed.setDescription('Você ainda não possui uma conta registrada.');
+            embed.setDescription('Este usuário ainda não possui uma conta registrada.');
         }
 
         msg.channel.send(embed);
