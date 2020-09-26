@@ -13,7 +13,7 @@ class MessageDeleteBulkEvent extends Internals.Event {
             callback: async (Bot, msgs) => {
                 
                 const channel = msgs.first().channel;
-                const embed = new Modules.BaseEmbed()
+                const embed = new Internals.BaseEmbed()
                     .setTitle('🗑️ Coleção de mensagens deletadas')
                     .addFields(
                         { name: 'Canal', value: `<#${channel.id}>`, inline: true },
