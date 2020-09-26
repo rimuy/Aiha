@@ -18,7 +18,7 @@ db.defaults({
 
 routes.get('/', (_, res) => res.send(db.value()));
 
-consign()
+consign({ verbose: false })
     .include('Server/routes')
     .into(routes, db);
 

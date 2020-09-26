@@ -1,8 +1,7 @@
-console.log('\x1b[35m');
 require('dotenv').config();
 require('moment-timezone').tz.setDefault('America/Sao_Paulo');
-require('../../Server');
 const { Internals, Monitors } = require('.');
+require('../../Server');
 
 const bot = new Internals.Bot();
 bot.client.login(
@@ -11,6 +10,9 @@ bot.client.login(
         : process.env.TOKEN
 )
     .then(() => {
-        Monitors.MudaeObserver.setBot(bot);
+        Monitors.MudaeObserver.Bot = bot;
         Monitors.Muteds.Bot = bot;
+        console.log('\x1b' + Internals.Constants.ConsoleColors.FG_CYAN);
+        Internals.Extenders = require('consign')({ loggingType: 'info' })
+            .include('Internals/Extenders').into(bot);
     });

@@ -5,9 +5,12 @@ var bot;
 
 class MudaeObserver {
 
-    static setBot(obj) {
+    static get Bot() {
+        return bot;
+    }
+
+    static set Bot(obj) {
         bot = obj;
-        return this;
     }
 
 }
