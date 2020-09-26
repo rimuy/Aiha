@@ -74,7 +74,7 @@ class Mute extends Internals.Command {
             const table = format[key];
 
             if (table && table.f && table.f.length) 
-                time += parseInt(table.f[0]) * Math.min(table.eq, table.max);
+                time += parseInt(table.f[0]) * Math.min(table.eq, table.max * table.eq);
         });
 
         await Promise.all(
@@ -113,8 +113,10 @@ class Mute extends Internals.Command {
                 const member = [...members][0];
     
                 if (mutedMembers.has(member.id)) {
+                    const desc = time > 0 ? `por \`${timeFormat}\`.` : 'com sucesso.';
+
                     embed
-                        .setDescription(`${success} \`${member.user.tag}\` **foi mutado(a) com sucesso.**`)
+                        .setDescription(`${success} \`${member.user.tag}\` **foi mutado(a) ${desc}**`)
                         .setColor(0x27db27);
                     
                     return;
