@@ -55,8 +55,8 @@ class Warn extends Internals.Command {
                             .addFields(
                                 { name: 'Usuário', value: `<@${member.id}>`, inline: true },
                                 { name: 'Moderador', value: `<@${msg.author.id}>`, inline: true },
-                                { name: 'Caso', value: `\`${inf._case}\`` },
-                                { name: 'Motivo', value: `\`${infration}\`` },
+                                { name: 'Caso', value: `\`${inf._case}\``, inline: true },
+                                { name: 'Motivo', value: `\`${infration}\``, inline: true },
                             );
     
                         Modules.Logs(Bot, msg.channel, logEmbed);
