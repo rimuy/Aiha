@@ -1,4 +1,4 @@
-const { Internals } = require('..');
+const { BaseEmbed } = require('../Internals');
 const Logs = require('./Logs');
 
 const users = new Map();
@@ -35,7 +35,7 @@ module.exports = async message => {
         messages.clear();
 
         Logs(false, message.channel,
-            new Internals.BaseEmbed()
+            new BaseEmbed()
                 .setAuthor('Spam Detectado', user.displayAvatarURL({ dynamic: true }))
                 .addFields(
                     { name: 'Usuário', value: `<@${user.id}>`, inline: true },
