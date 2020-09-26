@@ -12,7 +12,7 @@ class MuteUserController {
         const muted = muteds.find(m => userId && m.id === userId);
 
         if (userId && !muted) {
-            return res.status(400).send('User is not muted.');
+            return res.status(400).send({ error: 'User is not muted.' });
         }
 
         res.send(muted || muteds);
@@ -23,7 +23,7 @@ class MuteUserController {
         const muteds = db.get('muted');
 
         if (!userId) {
-            return res.status(400).send('Invalid user id.');
+            return res.status(400).send({ error: 'Invalid user id.' });
         }
 
         req.body.id = userId;
@@ -40,7 +40,7 @@ class MuteUserController {
         const id = req.params.userId;
 
         if (!db.get('muted').find({ id }).value()) {
-            return res.status(400).send('Invalid user id.');
+            return res.status(400).send({ error: 'Invalid user id.' });
         }
 
         const muteds = db.get('muted');
