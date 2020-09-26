@@ -113,7 +113,7 @@ class Mute extends Internals.Command {
                 const member = [...members][0];
     
                 if (mutedMembers.has(member.id)) {
-                    const desc = time > 0 ? `por \`${timeFormat}\`.` : 'com sucesso.';
+                    const desc = time > 0 ? `por **\`${timeFormat}\`**.` : 'com sucesso.';
 
                     embed
                         .setDescription(`${success} \`${member.user.tag}\` **foi mutado(a) ${desc}**`)
@@ -131,7 +131,7 @@ class Mute extends Internals.Command {
                 if (mutedMembers.size) {
                     embed
                         .setTitle('Membros mutados')
-                        .setDescription([...members].map(m => 
+                        .setDescription(time > 0 ? `**Tempo:** \`${timeFormat}\`\n\n` : '' + [...members].map(m => 
                             `${mutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
                         );
 
