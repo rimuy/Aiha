@@ -10,4 +10,7 @@ bot.client.login(
         ? process.env.TESTER 
         : process.env.TOKEN
 )
-    .then(() => Monitors.MudaeObserver.setBot(bot));
+    .then(() => {
+        Monitors.MudaeObserver.setBot(bot);
+        Monitors.Muteds.Bot = bot;
+    });

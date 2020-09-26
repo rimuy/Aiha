@@ -9,7 +9,7 @@ class Unmute extends Internals.Command {
     constructor() {
         super('unmute', {
             description: 'Tira o cargo de silenciamento de todos os membros citados.',
-            usage: 'unmute `<@membro>` `[motivo]`',
+            usage: 'unmute `<@membros[]>` `[motivo]`',
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['MANAGE_ROLES']

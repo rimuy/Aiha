@@ -9,7 +9,7 @@ class Mute extends Internals.Command {
     constructor() {
         super('mute', {
             description: 'Silencia todos os membros citados.',
-            usage: 'mute `<@membro>` `[motivo]`',
+            usage: 'mute `<@membros[]>` `[tempo (Ex: 1h30m)]` `[motivo]`',
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['MANAGE_ROLES']
@@ -47,8 +47,36 @@ class Mute extends Internals.Command {
             return msg.channel.send(embed);
         }
 
-        const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
-        
+        const timeFormat = (args[members.size] || '');
+        const reason = args.slice(members.size + 1).join(' ') || 'Nenhum motivo foi registrado.';
+
+        const format = {
+            hours: { 
+                f: timeFormat.match(/(\d+)h/gi), 
+                eq: 60*60000, 
+                max: 72 
+            },
+            minutes: { 
+                f: timeFormat.match(/(\d+)m/gi), 
+                eq: 60000, 
+                max: 59 
+            },
+            seconds: { 
+                f: timeFormat.match(/(\d+)s/gi), 
+                eq: 1000, 
+                max: 59 
+            },
+        };
+
+        let time = 0;
+
+        Object.keys(format).forEach(key => {
+            const table = format[key];
+
+            if (table && table.f && table.f.length) 
+                time += parseInt(table.f[0]) * Math.min(table.eq, table.max);
+        });
+
         await Promise.all(
             [...members].map(member => new Promise(res => {
 
@@ -66,6 +94,8 @@ class Mute extends Internals.Command {
 
                             await Monitors.Muteds.add(member.id, { 
                                 moderator: msg.author.id,
+                                guild: msg.guild.id,
+                                time: time > 0 ? time : null,
                                 reason,
                             });
 
