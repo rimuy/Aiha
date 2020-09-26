@@ -25,7 +25,7 @@ class MemberAddEvent extends Internals.Event {
                 const guild = member.guild;
 
                 await Monitors.MemberCounter.update(Bot, guild);
-                const isMuted = await Monitors.Muteds.get(member.id);
+                const isMuted = !(await Monitors.Muteds.get(member.id)).error;
 
                 if (isMuted) {
                     
