@@ -1,4 +1,4 @@
-const { BaseEmbed } = require('../Internals');
+const BaseEmbed = require('../Internals/Structures/BaseEmbed');
 const Logs = require('./Logs');
 
 const users = new Map();
