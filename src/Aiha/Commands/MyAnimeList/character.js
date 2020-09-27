@@ -16,10 +16,9 @@ class Character extends Internals.Command {
     }
 
     async run(Bot, msg, args) {
-        args = args.join(' ').split('$');
+        args = args.join(' ').split(Internals.Constants.PageSeparator);
 
         const char = args[0];
-        const page = Math.max(0, parseInt(args[1] || '0') - 1);
 
         msg.channel.startTyping();
         await API.request('GET', url + `search/character/?q=${char}`)
@@ -49,7 +48,7 @@ class Character extends Internals.Command {
                     ],
                 }));
 
-                new Internals.PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, embedData)
                     .setColor(color)
                     .send();
 

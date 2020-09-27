@@ -17,7 +17,7 @@ class Schedule extends Internals.Command {
     }
 
     async run(Bot, msg, args) {
-        args = args.join(' ').split('$');
+        args = args.join(' ').split(Internals.Constants.PageSeparator);
 
         const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         const weekDaysBR = {
@@ -33,8 +33,6 @@ class Schedule extends Internals.Command {
         let day = (args[0] || weekDays[moment().weekday()])
             .toLowerCase()
             .replace(/-feira/g, '');
-
-        const page = Math.max(0, parseInt(args[1] || '0') - 1);
 
         day = weekDaysBR[day]
             ? weekDaysBR[day]
@@ -65,7 +63,7 @@ class Schedule extends Internals.Command {
                     };
                 });
 
-                new Internals.PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, embedData)
                     .setColor(color)
                     .send();
 

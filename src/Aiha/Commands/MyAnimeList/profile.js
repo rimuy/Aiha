@@ -17,7 +17,7 @@ class Profile extends Internals.Command {
     }
 
     async run(Bot, msg, args) {
-        args = args.join(' ').split('$');
+        args = args.join(' ').split(Internals.Constants.PageSeparator);
         const mention = msg.mentions.users.first();
 
         const user = mention 
@@ -25,8 +25,6 @@ class Profile extends Internals.Command {
             : (
                 args[0] // ID or string
             ) || (await Server.Database.request('GET', `users/${msg.author.id}`)).mal; // Own
-
-        const page = Math.max(0, parseInt(args[1] || '0') - 1);
 
         const genders = {
             'Male': 'Masculino',
@@ -212,7 +210,7 @@ class Profile extends Internals.Command {
                     },
                 ];
 
-                new Internals.PageEmbed(msg, embedData.map(() => ZeroWidthSpace), 1, page, embedData)
+                new Internals.PageEmbed(msg, embedData.map(() => ZeroWidthSpace), 1, embedData)
                     .setColor(color)
                     .send();
 

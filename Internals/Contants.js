@@ -2,6 +2,7 @@
 module.exports = {
     Package: require('../package.json'),
     Errors: require('./Errors'),
+    PageSeparator: '$',
     ConsoleColors: {
         NORMAL:     '[0m',
         BRIGHT:     '[1m',

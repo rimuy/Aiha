@@ -1,5 +1,6 @@
-const BaseEmbed = require('./BaseEmbed');
+const { PageSeparator } = require('../Contants');
 const { ReactionCollector, MessageEmbed } = require('discord.js');
+const BaseEmbed = require('./BaseEmbed');
 
 class PageEmbed extends MessageEmbed {
 
@@ -8,7 +9,7 @@ class PageEmbed extends MessageEmbed {
     pages = [''];
     current = 0;
 
-    constructor(message, listOrString, limit = 20, page = 0, embedData = []) {
+    constructor(message, listOrString, limit = 20, embedData = []) {
         super();
 
         this.#message = message;
@@ -38,6 +39,14 @@ class PageEmbed extends MessageEmbed {
                 this.pages[n] += e + '\n';
             });
         }
+
+        const page = (
+            parseInt(message.content
+                .split(' ')
+                .slice(1)
+                .join(' ')
+                .split(PageSeparator)[1]) || 1
+        ) - 1;
 
         this.current = this.current = page > this.pages.length
             ? this.pages.length - 1 

@@ -16,10 +16,9 @@ class Anime extends Internals.Command {
     }
 
     async run(Bot, msg, args) {
-        args = args.join(' ').split('$');
+        args = args.join(' ').split(Internals.Constants.PageSeparator);
 
         const anime = args[0];
-        const page = Math.max(0, parseInt(args[1] || '0') - 1);
 
         if (!anime) return;
 
@@ -55,7 +54,7 @@ class Anime extends Internals.Command {
                     };
                 });
 
-                new Internals.PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, embedData)
                     .setColor(color)
                     .send();
 

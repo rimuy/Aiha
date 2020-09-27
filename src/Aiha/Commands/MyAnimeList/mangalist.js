@@ -18,7 +18,7 @@ class MangaList extends Internals.Command {
 
     async run(Bot, msg, args) {
         
-        args = args.join(' ').split('$');
+        args = args.join(' ').split(Internals.Constants.PageSeparator);
         const mention = msg.mentions.users.first();
 
         const user = mention 
@@ -26,8 +26,6 @@ class MangaList extends Internals.Command {
             : (
                 args[0] // ID or string
             ) || (await Server.Database.request('GET', `users/${msg.author.id}`)).mal; // Own
-
-        const page = Math.max(0, parseInt(args[1] || '0') - 1);
 
         msg.channel.startTyping();
         await API.request('GET', url + `user/${user}/mangalist`)
@@ -82,7 +80,7 @@ class MangaList extends Internals.Command {
                     ],
                 }));
 
-                new Internals.PageEmbed(msg, mangas.map(() => ZeroWidthSpace), 1, page, embedData)
+                new Internals.PageEmbed(msg, mangas.map(() => ZeroWidthSpace), 1, embedData)
                     .setColor(color)
                     .send();
 

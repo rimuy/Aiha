@@ -17,12 +17,11 @@ class Season extends Internals.Command {
     }
 
     async run(Bot, msg, args) {
-        args = args.join(' ').split('$');
+        args = args.join(' ').split(Internals.Constants.PageSeparator);
         const params = args[0].split(' ');
 
         let season = params[0];
         const year = parseInt(params[1] || moment().format('YYYY'));
-        const page = Math.max(0, parseInt(args[1] || '0') - 1);
 
         const seasons = new Set()
             .add('summer')
@@ -75,7 +74,7 @@ class Season extends Internals.Command {
                     };
                 });
 
-                new Internals.PageEmbed(msg, description, 1, page, embedData)
+                new Internals.PageEmbed(msg, description, 1, embedData)
                     .setColor(color)
                     .send();
 
