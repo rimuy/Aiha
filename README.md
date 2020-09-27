@@ -26,11 +26,13 @@ Features
 - [x] Moderation
 - [x] Leveling system
 - [x] GIFs & Images API
-- [ ] Economy
+- [ ] User Profiles
+- [ ] Relationship status
+- [ ] Quiz Minigame
 - [ ] Image editing
+- [ ] Economy
 - [x] MyAnimeList Integration
-- [ ] AniList Integration
-- [ ] Minecraft Server
+- [ ] Minecraft Client & Commands
 
 Contributing
 ------------
