@@ -1,10 +1,8 @@
 
 module.exports = async message => {
 
-    if (
-        [
-            'discord.gg',
-        ].some(e => message.content.toLowerCase().includes(e))) {
+    if (!message.member.hasPermission('ADMINISTRATOR') 
+        && message.content.match(/d\s*i\s*s\s*c\s*o\s*r\s*d\s*\.\s*g\s*g\s*\/\s*.+/gmi)) {
         const success = await message.delete().then(async () => {
             await message.channel.send(`<@${message.author.id}> **Não é permitido divulgação!**`)
                 .then(m => m.delete({ timeout: 3000 }));
