@@ -10,7 +10,7 @@ class MessageDeleteBulkEvent extends Internals.Event {
     constructor() {
         super({
             event: 'messageDeleteBulk',
-            callback: async (Bot, msgs) => {
+            callback: async (_, msgs) => {
                 
                 const channel = msgs.first().channel;
                 const embed = new Internals.BaseEmbed()
@@ -29,8 +29,8 @@ class MessageDeleteBulkEvent extends Internals.Event {
 
                 const attachment = new MessageAttachment(buffer, `${Date.now()}-${channel.id}-${channel.name}.log`);
 
-                await Modules.Logs(Bot, channel, embed);
-                Modules.Logs(Bot, channel, attachment);
+                await Modules.Logs(channel.guild, embed);
+                Modules.Logs(channel.guild, attachment);
             }
         });
     }

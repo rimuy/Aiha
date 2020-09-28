@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Internals, Modules, Monitors } = require('../..');
+const { Internals, Modules } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
 class Mute extends Internals.Command {
@@ -81,29 +81,20 @@ class Mute extends Internals.Command {
             [...members].map(member => new Promise(res => {
 
                 if (member.manageable && !member.permissions.has(this.userPerms)) 
-                    member.roles.add(muteRole, reason)
-                        .then(async member => {
+                    member.mute({ 
+                        moderator: msg.author.id,
+                        guild: msg.guild.id,
+                        time: time > 0 ? time : null,
+                        reason,
+                    })
+                        .then(member => {
+
                             mutedMembers.add(member.id);
 
-                            const logEmbed = new Internals.BaseEmbed()
-                                .setTitle('Membro Silenciado')
-                                .addFields(
-                                    { name: 'Usuário', value: `<@${member.id}>`, inline: true },
-                                    { name: 'Motivo', value: `\`${reason}\``, inline: true },
-                                );
-
-                            await Monitors.Muteds.add(member.id, { 
-                                moderator: msg.author.id,
-                                guild: msg.guild.id,
-                                time: time > 0 ? time : null,
-                                reason,
-                            });
-
-                            Modules.Logs(Bot, msg.channel, logEmbed);
                         })
                         .catch()
                         .finally(res);
-                
+
             }))
         );
 

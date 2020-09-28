@@ -33,6 +33,14 @@ class MemberAddEvent extends Internals.Event {
 
                     if (MuteRole) {
                         await member.roles.add(MuteRole);
+                        const logEmbed = new Internals.BaseEmbed()
+                            .setTitle('Usuário entrou no servidor, porém permanece mutado.')
+                            .addFields(
+                                { name: 'Usuário', value: `<@${member.id}>`, inline: true },
+                                { name: 'ID', value: member.id, inline: true },
+                            );
+
+                        Modules.Logs(guild, logEmbed);
                     }
                     
                 } else {

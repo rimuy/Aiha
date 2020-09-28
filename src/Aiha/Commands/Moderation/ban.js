@@ -53,7 +53,7 @@ class Ban extends Internals.Command {
                                     { name: 'Motivo', value: `\`${reason}\``, inline: true },
                                 );
 
-                            Modules.Logs(Bot, msg.channel, logEmbed);
+                            Modules.Logs(msg.guild, logEmbed);
                         })
                         .catch()
                         .finally(res);

@@ -1,14 +1,14 @@
 const Server = require('../Server');
 
-module.exports = async (Bot, channel, content) => {
+module.exports = async (guild, content) => {
 
-    if (!Bot.fetched) {
-        await channel.guild.fetch();
-        Bot.fetched = true;
+    if (!guild.Instance.fetched) {
+        await guild.fetch();
+        guild.Instance.fetched = true;
     }
 
     const id = (await Server.Database.request('GET', 'settings')).logChannel;
-    const logChannel = channel.guild.channels.cache.get(id);
+    const logChannel = guild.channels.cache.get(id);
 
     if (!logChannel) return;
 

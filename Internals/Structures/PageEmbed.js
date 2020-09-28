@@ -8,7 +8,7 @@ class PageEmbed extends MessageEmbed {
 
     #message;
     embedData = [];
-    pages = [];
+    pages = [''];
     current = 0;
 
     constructor(message, listOrString, limit = 20, embedData = []) {
@@ -29,7 +29,7 @@ class PageEmbed extends MessageEmbed {
                     this.pages[++this.current] = '';
                 }
 
-                this.pages[this.current] = '' + e;
+                this.pages[this.current] += e;
                 sizeCount += e.length;
             });
 

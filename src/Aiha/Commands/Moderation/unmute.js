@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Internals, Modules, Monitors } = require('../..');
+const { Internals, Modules } = require('../..');
 const { MessageEmbed } = require('discord.js');
 
 class Unmute extends Internals.Command {
@@ -43,21 +43,16 @@ class Unmute extends Internals.Command {
             return msg.channel.send(embed);
         }
 
-        const reason = args.slice(members.size).join(' ');
+        const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
         
         await Promise.all(
             [...members].map(member => new Promise(res => {
 
                 if (member.manageable) 
-                    member.roles.remove(muteRole, reason || 'Nenhum motivo foi registrado.')
-                        .then(async member => {
-
-                            await Monitors.Muteds.delete(member.id);
-                            unmutedMembers.add(member.id);
-                        })
+                    member.unmute(reason)
+                        .then(member => unmutedMembers.add(member.id))
                         .catch()
                         .finally(res);
-                
             }))
         );
 

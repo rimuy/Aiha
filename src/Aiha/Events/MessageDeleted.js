@@ -38,7 +38,7 @@ class MessageDeleteEvent extends Internals.Event {
                         { name: 'Conteúdo', value: `\`\`\`\n${msg.content}\n\`\`\`` },
                     );
 
-                Modules.Logs(Bot, msg.channel, embed);
+                Modules.Logs(msg.guild, embed);
             }
         });
     }

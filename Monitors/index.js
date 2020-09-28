@@ -4,5 +4,5 @@ module.exports = {
     EventListener: require('./EventListener'),
     MemberCounter: require('./MemberCounter'),
     MudaeObserver: require('./MudaeObserver'),
-    Muteds: require('./Muteds'),
+    MuteManager: require('./MuteManager'),
 };

@@ -1,4 +1,6 @@
 const { Client, Collection, Intents } = require('discord.js');
+const Internals = require('..');
+const Constants = require('../Contants');
 const Monitors = require('../../Monitors');
 const Configuration = require('../../Configuration');
 const Server = require('../../Server');
@@ -9,6 +11,14 @@ var fetched = false;
 
 class AihaBot {
     constructor() {
+
+        console.log('\x1b' + Constants.ConsoleColors.FG_CYAN);
+        Internals.Extenders = require('consign')({ loggingType: 'info' })
+            .include('Internals/Extenders').into(this);
+
+        this.client = new Client({
+            ws: { intents: Intents.ALL }
+        });
         
         this.client.once('ready', async () => {
             log('FG_YELLOW', 'Ready.');
@@ -36,10 +46,6 @@ class AihaBot {
             
     }
 
-    client = new Client({
-        ws: { intents: Intents.ALL }
-    });
-
     CommandHandler;
     EventListener;
 
@@ -61,7 +67,7 @@ class AihaBot {
 
     categoriesEmojis = new Collection();
 
-    timedMutes = new Collection();
+    pageEmbeds = new Collection();
 
     report = require('../../Modules/BotReport');
 
