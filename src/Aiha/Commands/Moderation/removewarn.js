@@ -8,7 +8,7 @@ class RemoveWarn extends Internals.Command {
     constructor() {
         super('removewarn', {
             description: 'Limpa todos as infrações registradas do membro citado.',
-            usage: 'removewarn `[@membro]` `<#númeroDoCaso>`',
+            usage: 'removewarn `<#númeroDoCaso>`',
             aliases: ['rw'],
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
