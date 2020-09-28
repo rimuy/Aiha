@@ -2,11 +2,13 @@ const { PageSeparator } = require('../Contants');
 const { ReactionCollector, MessageEmbed } = require('discord.js');
 const BaseEmbed = require('./BaseEmbed');
 
+const cache = new Map();
+
 class PageEmbed extends MessageEmbed {
 
     #message;
     embedData = [];
-    pages = [''];
+    pages = [];
     current = 0;
 
     constructor(message, listOrString, limit = 20, embedData = []) {
@@ -27,7 +29,7 @@ class PageEmbed extends MessageEmbed {
                     this.pages[++this.current] = '';
                 }
 
-                this.pages[this.current] += e;
+                this.pages[this.current] = '' + e;
                 sizeCount += e.length;
             });
 
@@ -61,6 +63,9 @@ class PageEmbed extends MessageEmbed {
         const pages = this.pages;
         let current = this.current;
 
+        const cached = cache.get(message.author.id);
+        cached && cached.stop();
+
         this.setDescription(this.pages[this.current]);
 
         if (this.pages.length > 1) {
@@ -76,18 +81,29 @@ class PageEmbed extends MessageEmbed {
 
                 if (pages.length < 2) return;
 
+                const pageReactions = ['pleft', 'pright'];
+                const reactions = [];
+
+                const manager = [
+                    () => current - 1,
+                    () => current + 1,
+                ];
+
+                pageReactions
+                    .map((key, i) => {
+                        const emoji = message.Instance.emojis.get(key);
+                        const e = emoji ? `:${emoji.name}:${emoji.id}` : ['⬅️', '➡️'][i % 2];
+
+                        emoji 
+                            ? reactions.push(emoji.name)
+                            : reactions.push(e);
+                    
+                        return e;
+                    })
+                    .forEach(async emoji => await msg.react(emoji));
+
                 const filter = (reaction, user) => 
-                    reactions[reaction.emoji.name] && user.equals(message.author);
-
-                const reactions = {
-                    '⬅️': () => current - 1,
-                    '➡️': () => current + 1,
-                };
-                const keys = Object.keys(reactions);
-
-                await msg.react(keys[0])
-                    .then(async () => await msg.react(keys[1]))
-                    .catch();
+                    manager[reactions.indexOf(reaction.emoji.name)] && user.equals(message.author);
 
                 const startTime = Date.now();
                 const unfreezeTime = 10000;
@@ -107,9 +123,10 @@ class PageEmbed extends MessageEmbed {
                 };
 
                 const collector = new ReactionCollector(msg, filter);
+                cache.set(message.author.id, collector);
 
                 collector.on('collect', async reaction => {
-                    const newIndex = reactions[reaction.emoji.name]();
+                    const newIndex = manager[reactions.indexOf(reaction.emoji.name)]();
 
                     if (newIndex >= 0 && newIndex <= pages.length - 1) {
                         current = newIndex;
@@ -122,12 +139,15 @@ class PageEmbed extends MessageEmbed {
                         await msg.edit(this);
                         timer();
                     }
+
+                    reaction.users.cache.forEach(async user => 
+                        !user.equals(msg.author) && await reaction.users.remove(user.id));
                     
                 });
 
                 collector.on('end', async () => {
-                    await msg.reactions.removeAll();
                     msg.edit(this.setTimestamp().setFooter(`Página ${current + 1}`));
+                    cache.delete(message.author.id);
                 });
 
                 timer();
