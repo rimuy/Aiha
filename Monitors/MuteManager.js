@@ -33,7 +33,7 @@ class MuteManager {
                             .setTitle('Membro Silenciado')
                             .addFields(
                                 { name: 'Usuário', value: `<@${member.id}>`, inline: true },
-                                { name: 'Motivo', value: `\`${res.reason}\``, inline: true },
+                                { name: 'Motivo', value: `\`${res.reason || 'Nenhum motivo foi registrado.'}\``, inline: true },
                                 { name: 'Moderador', value: res.moderator ? `<@${res.moderator}>` : 'N/A', inline: true },
                             );
 
@@ -65,7 +65,7 @@ class MuteManager {
                             .setTitle('Membro Desmutado')
                             .addFields(
                                 { name: 'Usuário', value: `<@${member.id}>`, inline: true },
-                                { name: 'Motivo', value: `\`${muted.reason}\``, inline: true },
+                                { name: 'Motivo', value: `\`${muted.reason || 'Nenhum motivo foi registrado.'}\``, inline: true },
                                 { name: 'Moderador', value: muted.moderator ? `<@${muted.moderator}>` : 'N/A', inline: true },
                             );
 

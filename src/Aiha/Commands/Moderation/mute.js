@@ -87,11 +87,7 @@ class Mute extends Internals.Command {
                         time: time > 0 ? time : null,
                         reason,
                     })
-                        .then(member => {
-
-                            mutedMembers.add(member.id);
-
-                        })
+                        .then(member => mutedMembers.add(member.id))
                         .catch()
                         .finally(res);
 
