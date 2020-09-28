@@ -37,7 +37,7 @@ class MuteManager {
                                 { name: 'Moderador', value: res.moderator ? `<@${res.moderator}>` : 'N/A', inline: true },
                             );
 
-                        Logs(this.Bot, guild, logEmbed);
+                        Logs(guild, logEmbed);
                     })
                     .catch(() => 'Either member is not in the guild or the role doesn\'t exist.');
             }
@@ -69,7 +69,7 @@ class MuteManager {
                                 { name: 'Moderador', value: muted.moderator ? `<@${muted.moderator}>` : 'N/A', inline: true },
                             );
 
-                        Logs(this.Bot, guild, logEmbed);
+                        Logs(guild, logEmbed);
                     })
                     .catch(() => 'Either member is not in the guild or the role doesn\'t exist.');
             }
