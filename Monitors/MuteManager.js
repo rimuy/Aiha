@@ -4,7 +4,7 @@ const { BaseEmbed } = require('../Internals');
 const moment = require('moment-timezone');
 const timeouts = new Map();
 
-class Muteds {
+class MuteManager {
 
     static #botInstance;
 
@@ -42,7 +42,7 @@ class Muteds {
                     .catch(() => 'Either member is not in the guild or the role doesn\'t exist.');
             }
 
-            await Muteds.check(res);
+            await MuteManager.check(res);
         }
 
         return res;
@@ -95,14 +95,14 @@ class Muteds {
                 timeouts.delete(muted.id);
             }
 
-            await Muteds.delete(muted.id);
+            await MuteManager.delete(muted.id);
         }
         else if (!timeouts.has(muted.id)) {
 
             timeouts.set(
                 muted.id, 
                 setTimeout(async () => {
-                    await Muteds.delete(muted.id);
+                    await MuteManager.delete(muted.id);
                     timeouts.delete(muted.id);
 
                 }, muted.time - timePassed)
@@ -116,7 +116,7 @@ class Muteds {
     const all = await Server.Database.request('GET', 'muted');
     if (!all || !all.length) return;
 
-    all.filter(muted => muted.time).forEach(Muteds.check);
+    all.filter(muted => muted.time).forEach(MuteManager.check);
 })();
 
-module.exports = Muteds;
+module.exports = MuteManager;

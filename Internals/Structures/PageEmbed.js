@@ -63,9 +63,6 @@ class PageEmbed extends MessageEmbed {
         const pages = this.pages;
         let current = this.current;
 
-        const cached = cache.get(message.author.id);
-        cached && cached.stop();
-
         this.setDescription(this.pages[this.current]);
 
         if (this.pages.length > 1) {
@@ -80,6 +77,9 @@ class PageEmbed extends MessageEmbed {
             .then(async msg => {
 
                 if (pages.length < 2) return;
+
+                const cached = cache.get(message.author.id);
+                cached && cached.stop();
 
                 const pageReactions = ['pleft', 'pright'];
                 const reactions = [];
