@@ -49,8 +49,8 @@ class Unmute extends Internals.Command {
             [...members].map(member => new Promise(res => {
 
                 if (member.manageable) 
-                    member.unmute(reason)
-                        .then(member => unmutedMembers.add(member.id))
+                    member.unmute(reason, msg.author.id)
+                        .then(() => unmutedMembers.add(member.id))
                         .catch()
                         .finally(res);
             }))

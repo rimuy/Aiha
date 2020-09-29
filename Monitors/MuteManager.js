@@ -1,6 +1,6 @@
 const Server = require('../Server');
 const { MuteRole, Logs } = require('../Modules');
-const { BaseEmbed } = require('../Internals');
+const BaseEmbed = require('../Internals/Structures/BaseEmbed');
 const moment = require('moment-timezone');
 const timeouts = new Map();
 
@@ -32,9 +32,21 @@ class MuteManager {
                         const logEmbed = new BaseEmbed()
                             .setTitle('Membro Silenciado')
                             .addFields(
-                                { name: 'Usuário', value: `<@${member.id}>`, inline: true },
-                                { name: 'Motivo', value: `\`${res.reason || 'Nenhum motivo foi registrado.'}\``, inline: true },
-                                { name: 'Moderador', value: res.moderator ? `<@${res.moderator}>` : 'N/A', inline: true },
+                                { 
+                                    name: 'Usuário', 
+                                    value: `<@${member.id}>`, 
+                                    inline: true, 
+                                },
+                                { 
+                                    name: 'Moderador', 
+                                    value: res.moderator ? `<@${res.moderator}>` : `<@${this.Bot.client.user.id}>`, 
+                                    inline: true, 
+                                },
+                                { 
+                                    name: 'Motivo', 
+                                    value: `\`${res.reason || 'Nenhum motivo foi registrado.'}\``, 
+                                    inline: false, 
+                                },
                             );
 
                         Logs(guild, logEmbed);
@@ -48,7 +60,7 @@ class MuteManager {
         return res;
     }
 
-    static async delete(id) {
+    static async delete(id, reason, moderator = this.Bot.client.user.id) {
         const muted = await this.get(id);
 
         if (muted.id && muted.guild) {
@@ -59,14 +71,26 @@ class MuteManager {
 
                 await guild.members.fetch(muted.id)
                     .then(member => {
-                        member.roles.remove(muteRole, 'Time expired.');
+                        member.roles.remove(muteRole, reason || 'Time expired.');
 
                         const logEmbed = new BaseEmbed()
                             .setTitle('Membro Desmutado')
                             .addFields(
-                                { name: 'Usuário', value: `<@${member.id}>`, inline: true },
-                                { name: 'Motivo', value: `\`${muted.reason || 'Nenhum motivo foi registrado.'}\``, inline: true },
-                                { name: 'Moderador', value: muted.moderator ? `<@${muted.moderator}>` : 'N/A', inline: true },
+                                { 
+                                    name: 'Usuário', 
+                                    value: `<@${member.id}>`, 
+                                    inline: true,
+                                },
+                                { 
+                                    name: 'Moderador', 
+                                    value: `<@${moderator}>`, 
+                                    inline: true, 
+                                },
+                                { 
+                                    name: 'Motivo', 
+                                    value: `\`${reason || 'Tempo de mute esgotado.'}\``, 
+                                    inline: false, 
+                                },
                             );
 
                         Logs(guild, logEmbed);

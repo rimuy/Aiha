@@ -27,8 +27,8 @@ module.exports = () =>
                 });
             }
 
-            async unmute() {
-                return MuteManager.delete(this.id);
+            async unmute(reason, moderator) {
+                return MuteManager.delete(this.id, reason, moderator);
             }
         }
     
