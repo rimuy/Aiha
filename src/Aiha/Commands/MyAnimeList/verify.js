@@ -26,9 +26,17 @@ class Verify extends Internals.Command {
         
         if (pending.has(msg.author.id)) return;
 
-        const username = args[0] || msg.author.username;
-
+        const username = args[0];
         const embed = new Internals.BaseEmbed();
+
+        if (!username) {
+            return msg.channel.send(
+                embed
+                    .setDescription(`${Bot.emojis.get('bot2Exclamation')} **Indique um nome de usuário válido.**`)
+                    .setColor(0xe3c51b)
+            );
+        }
+        
         const status = (await API.request('GET', url + `user/${username}`)).status;
 
         if (status && status >= 400) {
@@ -76,7 +84,7 @@ class Verify extends Internals.Command {
                         const num = ((web.match(/<span class="user-status-data di-ib fl-r">(\d+?)<\/span>/gs) || [])[0] || '')
                             .replace(/<.*?>(\d+)<.*?>/g, '$1');
 
-                        if (num === generatedNumber.toString()) {
+                        if (num == generatedNumber) {
                             Server.Database.request('PATCH', `users/${msg.author.id}`, { mal: username })
                                 .then(async () => {
 
