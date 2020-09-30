@@ -6,7 +6,7 @@ class BaseEmbed extends MessageEmbed {
         this.setColor(BaseEmbed.defaultColor).setTimestamp();
     }
 
-    static defaultColor = 0xff0a68;
+    static defaultColor = 0xEB144C;
 }
 
 module.exports = BaseEmbed;
