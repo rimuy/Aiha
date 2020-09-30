@@ -7,4 +7,5 @@ module.exports = {
     LevelRoles: require('./LevelRoles'),
     Logs: require('./Logs'),
     MuteRole: require('./MuteRole'),
+    ResultsCollector: require('./ResultsCollector'),
 };

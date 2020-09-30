@@ -2,7 +2,12 @@
 module.exports = {
     Package: require('../package.json'),
     Errors: require('./Errors'),
+    ZeroWidthSpace: '​',
     PageSeparator: '$',
+    ResultsCollector: {
+        MAX_RESULTS: 7,
+        TIMEOUT: 10000,
+    },
     ConsoleColors: {
         NORMAL:     '[0m',
         BRIGHT:     '[1m',

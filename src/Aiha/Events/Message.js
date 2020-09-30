@@ -73,7 +73,20 @@ class MessageEvent extends Internals.Event {
 
                     const args = msg.content.slice(prefix.length).split(/\s+/g);
                     const cmd = (args.shift() || '').toLowerCase();
-                    const command = Bot.commands.get(cmd) || Bot.aliases.get(cmd);
+                    let command = Bot.commands.get(cmd) || Bot.aliases.get(cmd);
+
+                    /* Collector */
+                    if (!command) {
+
+                        await Modules.ResultsCollector(cmd, msg)
+                            .then(async result => {
+                                if (result instanceof Internals.Command) {
+                                    command = result;
+                                } else if (result === 'notFound') {
+                                    await msg.react(Bot.emojis.get('bot2Cancel'));
+                                }
+                            });
+                    }
 
                     if (command) {
 
