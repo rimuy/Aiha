@@ -28,7 +28,7 @@ class MemberRemoveEvent extends Internals.Event {
                     bot.fetched = true;
                 }
 
-                await Monitors.MemberCounter.update(bot, member.guild);
+                await Monitors.MemberCounter.update(member.guild);
             
                 const id = (await Server.Database.request('GET', 'settings')).logChannel;
                 const logChannel = member.guild.channels.cache.get(id);
