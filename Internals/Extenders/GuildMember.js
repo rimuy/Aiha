@@ -1,11 +1,12 @@
 const { Structures } = require('discord.js');
 const { MuteManager } = require('../../Monitors');
 
-module.exports = () => 
+module.exports = Bot => 
     Structures.extend('GuildMember', GuildMember => {
         class AihaGuildMember extends GuildMember {
             constructor(client, data, guild) {
                 super(client, data, guild);
+                this.instance = Bot;
             }
 
             get mention() {
