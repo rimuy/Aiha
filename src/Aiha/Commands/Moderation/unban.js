@@ -16,15 +16,16 @@ class Unban extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args, soft) {
+    async run(msg, args, soft) {
 
+        const bot = msg.instance;
         const bannedList = await msg.guild.fetchBans();
         const unbannedUsers = new Set();
         const embed = new MessageEmbed().setColor(0x1ba4e3);
 
-        const success = Bot.emojis.get('bot2Success');
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const success = bot.emojis.get('bot2Success');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!bannedList.size) {
             embed

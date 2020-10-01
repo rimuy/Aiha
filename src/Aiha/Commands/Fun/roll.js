@@ -16,7 +16,7 @@ class Roll extends Internals.Command {
         });
     }
 
-    run(Bot, msg, args) {
+    run(msg, args) {
 
         const max = parseInt(args[0] || defaultN.toString());
         const result = Math.floor(Math.random() * max) + 1;

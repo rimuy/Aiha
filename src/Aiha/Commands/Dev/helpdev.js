@@ -12,12 +12,13 @@ class HelpDev extends Internals.Command {
         });
     }
     
-    async run(Bot, msg, args) {
+    async run(msg) {
        
-        const commands = Bot.commands.filter(c => c.dev);
+        const bot = msg.instance;
+        const commands = bot.commands.filter(c => c.dev);
 
         const embed = new Internals.BaseEmbed()
-            .setTitle(`${Bot.emojis.get('botdev')} **Developer**`)
+            .setTitle(`${bot.emojis.get('botdev')} **Developer**`)
             .setDescription(commands.map((c, i) => `**<**\`${c.name}\`**/>**${ZeroWidthSpace}${i && !(i % 4) ? '\n' : ' '}`).join(''))
             .setColor(0x03b6fc);
         

@@ -15,14 +15,15 @@ class Warn extends Internals.Command {
         });
     }
 
-    run(Bot, msg, args) {
+    run(msg, args) {
         
+        const bot = msg.instance;
         const id = (args[0] || '').replace(/[<@!>&]/g, '');
         const embed = new Internals.BaseEmbed();
 
-        const success = Bot.emojis.get('bot2Success');
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const success = bot.emojis.get('bot2Success');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!id.length) {
             return msg.channel.send(

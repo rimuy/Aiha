@@ -15,18 +15,20 @@ class Help extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
         
+        const bot = msg.instance;
+
         let cmd = (args[0] || '').toLowerCase();
 
         const categories = new Map();
-        const command = Bot.commands.get(cmd) || Bot.aliases.get(cmd);
+        const command = bot.commands.get(cmd) || bot.aliases.get(cmd);
         const prefix = (await Server.Database.request('GET', 'settings')).prefix;
 
         const embed = new Internals.BaseEmbed()
             .setFooter(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));
 
-        Bot.commands.forEach(c => {
+        bot.commands.forEach(c => {
             if(c.category && !c.hidden && !c.dev && c.category !== 'Admin') {
                 const arr = categories.get(c.category);
 
@@ -54,7 +56,7 @@ class Help extends Internals.Command {
             };
 
             embed
-                .setAuthor('Informações do Comando', Bot.client.user.displayAvatarURL())
+                .setAuthor('Informações do Comando', bot.client.user.displayAvatarURL())
                 .setDescription(
                     Object.keys(info)
                         .filter(key => command[key])
@@ -78,16 +80,16 @@ class Help extends Internals.Command {
 
             embed
                 .setTitle('Lista de Comandos')
-                .setThumbnail(Bot.client.user.displayAvatarURL({
+                .setThumbnail(bot.client.user.displayAvatarURL({
                     format: 'png',
                     size: 256
                 }))
                 .setDescription(
-                    `${Bot.client.user.username} é o bot oficial do nosso servidor!` +
+                    `${bot.client.user.username} é o bot oficial do nosso servidor!` +
                     `\nUse **${prefix}**help **<**comando**>** para obter informações detalhadas\ndo comando.\n\n` +
                     [...categories]
                         .map(e => {
-                            const emoji = Bot.categoriesEmojis.get(e[0]);
+                            const emoji = bot.categoriesEmojis.get(e[0]);
                             return `${emoji ? emoji + ' ' : ''}**${e[0]}:**\n**>** ${e[1].map(c => `\`${c}\`${ZeroWidthSpace}`).join('**,** ')}\n`;
                         })
                         .join('\n')

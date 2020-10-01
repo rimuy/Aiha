@@ -16,20 +16,21 @@ class Prefix extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
         
+        const bot = msg.instance;
         const prefix = args[0];
        
         const embed = new Internals.BaseEmbed();
-        const success = Bot.emojis.get('bot2Success');
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const success = bot.emojis.get('bot2Success');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (prefix) {
             await Server.Database.request('PATCH', 'settings', { prefix })
                 .then(res => {
                     embed.setDescription(`${success} **O prefixo dos comandos foi alterado para** \`${res.prefix}\`**.**`);
-                    Bot.updateStatus();
+                    bot.updateStatus();
                 })
                 .catch(() => {
                     embed

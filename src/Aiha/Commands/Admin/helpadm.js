@@ -17,15 +17,16 @@ class HelpAdmin extends Internals.Command {
         });
     }
 
-    run(Bot, msg) {
+    run(msg) {
 
+        const bot = msg.instance;
         const embed = new Internals.BaseEmbed()
             .setFooter(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));
 
         embed
-            .setTitle(`${Bot.categoriesEmojis.get('Admin')} Lista de Comandos [Admin]`)
+            .setTitle(`${bot.categoriesEmojis.get('Admin')} Lista de Comandos [Admin]`)
             .setDescription(
-                Bot.commands
+                bot.commands
                     .filter(c => c.category === 'Admin')
                     .map(c => {
                         return `\`${c.name}\``;

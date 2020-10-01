@@ -15,11 +15,12 @@ class Waifu extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
+        const bot = msg.instance;
         const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤎', '🤍'];
         const req = await API.NekosLife.waifu;
-        const error = Bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
             .setTitle(`${hearts[Math.floor(Math.random() * hearts.length)]} Waifu`)

@@ -17,7 +17,7 @@ class Warnings extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
 
         const id = (args[0] || msg.author.id)
             .replace(/[<@!>&]/g, '');

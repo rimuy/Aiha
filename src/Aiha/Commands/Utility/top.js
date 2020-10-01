@@ -15,7 +15,7 @@ class Top extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
         const users = await Server.Database.request('GET', 'users');
 

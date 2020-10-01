@@ -16,10 +16,11 @@ class SoftBan extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
 
-        await Bot.commands.get('ban').run(Bot, msg, args, true);
-        await Bot.commands.get('unban').run(Bot, msg, args, true);
+        const bot = msg.instance;
+        await bot.commands.get('ban').run(bot, msg, args, true);
+        await bot.commands.get('unban').run(bot, msg, args, true);
 
         const embed = new MessageEmbed()
             .setDescription('☑️ **Comando executado.**')

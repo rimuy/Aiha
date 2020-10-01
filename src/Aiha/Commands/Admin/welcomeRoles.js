@@ -16,7 +16,7 @@ class WelcomeRoles extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
         
         const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
         

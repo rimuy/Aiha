@@ -16,8 +16,10 @@ class MangaList extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
         
+        const bot = msg.instance;
+
         args = args.join(' ').split(Internals.Constants.PageSeparator);
         const mention = msg.mentions.users.first();
 
@@ -41,7 +43,7 @@ class MangaList extends Internals.Command {
                 ];
                 
                 const embedData = mangas.map(r => ({
-                    title: `${Bot.emojis.get('mal')} ${r.title}`,
+                    title: `${bot.emojis.get('mal')} ${r.title}`,
                     description: `🔍 [Página da lista](https://myanimelist.net/mangalist/${user})\n` +
                         `🔍 [Página do mangá](${r.url})\n${ZeroWidthSpace}`,
                     thumbnail: { url: r.image_url },
@@ -90,7 +92,7 @@ class MangaList extends Internals.Command {
 
                 await msg.channel.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${Bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
+                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)
                 );
             })

@@ -22,7 +22,7 @@ class RPS extends Internals.Command {
         });
     }
 
-    run(Bot, msg, args) {
+    run(msg, args) {
 
         const choice = args[0];
         const botChoice = choices[Math.floor(Math.random() * choices.length)];

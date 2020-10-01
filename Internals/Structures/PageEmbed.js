@@ -91,7 +91,7 @@ class PageEmbed extends MessageEmbed {
 
                 pageReactions
                     .map((key, i) => {
-                        const emoji = message.Instance.emojis.get(key);
+                        const emoji = message.instance.emojis.get(key);
                         const e = emoji ? `:${emoji.name}:${emoji.id}` : ['⬅️', '➡️'][i % 2];
 
                         emoji 

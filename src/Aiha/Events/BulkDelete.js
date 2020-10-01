@@ -10,7 +10,7 @@ class MessageDeleteBulkEvent extends Internals.Event {
     constructor() {
         super({
             event: 'messageDeleteBulk',
-            callback: async (_, msgs) => {
+            callback: async msgs => {
                 
                 const channel = msgs.first().channel;
                 const embed = new Internals.BaseEmbed()

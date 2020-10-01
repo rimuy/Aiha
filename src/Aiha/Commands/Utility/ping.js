@@ -15,11 +15,11 @@ class Ping extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
         const embed = new MessageEmbed()
             .setColor(0x2F3136)
-            .setDescription(`**Ping:** \`${Bot.client.ws.ping}\` ms`);
+            .setDescription(`**Ping:** \`${msg.client.ws.ping}\` ms`);
 
         msg.channel.send(embed);
 

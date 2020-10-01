@@ -21,7 +21,7 @@ class EightBall extends Internals.Command {
         });
     }
 
-    run(_, msg, args) {
+    run(msg, args) {
 
         if (!args.length) return;
 

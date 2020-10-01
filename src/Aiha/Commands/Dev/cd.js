@@ -16,7 +16,7 @@ class CD extends Internals.Command {
         });
     }
     
-    run(Bot, msg, args) {
+    run(msg, args) {
 
         const md = 'css';
         const fullDir = Path.join(__dirname, '..', '..', '..', '..', ...args);

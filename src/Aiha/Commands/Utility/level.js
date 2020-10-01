@@ -15,7 +15,7 @@ class Level extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
         const user = msg.mentions.users.first() || msg.author;
         const users = await Server.Database.request('GET', 'users');

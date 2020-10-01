@@ -16,14 +16,15 @@ class RemoveWarn extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
 
+        const bot = msg.instance;
         const warnCase = parseInt((args[0] || '#0').replace(/#/g, ''));
         const embed = new Internals.BaseEmbed();
 
-        const success = Bot.emojis.get('bot2Success');
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const success = bot.emojis.get('bot2Success');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (warnCase) {
             const infration = await Server.Database.request('GET', `infrations/${warnCase}`);

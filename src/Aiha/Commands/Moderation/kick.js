@@ -16,15 +16,16 @@ class Kick extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
 
+        const bot = msg.instance;
         const members = new Set();
         const kickedMembers = new Set();
         const embed = new MessageEmbed().setColor(0x1ba4e3);
 
-        const success = Bot.emojis.get('bot2Success');
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const success = bot.emojis.get('bot2Success');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         msg.mentions.members.forEach(m => members.add(m));
 

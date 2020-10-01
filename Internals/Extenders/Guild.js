@@ -5,7 +5,7 @@ module.exports = Bot =>
         class AihaGuild extends Guild {
             constructor(client, data) {
                 super(client, data);
-                this.Instance = Bot;
+                this.instance = Bot;
             }
         }
     

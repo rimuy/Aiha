@@ -13,11 +13,11 @@ module.exports = () =>
             }
 
             get pageEmbed() {
-                return this.guild.Instance.pageEmbeds.get(this.id);
+                return this.guild.instance.pageEmbeds.get(this.id);
             }
 
             set pageEmbed(value) {
-                this.guild.Instance.pageEmbeds.set(this.id, value);
+                this.guild.instance.pageEmbeds.set(this.id, value);
             }
 
             async mute(options) {

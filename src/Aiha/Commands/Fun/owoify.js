@@ -16,8 +16,9 @@ class OwOify extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
 
+        const bot = msg.instance;
         const lastMessage = msg.channel.messages.cache.last(2)[0];
         const text = args.length
             ? args.join(' ') 
@@ -27,7 +28,7 @@ class OwOify extends Internals.Command {
                     : null
             );
 
-        const error = Bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('bot2Cancel');
 
         if (!text) {
             return msg.channel.send(

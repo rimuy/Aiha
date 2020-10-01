@@ -17,26 +17,27 @@ class SetRank extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
         
         const id = (args[0] || '')
             .replace(/[<@!>&]/g, '');
 
         const reqLevel = args[1];
 
+        const bot = msg.instance;
         const role = await msg.guild.roles.fetch(id);
 
         if (!role) {
             return msg.channel.send(
                 new MessageEmbed()
-                    .setDescription(`${Bot.emojis.get('bot2Exclamation')} **Cargo inválido.**`)
+                    .setDescription(`${bot.emojis.get('bot2Exclamation')} **Cargo inválido.**`)
                     .setColor(0xe3c51b)
             );
         }
         else if (!reqLevel || !parseInt(reqLevel)) {
             return msg.channel.send(
                 new MessageEmbed()
-                    .setDescription(`${Bot.emojis.get('bot2Exclamation')} **É preciso definir um level acima de 1.**`)
+                    .setDescription(`${bot.emojis.get('bot2Exclamation')} **É preciso definir um level acima de 1.**`)
                     .setColor(0xe3c51b)
             );
         }
@@ -48,11 +49,11 @@ class SetRank extends Internals.Command {
             requiredLevel: parseInt(reqLevel),
         })
             .then(res => {
-                embed.setDescription(`${Bot.emojis.get('bot2Success')} **Cargo \`${role.name}\` foi adicionado com o level requerido de ${res[id].requiredLevel}.**`);
+                embed.setDescription(`${bot.emojis.get('bot2Success')} **Cargo \`${role.name}\` foi adicionado com o level requerido de ${res[id].requiredLevel}.**`);
             })
             .catch(() => {
                 embed
-                    .setDescription(`${Bot.emojis.get('bot2Cancel')} **Ocorreu um erro ao tentar registrar o cargo.**`)
+                    .setDescription(`${bot.emojis.get('bot2Cancel')} **Ocorreu um erro ao tentar registrar o cargo.**`)
                     .setColor(0xF44336);
             });
         

@@ -5,7 +5,7 @@ const { Internals } = require('../src/Aiha');
 const eventsDir = readdirSync(path);
 
 class EventListener {
-    constructor(Bot) {
+    constructor(bot) {
         const files = eventsDir.filter(f => f.endsWith('.js'));
 
         files.forEach(f => {
@@ -14,8 +14,8 @@ class EventListener {
                 const exports = require(path + f);
                 const event = new exports();
 
-                Bot.client.on(event.name, (...args) => event.run(Bot, ...args));
-                Bot.events.set(event.name, event);
+                bot.client.on(event.name, event.run);
+                bot.events.set(event.name, event);
             } catch(e) {
                 Internals.Log('FG_RED', `[${f}] ` + e.message);
             }

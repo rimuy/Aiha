@@ -5,7 +5,7 @@ module.exports = Bot =>
         class AihaUser extends User {
             constructor(client, data) {
                 super(client, data);
-                this.Instance = Bot;
+                this.instance = Bot;
             }
 
             get mention() {

@@ -16,14 +16,15 @@ class Kiss extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
+        const bot = msg.instance;
         const kissed = msg.mentions.users.first();
         const embed = new Internals.BaseEmbed();
         const req = await API.NekosLife.kiss;
 
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!kissed || kissed.equals(msg.author)) {
             return msg.channel.send(

@@ -27,8 +27,10 @@ class Eval extends Internals.Command {
         });
     }
     
-    async run(Bot, msg, args) {
+    async run(msg, args) {
        
+        const Instance = msg.instance;
+
         args = args.join(' ').split('$', 2);
         const page = Math.max(0, parseInt(args[1] || '0') - 1);
 
@@ -36,7 +38,7 @@ class Eval extends Internals.Command {
         const limit = 30;
 
         /* Shortcut variables */
-        const Client = Bot.client;
+        const Client = Instance.client;
         const me = msg.author;
         const guild = msg.guild;
         const users = Client.users;
@@ -60,14 +62,14 @@ class Eval extends Internals.Command {
                 limit,
                 page,
             )
-                .setTitle(`${Bot.emojis.get('botdev')}${`\ ${ZeroWidthSpace}`.repeat(4)}Saída`)
+                .setTitle(`${Instance.emojis.get('botdev')}${`\ ${ZeroWidthSpace}`.repeat(4)}Saída`)
                 .setColor(color)
                 .send();
         } catch(e) {
             
             msg.channel.send(
                 new Internals.BaseEmbed()
-                    .setTitle(`${Bot.emojis.get('bot2Cancel')}${`\ ${ZeroWidthSpace}`.repeat(4)}Erro`)
+                    .setTitle(`${Instance.emojis.get('bot2Cancel')}${`\ ${ZeroWidthSpace}`.repeat(4)}Erro`)
                     .setDescription(`\`\`\`${md}\n${e}\n\`\`\``)
                     .setColor(0xF44336)
             );

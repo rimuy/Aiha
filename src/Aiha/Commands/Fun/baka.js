@@ -16,12 +16,13 @@ class Baka extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
+        const bot = msg.instance;
         const target = msg.mentions.users.first() || msg.author;
         const req = await API.NekosLife.baka;
 
-        const error = Bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
             .setDescription(`💢 **${msg.author.username}** ${

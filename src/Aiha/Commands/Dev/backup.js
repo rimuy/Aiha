@@ -19,7 +19,9 @@ class Backup extends Internals.Command {
         });
     }
     
-    run(Bot, msg, developer) {
+    run(msg, developer) {
+
+        const bot = msg.instance;
 
         const isUser = developer instanceof User;
         if (!msg && !isUser) return;
@@ -35,7 +37,7 @@ class Backup extends Internals.Command {
 
         user.send('', attachment)
             .then(() => { 
-                if (!isUser) return msg.react(Bot.emojis.get('bot2Success'));
+                if (!isUser) return msg.react(bot.emojis.get('bot2Success'));
             })
             .catch();
 

@@ -16,14 +16,15 @@ class Cuddle extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
+        const bot = msg.instance;
         const target = msg.mentions.users.first();
         const embed = new Internals.BaseEmbed();
         const req = await API.NekosLife.cuddle;
 
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!target || target.equals(msg.author)) {
             return msg.channel.send(

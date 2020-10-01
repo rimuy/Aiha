@@ -8,9 +8,9 @@ module.exports = async (key, message) => {
 
     if (cache.has(message.author.id)) return;
 
-    const Bot = message.Instance;
-    const keyMap = Bot.commands;
-    const aliasesMap = Bot.aliases;
+    const bot = message.instance;
+    const keyMap = bot.commands;
+    const aliasesMap = bot.aliases;
 
     let result;
     const allKeywordMatches = new Set();
@@ -54,9 +54,9 @@ module.exports = async (key, message) => {
         const choices = ['s', 'n'];
 
         const question = 
-            `${Bot.emojis.get('bot2QuestionMark')} **Você quis dizer:** \`${mostLikely}\`, **${message.author.username}**? (${choices[0]}/${choices[1].toUpperCase()})`;
+            `${bot.emojis.get('bot2QuestionMark')} **Você quis dizer:** \`${mostLikely}\`, **${message.author.username}**? (${choices[0]}/${choices[1].toUpperCase()})`;
 
-        const timeExpired = `${Bot.emojis.get('bot2Cancel')} **Tempo esgotado.**`;
+        const timeExpired = `${bot.emojis.get('bot2Cancel')} **Tempo esgotado.**`;
         
         cache.set(message.author.id, true);
 
@@ -79,7 +79,7 @@ module.exports = async (key, message) => {
                         }
 
                         await questionMsg.delete();
-                        await choice.react(Bot.emojis.get('bot2Success'));
+                        await choice.react(bot.emojis.get('bot2Success'));
                         
                         switch(choice.content.toLowerCase()) {
                         case choices[0]:

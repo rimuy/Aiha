@@ -11,7 +11,7 @@ class MessageDeleteEvent extends Internals.Event {
     constructor() {
         super({
             event: 'messageDelete',
-            callback: async (Bot, msg) => {
+            callback: async msg => {
 
                 if (!msg.content) return;
 

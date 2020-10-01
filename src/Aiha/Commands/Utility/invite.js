@@ -14,7 +14,7 @@ class Invite extends Internals.Command {
         });
     }
 
-    run(_, msg) {
+    run(msg) {
 
         const response = `> ${msg.content.split(' ')[0]}\nhttps://discord.gg/${process.env.GUILD_INVITE_CODE}`;
 

@@ -16,7 +16,10 @@ class Season extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
+
+        const bot = msg.instance;
+
         args = args.join(' ').split(Internals.Constants.PageSeparator);
         const params = args[0].split(' ');
 
@@ -44,7 +47,7 @@ class Season extends Internals.Command {
         if (!seasons.has(season)) {
             return msg.channel.send(
                 new Internals.BaseEmbed()
-                    .setDescription(`${Bot.emojis.get('bot2Cancel')} **Estação do ano inválida.**`)
+                    .setDescription(`${bot.emojis.get('bot2Cancel')} **Estação do ano inválida.**`)
                     .setColor(0xF44336)
             );
         }
@@ -60,7 +63,7 @@ class Season extends Internals.Command {
                 const embedData = results.map(r => {
                     
                     return {
-                        title: `${Bot.emojis.get('mal')} ${r.title}`,
+                        title: `${bot.emojis.get('mal')} ${r.title}`,
                         thumbnail: { url: r.image_url },
                         fields: [
                             { name: '📆 Data de Estreia', value: r.airing_start ? moment(r.airing_start).format('DD/MM/YYYY') : '?', inline: true },
@@ -82,7 +85,7 @@ class Season extends Internals.Command {
             .catch(async () => {
                 await msg.channel.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${Bot.emojis.get('bot2Cancel')} **Não foi possível realizar esta ação.**`)
+                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Não foi possível realizar esta ação.**`)
                         .setColor(0xF44336)
                 );
             })

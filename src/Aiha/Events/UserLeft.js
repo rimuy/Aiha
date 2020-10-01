@@ -8,7 +8,7 @@ class MemberRemoveEvent extends Internals.Event {
     constructor() {
         super({
             event: 'guildMemberRemove',
-            callback: async (Bot, member) => {
+            callback: async member => {
                 if (member.user.bot) return;
 
                 Server.Database.request('DELETE', `users/${member.id}`);
@@ -21,12 +21,14 @@ class MemberRemoveEvent extends Internals.Event {
                     })
                     .catch(console.log);
 
-                if (!Bot.fetched) {
+                const bot = member.instance;
+
+                if (!bot.fetched) {
                     await member.guild.fetch();
-                    Bot.fetched = true;
+                    bot.fetched = true;
                 }
 
-                await Monitors.MemberCounter.update(Bot, member.guild);
+                await Monitors.MemberCounter.update(bot, member.guild);
             
                 const id = (await Server.Database.request('GET', 'settings')).logChannel;
                 const logChannel = member.guild.channels.cache.get(id);

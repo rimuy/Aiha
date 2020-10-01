@@ -17,17 +17,18 @@ class UnsetRank extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
 
         const id = (args[0] || '')
             .replace(/[<@!>&]/g, '');
         
+        const bot = msg.instance;
         const role = await msg.guild.roles.fetch(id);
 
         if (!role) {
             return msg.channel.send(
                 new MessageEmbed()
-                    .setDescription(`${Bot.emojis.get('bot2Exclamation')} **Cargo inválido.**`)
+                    .setDescription(`${bot.emojis.get('bot2Exclamation')} **Cargo inválido.**`)
                     .setColor(0xe3c51b)
             );
         }
@@ -36,11 +37,11 @@ class UnsetRank extends Internals.Command {
 
         await Server.Database.request('DELETE', `levelroles/${id}`)
             .then(() => {
-                embed.setDescription(`${Bot.emojis.get('bot2Success')} **O Cargo \`${role.name}\` foi retirado do sistema de level.**`);
+                embed.setDescription(`${bot.emojis.get('bot2Success')} **O Cargo \`${role.name}\` foi retirado do sistema de level.**`);
             })
             .catch(() => {
                 embed
-                    .setDescription(`${Bot.emojis.get('bot2Cancel')} **Erro ao tentar remover o cargo do sistema.**`)
+                    .setDescription(`${bot.emojis.get('bot2Cancel')} **Erro ao tentar remover o cargo do sistema.**`)
                     .setColor(0xF44336);
             });
 

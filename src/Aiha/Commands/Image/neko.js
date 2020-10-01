@@ -15,7 +15,9 @@ class Neko extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
+
+        const bot = msg.instance;
 
         const req = await [
             API.NekosLife.neko, 
@@ -24,7 +26,7 @@ class Neko extends Internals.Command {
             Math.floor(Math.random() * 2)
         ];
 
-        const error = Bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
             .setTitle('🐱 ~ Meow')

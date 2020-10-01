@@ -16,7 +16,10 @@ class Schedule extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
+
+        const bot = msg.instance;
+        
         args = args.join(' ').split(Internals.Constants.PageSeparator);
 
         const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
@@ -49,7 +52,7 @@ class Schedule extends Internals.Command {
                 const embedData = results.map(r => {
                     
                     return {
-                        title: `${Bot.emojis.get('mal')} ${r.title}`,
+                        title: `${bot.emojis.get('mal')} ${r.title}`,
                         thumbnail: { url: r.image_url },
                         fields: [
                             { name: '📆 Data de Estreia', value: r.airing_start ? moment(r.airing_start).format('DD/MM/YYYY') : '?', inline: true },
@@ -71,7 +74,7 @@ class Schedule extends Internals.Command {
             .catch(async () => {
                 await msg.channel.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${Bot.emojis.get('bot2Cancel')} **Não foi possível realizar esta ação.**`)
+                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Não foi possível realizar esta ação.**`)
                         .setColor(0xF44336)
                 );
             })

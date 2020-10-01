@@ -16,16 +16,17 @@ class ClearWarnings extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
 
         const id = (args[0] || msg.author.id)
             .replace(/[<@!>&]/g, '');
 
+        const bot = msg.instance;
         const embed = new Internals.BaseEmbed();
         const response = await Server.Database.request('PURGE', `infrations/${id}`);
 
-        const success = Bot.emojis.get('bot2Success');
-        const error = Bot.emojis.get('bot2Cancel');
+        const success = bot.emojis.get('bot2Success');
+        const error = bot.emojis.get('bot2Cancel');
 
         if (response) {
             embed

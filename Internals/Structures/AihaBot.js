@@ -9,7 +9,7 @@ const log = require('../Log');
 
 var fetched = false;
 
-class AihaBot {
+class Aiha {
     constructor() {
 
         console.log('\x1b' + Constants.ConsoleColors.FG_CYAN);
@@ -82,4 +82,4 @@ class AihaBot {
     
 }
 
-module.exports = AihaBot;
+module.exports = Aiha;

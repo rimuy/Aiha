@@ -12,8 +12,9 @@ class MessageEvent extends Internals.Event {
     constructor() {
         super({
             event: 'message',
-            callback: async (Bot, msg) => {
+            callback: async msg => {
 
+                const bot = msg.instance;
                 const user = msg.author;
                 const settings = await Server.Database.request('GET', 'settings');
                 const prefix = settings.prefix;
@@ -71,9 +72,9 @@ class MessageEvent extends Internals.Event {
                 
                 if (msg.content.startsWith(prefix)) {
 
-                    const args = msg.content.slice(prefix.length).split(/\s+/g);
-                    const cmd = (args.shift() || '').toLowerCase();
-                    let command = Bot.commands.get(cmd) || Bot.aliases.get(cmd);
+                    const params = msg.content.slice(prefix.length).split(/\s+/g);
+                    const cmd = (params.shift() || '').toLowerCase();
+                    let command = bot.commands.get(cmd) || bot.aliases.get(cmd);
 
                     /* Collector */
                     if (!command) {
@@ -109,7 +110,7 @@ class MessageEvent extends Internals.Event {
     
                             usersOnCooldown.set(user.id, new Date());
 
-                            return await command.run(Bot, msg, args);
+                            return await command.run(msg, params);
                         } else { 
                             msg.channel.send(
                                 new MessageEmbed()
@@ -124,7 +125,7 @@ class MessageEvent extends Internals.Event {
                 }
 
                 if (msg.channel.id !== settings.commandsChannel) {
-                    await Modules.LevelingSystem(Bot, msg);
+                    await Modules.LevelingSystem(bot, msg);
                 }
 
                 const r = messagesWithResponses[msg.content.toLowerCase().trim()];

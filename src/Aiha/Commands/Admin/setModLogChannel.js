@@ -1,15 +1,15 @@
 /**
- *      Kevinwkz - 2020/09/07
+ *      Kevinwkz - 2020/09/30
  */
 
 const { Internals, Server } = require('../..');
 
-class SetCommandsChannel extends Internals.Command {
+class SetModLogChannel extends Internals.Command {
     constructor() {
-        super('setCommandsChannel', {
-            description: 'Altera o canal de comandos do bot.',
-            usage: 'setCommandsChannel `<canal>`',
-            aliases: ['setcc', 'commandsChannel'],
+        super('setModLogChannel', {
+            description: 'Altera o canal de logs de moderação do bot.',
+            usage: 'setModLogChannel `<canal>`',
+            aliases: ['setmlc', 'modlogChannel'],
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
@@ -31,10 +31,10 @@ class SetCommandsChannel extends Internals.Command {
 
         if (channel) {
 
-            await Server.Database.request('PATCH', 'settings', { commandsChannel: channel.id })
+            await Server.Database.request('PATCH', 'settings', { modlogChannel: channel.id })
                 .then(res => {
                     embed
-                        .setDescription(`${success} **O canal de comandos foi setado para** <#${res.commandsChannel}>**!**`);
+                        .setDescription(`${success} **O canal de modlogs foi setado para** <#${res.modlogChannel}>**!**`);
                 })
                 .catch(err => {
                     console.log(err);
@@ -53,4 +53,4 @@ class SetCommandsChannel extends Internals.Command {
     }
 }
 
-module.exports = SetCommandsChannel;
+module.exports = SetModLogChannel;

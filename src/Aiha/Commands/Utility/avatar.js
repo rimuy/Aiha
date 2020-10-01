@@ -15,7 +15,7 @@ class Avatar extends Internals.Command {
         });
     }
 
-    run(_, msg) {
+    run(msg) {
 
         const embed = new Internals.BaseEmbed();
         const user = msg.mentions.users.first() || msg.author;

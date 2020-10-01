@@ -9,22 +9,24 @@ class MemberAddEvent extends Internals.Event {
     constructor() {
         super({
             event: 'guildMemberAdd',
-            callback: async (Bot, member) => {
+            callback: async member => {
 
                 if (member.user.bot) return;
 
                 await Server.Database.request('POST', `users/${member.id}`);
 
-                if (!Bot.fetched) {
+                const bot = member.instance;
+
+                if (!bot.fetched) {
                     await member.guild.fetch();
                     await member.guild.members.fetch();
                     await member.guild.roles.fetch();
-                    Bot.fetched = true;
+                    bot.fetched = true;
                 }
 
                 const guild = member.guild;
 
-                await Monitors.MemberCounter.update(Bot, guild);
+                await Monitors.MemberCounter.update(bot, guild);
                 const isMuted = !(await Monitors.MuteManager.get(member.id)).error;
 
                 if (isMuted) {

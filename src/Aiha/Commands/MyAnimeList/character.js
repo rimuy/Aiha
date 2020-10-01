@@ -15,7 +15,10 @@ class Character extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
+
+        const bot = msg.instance;
+
         args = args.join(' ').split(Internals.Constants.PageSeparator);
 
         const char = args[0];
@@ -27,7 +30,7 @@ class Character extends Internals.Command {
                 const description = results.map(r => `🔍 [Página da web](${r.url})\n${ZeroWidthSpace}`);
 
                 const embedData = results.map(r => ({
-                    title: `${Bot.emojis.get('mal')} ${r.name}`,
+                    title: `${bot.emojis.get('mal')} ${r.name}`,
                     thumbnail: { url: r.image_url },
                     fields: [
                         { 
@@ -56,7 +59,7 @@ class Character extends Internals.Command {
             .catch(async () => {
                 await msg.channel.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${Bot.emojis.get('bot2Cancel')} **Nenhum personagem foi encontrado.**`)
+                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Nenhum personagem foi encontrado.**`)
                         .setColor(0xF44336)
                 );
             })

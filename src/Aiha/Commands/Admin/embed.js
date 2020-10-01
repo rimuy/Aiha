@@ -16,9 +16,10 @@ class Embed extends Internals.Command {
         });
     }
 
-    run(Bot, msg, args) {
+    async run(msg, args) {
         
-        msg.delete().catch(() => {});
+        const bot = msg.instance;
+        await msg.delete().catch(() => false);
 
         const raw = args.join(' ')
             .replace(/\s+/g, ' ')
@@ -43,7 +44,7 @@ class Embed extends Internals.Command {
         try { 
             result = JSON.parse(raw);
         } catch(e) { 
-            result = `${Bot.emojis.get('bot2Cancel')} **Formato de embed inválido.**`;
+            result = `${bot.emojis.get('bot2Cancel')} **Formato de embed inválido.**`;
         } 
 
         msg.channel.send(result);

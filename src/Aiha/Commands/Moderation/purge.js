@@ -16,13 +16,14 @@ class Purge extends Internals.Command {
         });
     }
 
-    run(Bot, msg, args) {
+    run(msg, args) {
 
+        const bot = msg.instance;
         const max = 100;
         const embed = new MessageEmbed();
         const num = parseInt(args[0] || toString(max));
 
-        const error = Bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('bot2Cancel');
 
         msg.channel.bulkDelete(num < max ? num + 1 : max)
             .then(msgs => {

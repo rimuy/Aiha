@@ -16,7 +16,7 @@ class CoinFlip extends Internals.Command {
         });
     }
 
-    run(Bot, msg) {
+    run(msg) {
 
         const result = Math.floor(Math.random() * 2);
 

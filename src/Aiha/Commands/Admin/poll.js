@@ -32,12 +32,13 @@ class Poll extends Internals.Command {
         });
     }
     
-    async run(Bot, msg, args) {
+    async run(msg, args) {
        
+        const bot = msg.instance;
         const embed = new Internals.BaseEmbed();
 
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         const slice = args.join(' ').split(separator);
         const title = slice[0];

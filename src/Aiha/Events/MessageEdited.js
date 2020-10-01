@@ -8,7 +8,7 @@ class MessageEditedEvent extends Internals.Event {
     constructor() {
         super({
             event: 'messageUpdate',
-            callback: (Bot, oldMsg, newMsg) => {
+            callback: (oldMsg, newMsg) => {
 
                 if (!oldMsg.content || oldMsg.content === newMsg.content) return;
                 

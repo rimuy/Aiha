@@ -15,10 +15,11 @@ class WeebAvatar extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
+        const bot = msg.instance;
         const req = await API.NekosLife.avatar;
-        const error = Bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
             .setTitle('Avatar aleatório')

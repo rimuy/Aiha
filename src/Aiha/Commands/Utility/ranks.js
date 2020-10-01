@@ -14,9 +14,9 @@ class Ranks extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
 
-        const error = Bot.emojis.get('bot2Cancel');
+        const error = msg.instance.emojis.get('bot2Cancel');
         const embed = new Internals.BaseEmbed();
         
         await Server.Database.request('GET', 'levelroles')

@@ -16,14 +16,15 @@ class Unmute extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
 
+        const bot = msg.instance;
         const embed = new MessageEmbed().setColor(0xe3c51b);
         const muteRole = Modules.MuteRole.get(msg.guild) || await Modules.MuteRole.create(msg.guild);
 
-        const success = Bot.emojis.get('bot2Success');
-        const error = Bot.emojis.get('bot2Cancel');
-        const exclamation = Bot.emojis.get('bot2Exclamation');
+        const success = bot.emojis.get('bot2Success');
+        const error = bot.emojis.get('bot2Cancel');
+        const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!muteRole) 
             return msg.channel.send(embed.setDescription(`${exclamation} **Não foi possível localizar o cargo de mute.**`));

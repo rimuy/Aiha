@@ -15,7 +15,10 @@ class Manga extends Internals.Command {
         });
     }
 
-    async run(Bot, msg, args) {
+    async run(msg, args) {
+
+        const bot = msg.instance;
+
         args = args.join(' ').split(Internals.Constants.PageSeparator);
 
         const manga = args[0];
@@ -41,7 +44,7 @@ class Manga extends Internals.Command {
                         );
 
                     return {
-                        title: `${Bot.emojis.get('mal')} ${r.title}`,
+                        title: `${bot.emojis.get('mal')} ${r.title}`,
                         thumbnail: { url: r.image_url },
                         fields: [
                             { name: '📆 Ano', value: moment(r.start_date).format('YYYY'), inline: true },

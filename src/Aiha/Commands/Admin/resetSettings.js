@@ -16,11 +16,12 @@ class ResetSettings extends Internals.Command {
         });
     }
 
-    async run(Bot, msg) {
+    async run(msg) {
        
+        const bot = msg.instance;
         const embed = new Internals.BaseEmbed();
-        const success = Bot.emojis.get('bot2Success');
-        const error = Bot.emojis.get('bot2Cancel');
+        const success = bot.emojis.get('bot2Success');
+        const error = bot.emojis.get('bot2Cancel');
 
         await Server.Database.request('POST', 'settings')
             .then(() => {
