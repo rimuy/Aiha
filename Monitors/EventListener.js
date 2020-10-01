@@ -15,7 +15,7 @@ class EventListener {
                 const event = new exports();
 
                 bot.client.on(event.name, event.run);
-                bot.events.set(event.name, event);
+                bot.events.add(event);
             } catch(e) {
                 Internals.Log('FG_RED', `[${f}] ` + e.message);
             }

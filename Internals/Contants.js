@@ -1,7 +1,6 @@
 
 module.exports = {
     Package: require('../package.json'),
-    Errors: require('./Errors'),
     ZeroWidthSpace: '​',
     PageSeparator: '$',
     ResultsCollector: {

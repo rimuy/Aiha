@@ -74,7 +74,7 @@ class MessageEvent extends Internals.Event {
 
                     const params = msg.content.slice(prefix.length).split(/\s+/g);
                     const cmd = (params.shift() || '').toLowerCase();
-                    let command = bot.commands.get(cmd) || bot.aliases.get(cmd);
+                    let command = bot.commands.get(cmd) || bot.commands.find(c => c.aliases.includes(cmd));
 
                     /* Collector */
                     if (!command) {
