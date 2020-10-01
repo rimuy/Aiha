@@ -22,7 +22,7 @@ class Help extends Internals.Command {
         let cmd = (args[0] || '').toLowerCase();
 
         const categories = new Map();
-        const command = bot.commands.get(cmd) || bot.aliases.get(cmd);
+        const command = bot.commands.get(cmd) || bot.commands.find(c => c.aliases.includes(cmd));
         const prefix = (await Server.Database.request('GET', 'settings')).prefix;
 
         const embed = new Internals.BaseEmbed()
