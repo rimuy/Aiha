@@ -79,11 +79,9 @@ class MessageEvent extends Internals.Event {
                     if (!command) {
 
                         await Modules.ResultsCollector(cmd, msg)
-                            .then(async result => {
+                            .then(result => {
                                 if (result instanceof Internals.Command) {
                                     command = result;
-                                } else if (result === 'notFound') {
-                                    await msg.react(Bot.emojis.get('bot2Cancel'));
                                 }
                             });
                     }

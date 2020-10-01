@@ -32,7 +32,7 @@ module.exports = async (key, message) => {
             });
         })
         .sort((a, b) => {
-            const regex = new RegExp(key, 'g');
+            const regex = new RegExp(key, 'gi');
             const matches = [0, 0];
             
             ([a, b]).forEach((e, i) => {
@@ -95,8 +95,8 @@ module.exports = async (key, message) => {
 
                             const embed = new BaseEmbed()
                                 .setTitle(`🔎 ${bigSpace}"${key}"`)
-                                .setDescription(`${ZeroWidthSpace}\n` + results.map((e, i) => 
-                                    `${i + 1}. \`${e}\`${bigSpace}-${bigSpace}${
+                                .setDescription(`${ZeroWidthSpace}\n` + results.map(e => 
+                                    `\`${e}\`${bigSpace}-${bigSpace}${
                                         e.split('').map(s => {
 
                                             if (!insertedChars[e]) insertedChars[e] = [];
@@ -104,9 +104,9 @@ module.exports = async (key, message) => {
                                             if (!insertedChars[e].includes(s) && allKeywordMatches.has(s)) { 
                                                 insertedChars[e].push(s);
                                                 return `**\`${s}\`**${ZeroWidthSpace}`;
-                                            }  else { 
-                                                return s;
-                                            }
+                                            } 
+
+                                            return s;
 
                                         }).join('')}`
                                 ).join('\n'));
