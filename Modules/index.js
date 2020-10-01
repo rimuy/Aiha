@@ -6,6 +6,7 @@ module.exports = {
     LevelingSystem: require('./LevelingSystem'),
     LevelRoles: require('./LevelRoles'),
     Logs: require('./Logs'),
+    ModLogs: require('./ModLog'),
     MuteRole: require('./MuteRole'),
     ResultsCollector: require('./ResultsCollector'),
 };

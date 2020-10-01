@@ -60,7 +60,7 @@ class Warn extends Internals.Command {
                                 { name: 'Motivo', value: `\`${infration}\``, inline: true },
                             );
     
-                        Modules.Logs(msg.guild, logEmbed);
+                        Modules.ModLogs(msg.guild, logEmbed);
 
                     })
                     .catch(() => {

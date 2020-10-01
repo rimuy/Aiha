@@ -1,5 +1,5 @@
 const Server = require('../Server');
-const { MuteRole, Logs } = require('../Modules');
+const { MuteRole, ModLogs } = require('../Modules');
 const BaseEmbed = require('../Internals/Structures/BaseEmbed');
 const moment = require('moment-timezone');
 const timeouts = new Map();
@@ -49,7 +49,7 @@ class MuteManager {
                                 },
                             );
 
-                        Logs(guild, logEmbed);
+                        ModLogs(guild, logEmbed);
                     })
                     .catch(() => 'Either member is not in the guild or the role doesn\'t exist.');
             }
@@ -93,7 +93,7 @@ class MuteManager {
                                 },
                             );
 
-                        Logs(guild, logEmbed);
+                        ModLogs(guild, logEmbed);
                     })
                     .catch(() => 'Either member is not in the guild or the role doesn\'t exist.');
             }

@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/02
  */
 
-const { Internals, Server } = require('../..');
+const { Internals, Server, Modules } = require('../..');
 
 class RemoveWarn extends Internals.Command {
     constructor() {
@@ -31,8 +31,17 @@ class RemoveWarn extends Internals.Command {
 
             if (infration) {
                 await Server.Database.request('DELETE', `infrations/${warnCase}`)
-                    .then(() => {
+                    .then(async () => {
                         embed.setDescription(`${success} **O Caso #${warnCase} foi removido com sucesso.**`);
+
+                        const logEmbed = new Internals.BaseEmbed()
+                            .setTitle('Infração Removida')
+                            .addFields(
+                                { name: 'Moderador', value: `<@${msg.author.id}>`, inline: true },
+                                { name: 'Caso', value: `\`${warnCase}\``, inline: true },
+                            );
+    
+                        await Modules.ModLogs(msg.guild, logEmbed);
                     })
                     .catch(() => {
                         embed
