@@ -15,7 +15,7 @@ module.exports = async (key, message) => {
     let result;
     const allKeywordMatches = new Set();
 
-    const results = [...keyMap.keys()]
+    const results = [...keyMap.map(c => c.name)]
         .filter(c => { 
 
             if (!message.member.hasPermission(keyMap.get(c).userPerms)) return;
@@ -28,6 +28,7 @@ module.exports = async (key, message) => {
                     allKeywordMatches.add(s);
                 }
 
+                console.log(alreadyMatched.size >= key);
                 return alreadyMatched.size >= key.length;
             });
         })
