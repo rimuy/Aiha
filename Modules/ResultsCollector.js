@@ -28,7 +28,6 @@ module.exports = async (key, message) => {
                     allKeywordMatches.add(s);
                 }
 
-                console.log(alreadyMatched.size >= key);
                 return alreadyMatched.size >= key.length;
             });
         })
