@@ -13,4 +13,6 @@ bot.client.login(
     .then(() => {
         Monitors.MudaeObserver.Bot = bot;
         Monitors.MuteManager.Bot = bot;
+        Monitors.BackupManager.Bot = bot;
+        Monitors.BackupManager.trigger();
     });
