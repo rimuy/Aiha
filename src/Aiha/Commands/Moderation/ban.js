@@ -19,7 +19,7 @@ class Ban extends Internals.Command {
     async run(msg, args, soft) {
 
         const bot = msg.instance;
-        const members = new Set();
+        const ids = new Set();
         const bannedMembers = new Set();
         const embed = new MessageEmbed().setColor(0x1ba4e3);
 
@@ -27,9 +27,9 @@ class Ban extends Internals.Command {
         const error = bot.emojis.get('bot2Cancel');
         const exclamation = bot.emojis.get('bot2Exclamation');
 
-        msg.mentions.members.forEach(m => members.add(m));
+        args.slice(0, args.length).forEach(m => ids.add({ id: m.replace(/[<@>]/g, '') }));
 
-        if (!members.size) {
+        if (!ids.size) {
             embed
                 .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
                 .setColor(0xe3c51b);
@@ -37,41 +37,53 @@ class Ban extends Internals.Command {
             return msg.channel.send(embed);
         }
 
-        const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
+        const reason = args.slice(ids.size).join(' ') || 'Nenhum motivo foi registrado.';
         
-        await Promise.all(
-            [...members].map(member => new Promise(res => {
+        await new Promise(res => {
 
-                if (member.bannable && !member.permissions.has(this.userPerms)) 
-                    msg.guild.members.ban(member.id, { days: soft ? 7 : 1, reason })
-                        .then(user => {
-                            bannedMembers.add(user.id);
+            [...ids].forEach(async (m, i) => {
+                const member = await msg.guild.members.fetch(m.id).catch(() => false);
+    
+                if (member) {
+    
+                    if (member.bannable && !member.permissions.has(this.userPerms)) 
+                        await msg.guild.members.ban(member.id, { days: soft ? 7 : 1, reason })
+                            .then(user => {
+                                bannedMembers.add(user.id);
+    
+                                const logEmbed = new Internals.BaseEmbed()
+                                    .setTitle('Membro Banido')
+                                    .addFields(
+                                        { name: 'Usuário', value: `<@${user.id}>`, inline: true },
+                                        { name: 'Motivo', value: `\`${reason}\``, inline: true },
+                                    );
+    
+                                Modules.Logs(msg.guild, logEmbed);
+                            })
+                            .catch();
+                } else {
 
-                            const logEmbed = new Internals.BaseEmbed()
-                                .setTitle('Membro Banido')
-                                .addFields(
-                                    { name: 'Usuário', value: `<@${user.id}>`, inline: true },
-                                    { name: 'Motivo', value: `\`${reason}\``, inline: true },
-                                );
+                    await msg.guild.members.ban(m.id)
+                        .then(() => bannedMembers.add({ id: m.id }))
+                        .catch(() => []);
+        
+                }
 
-                            Modules.Logs(msg.guild, logEmbed);
-                        })
-                        .catch()
-                        .finally(res);
-                
-            }))
-        );
+                if (i === ids.size - 1) res();
+            });
+
+        });
 
         if (soft) return;
 
         const MakeEmbed = () => {
-            if (members.size < 2) {
+            if (ids.size < 2) {
         
-                const member = [...members][0];
+                const member = [...ids][0];
     
-                if (bannedMembers.has(member.id)) {
+                if ([...bannedMembers].find(bn => bn.id === member.id)) {
                     embed
-                        .setDescription(`${success} \`${member.user.tag}\` **foi banido(a) com sucesso.**`)
+                        .setDescription(`${success} \`${member.user ? member.user.tag : member.id}\` **foi banido(a) com sucesso.**`)
                         .setColor(0x27db27);
                     
                     return;
@@ -86,8 +98,8 @@ class Ban extends Internals.Command {
                 if (bannedMembers.size) {
                     embed
                         .setTitle('Membros banidos')
-                        .setDescription([...members].map(m => 
-                            `${bannedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
+                        .setDescription([...ids].map(m => 
+                            `${[...bannedMembers].find(bn => bn.id === m.id) ? success : error} **${m.user ? m.user.tag : m.id}**`).join('\n')
                         );
 
                     return;
