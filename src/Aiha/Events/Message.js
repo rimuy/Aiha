@@ -73,7 +73,7 @@ class MessageEvent extends Internals.Event {
                 if (msg.content.startsWith(prefix)) {
 
                     const params = msg.content.slice(prefix.length).split(/\s+/g);
-                    const cmd = (params.shift() || '').toLowerCase();
+                    const cmd = (params.shift() || '');
                     let command = bot.commands.get(cmd) || bot.commands.find(c => c.aliases.includes(cmd));
 
                     /* Collector */
@@ -86,6 +86,8 @@ class MessageEvent extends Internals.Event {
                                 }
                             });
                     }
+
+                    console.log(cmd);
 
                     if (command) {
 
@@ -101,6 +103,8 @@ class MessageEvent extends Internals.Event {
                         if (userCd && (new Date() - userCd) <= cooldown) {
                             return msg.channel.send(`<@${user.id}> Não precisa ter pressa.`).delete({ timeout: 3000 });
                         }
+                        
+                        console.log(command);
 
                         if (
                             ( !command.dev || Configuration.Developers.includes(user.id) ) &&
