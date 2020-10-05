@@ -43,14 +43,14 @@ class Ban extends Internals.Command {
             [...members].map(member => new Promise(res => {
 
                 if (member.bannable && !member.permissions.has(this.userPerms)) 
-                    member.ban({ days: soft ? 7 : 1, reason })
-                        .then(member => {
-                            bannedMembers.add(member.id);
+                    msg.guild.members.ban(member.id, { days: soft ? 7 : 1, reason })
+                        .then(user => {
+                            bannedMembers.add(user.id);
 
                             const logEmbed = new Internals.BaseEmbed()
                                 .setTitle('Membro Banido')
                                 .addFields(
-                                    { name: 'Usuário', value: `<@${member.id}>`, inline: true },
+                                    { name: 'Usuário', value: `<@${user.id}>`, inline: true },
                                     { name: 'Motivo', value: `\`${reason}\``, inline: true },
                                 );
 
