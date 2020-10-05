@@ -1,6 +1,8 @@
 
 module.exports = {
     Package: require('../package.json'),
+    OWNER_ID: '197429905514954752',
+    BACKUP_INTERVAL: 86400000,
     ZeroWidthSpace: '​',
     PageSeparator: '$',
     ResultsCollector: {

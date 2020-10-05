@@ -1,5 +1,6 @@
 
 module.exports = { 
+    BackupManager: require('./BackupManager'),
     CommandHandler: require('./CommandHandler'),
     EventListener: require('./EventListener'),
     MemberCounter: require('./MemberCounter'),
