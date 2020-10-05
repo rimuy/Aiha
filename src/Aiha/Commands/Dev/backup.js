@@ -19,25 +19,22 @@ class Backup extends Internals.Command {
         });
     }
     
-    run(msg, developer) {
+    async run(msg, developer, instance) {
 
-        const bot = msg.instance;
+        const bot = (msg ? msg.instance : instance);
 
-        const isUser = developer instanceof User;
-        if (!msg && !isUser) return;
-
-        const user = isUser
-            ? developer
-            : msg.author;
+        const user = msg
+            ? msg.author
+            : developer;
 
         const attachment = new MessageAttachment(
             filePath, 
             `${moment().format('YYYYMMDDhhmmss')}-database.json`
         );
 
-        user.send('', attachment)
+        await user.send('', attachment)
             .then(() => { 
-                if (!isUser) return msg.react(bot.emojis.get('bot2Success'));
+                msg && msg.react(bot.emojis.get('bot2Success'));
             })
             .catch();
 
