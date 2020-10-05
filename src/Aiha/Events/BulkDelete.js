@@ -29,8 +29,8 @@ class MessageDeleteBulkEvent extends Internals.Event {
 
                 const attachment = new MessageAttachment(buffer, `${Date.now()}-${channel.id}-${channel.name}.log`);
 
-                await Modules.Logs(channel.guild, embed);
-                Modules.Logs(channel.guild, attachment);
+                await Modules.Logs.run(channel.guild, embed);
+                Modules.Logs.run(channel.guild, attachment);
             }
         });
     }

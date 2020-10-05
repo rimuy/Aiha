@@ -21,7 +21,7 @@ class MessageEditedEvent extends Internals.Event {
                         { name: 'Nova', value: `\`\`\`\n${newMsg.content}\n\`\`\`` },
                     );
 
-                Modules.Logs(newMsg.guild, embed);
+                Modules.Logs.run(newMsg.guild, embed);
             }
         });
     }

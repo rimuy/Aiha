@@ -55,6 +55,8 @@ class Help extends Internals.Command {
                 'userPerms': '`{}`',
             };
 
+            const cmd = Object.create(command);
+
             embed
                 .setAuthor('Informações do Comando', bot.client.user.displayAvatarURL())
                 .setDescription(
@@ -62,16 +64,17 @@ class Help extends Internals.Command {
                         .filter(key => command[key])
                         .map(key => {
                             if (format[key] && typeof command[key] !== 'object' )
-                                command[key] = format[key].replace('{}', command[key]);
+
+                                cmd[key] = format[key].replace('{}', cmd[key]);
 
                             return `**${info[key]}:** ${
-                                typeof command[key] === 'object' 
+                                typeof cmd[key] === 'object' 
                                     ? (
-                                        command[key].length 
-                                            ? command[key].map(c => `${format[key] ? format[key].replace('{}', c) : c}`).join(', ')
+                                        cmd[key].length 
+                                            ? cmd[key].map(c => `${format[key] ? format[key].replace('{}', c) : c}`).join(', ')
                                             : 'Nenhuma'
                                     )
-                                    : command[key]
+                                    : cmd[key]
                             }`;
                         })
                         .join('\n')

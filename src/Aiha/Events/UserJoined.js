@@ -42,7 +42,7 @@ class MemberAddEvent extends Internals.Event {
                                 { name: 'ID', value: member.id, inline: true },
                             );
 
-                        Modules.Logs(guild, logEmbed);
+                        Modules.Logs.run(guild, logEmbed);
                     }
                     
                 } else {

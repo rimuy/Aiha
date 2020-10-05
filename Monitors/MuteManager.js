@@ -49,7 +49,7 @@ class MuteManager {
                                 },
                             );
 
-                        ModLogs(guild, logEmbed);
+                        ModLogs.run(guild, logEmbed);
                     })
                     .catch(() => 'Either member is not in the guild or the role doesn\'t exist.');
             }
@@ -93,7 +93,7 @@ class MuteManager {
                                 },
                             );
 
-                        ModLogs(guild, logEmbed);
+                        ModLogs.run(guild, logEmbed);
                     })
                     .catch(() => 'Either member is not in the guild or the role doesn\'t exist.');
             }

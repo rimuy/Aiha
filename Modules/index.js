@@ -2,11 +2,10 @@
 module.exports = {
     AntiAds: require('./AntiAds'),
     AntiSpam: require('./AntiSpam'),
-    BotReport: require('./BotReport'),
     LevelingSystem: require('./LevelingSystem'),
-    LevelRoles: require('./LevelRoles'),
+    LevelRoles: require('./Utils/LevelRoles'),
     Logs: require('./Logs'),
     ModLogs: require('./ModLog'),
-    MuteRole: require('./MuteRole'),
+    MuteRole: require('./Utils/MuteRole'),
     ResultsCollector: require('./ResultsCollector'),
 };

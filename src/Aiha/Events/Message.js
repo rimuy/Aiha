@@ -49,8 +49,8 @@ class MessageEvent extends Internals.Event {
                 if (user.bot) return;
                 if (!msg.guild || !msg.guild.me.permissionsIn(msg.channel).has('VIEW_CHANNEL')) return;
 
-                if (await Modules.AntiAds(msg)) return;
-                if (await Modules.AntiSpam(msg)) return;
+                if (await Modules.AntiAds.run(msg)) return;
+                if (await Modules.AntiSpam.run(msg)) return;
 
                 /* Mudae Observer [Rolls] */
                 if (mudaeChannel === msg.channel.id) {
@@ -77,9 +77,9 @@ class MessageEvent extends Internals.Event {
                     let command = bot.commands.get(cmd) || bot.commands.find(c => c.aliases.includes(cmd));
 
                     /* Collector */
-                    if (!command) {
+                    if (!command && cmd.length) {
 
-                        await Modules.ResultsCollector(cmd, msg)
+                        await Modules.ResultsCollector.run(cmd, msg)
                             .then(result => {
                                 if (result instanceof Internals.Command) {
                                     command = result;
@@ -125,7 +125,7 @@ class MessageEvent extends Internals.Event {
                 }
 
                 if (msg.channel.id !== settings.commandsChannel) {
-                    await Modules.LevelingSystem(bot, msg);
+                    await Modules.LevelingSystem.run(msg);
                 }
 
                 const r = messagesWithResponses[msg.content.toLowerCase().trim()];

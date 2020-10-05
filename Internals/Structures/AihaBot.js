@@ -68,8 +68,6 @@ class Aiha {
 
     pageEmbeds = new AihaSet();
 
-    report = require('../../Modules/BotReport');
-
     async updateStatus() {
         this.client.user.setActivity(
             (await Server.Database.request('GET', 'settings')).prefix + 'help');

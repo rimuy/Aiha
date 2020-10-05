@@ -4,6 +4,7 @@ module.exports = {
     BaseEmbed: require('./Structures/BaseEmbed'),
     Command: require('./Structures/Command'),
     Event: require('./Structures/Event'),
+    Module: require('./Structures/Module'),
     PageEmbed: require('./Structures/PageEmbed'),
     Set: require('./Structures/AihaSet'),
 
