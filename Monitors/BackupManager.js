@@ -20,8 +20,8 @@ class BackupManager {
         interval && clearInterval(interval);
 
         const settings = await Server.Database.request('GET', 'settings');
-        waiting = time - Math.min(Date.now() - settings.lastBackup, 0);
         lastUpdate = Date.now();
+        waiting = time - Math.min(lastUpdate - (settings.lastBackup || lastUpdate), 0);
 
         const dev = await this.Bot.client.users.fetch(OWNER_ID);
 
