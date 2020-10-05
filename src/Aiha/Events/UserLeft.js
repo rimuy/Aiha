@@ -16,7 +16,7 @@ class MemberRemoveEvent extends Internals.Event {
                 await Server.Database.request('GET', 'mudae')
                     .then(res => {
                         Object.keys(res).forEach(async key => 
-                            await Server.Database.request('DELETE', `mudae/${key}/${member.id}`)
+                            await Server.Database.request('DELETE', `mudae/${key}/${member.id}`).catch(() => [])
                         );
                     })
                     .catch(console.log);
