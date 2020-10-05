@@ -35,15 +35,15 @@ class MemberCounter {
             '9': bot.emojis.get('9_'),
         };
 
-        membersSize = (' ' + ZeroWidthSpace).repeat(64) + '00000'.slice(0, -(membersSize.toString()).length) + membersSize.toString();
+        const counter = (' ' + ZeroWidthSpace).repeat(64) + '00000'.slice(0, -(membersSize.toString()).length) + membersSize.toString();
 
         const topics = [
-            'Membros: ' + membersSize.split('').map(n => emojis[n] || '').join(''),
+            'Membros: ' + counter.split('').map(n => emojis[n] || '').join(''),
         ];
 
         channel.setTopic(`${topics.join('\n')}`);
 
-        return 'OK';
+        return membersSize;
     }
 }
 
