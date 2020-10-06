@@ -1,3 +1,4 @@
+const moment = require('moment-timezone');
 const Server = require('../Server');
 const { BACKUP_INTERVAL, OWNER_ID } = require('../Internals/Contants');
 var lastUpdate = 0;
@@ -46,8 +47,12 @@ class BackupManager {
 
     }
 
-    static get remaining() {
+    static remaining() {
         return Math.max((lastUpdate + waiting) - Date.now(), 0);
+    }
+
+    static get nextBackup() {
+        return moment(Date.now() + this.remaining()).format('YYYY-MM-DD HH:mm:ss');
     }
 
 }
