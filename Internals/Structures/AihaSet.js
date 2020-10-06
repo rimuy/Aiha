@@ -8,6 +8,8 @@ class AihaSet extends Set
             'every',
             'find', 
             'findIndex',
+            'reduce',
+            'reduceRight',
             'some',
         ]
             .forEach(method => {
@@ -19,6 +21,7 @@ class AihaSet extends Set
         [
             'map', 
             'filter',
+            'sort',
         ]
             .forEach(method => {
 
@@ -40,9 +43,27 @@ class AihaSet extends Set
         return [...this].find(e => e.name === key);
     }
 
-    indexOf(searchElement, fromIndex = 0)
+    includes(key, searchElement, fromIndex) 
     {
-        return [...this].indexOf(searchElement, fromIndex);
+        return [...this].map(e => e[key]).includes(searchElement, fromIndex);
+    }
+
+    indexOf(key, searchElement, fromIndex = 0)
+    {
+        return [...this].map(e => e[key]).indexOf(searchElement, fromIndex);
+    }
+
+    join(separator) 
+    {
+        return [...this].join(separator);
+    }
+
+    pop() 
+    {
+        const popped = [...this].pop();
+        this.delete(popped);
+
+        return popped;
     }
 
     shift() 
@@ -57,7 +78,16 @@ class AihaSet extends Set
     {
         return new AihaSet([...this].slice(start, end));
     }
-    
+
+    toString() 
+    {
+        return [...this].toString();
+    }
+
+    unshift(...items) 
+    {
+        return new AihaSet([...this].unshift(...items));
+    }
 }
 
 module.exports = AihaSet;
