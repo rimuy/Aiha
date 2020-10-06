@@ -21,7 +21,7 @@ class BackupManager {
 
         const settings = await Server.Database.request('GET', 'settings');
         lastUpdate = Date.now();
-        waiting = time - Math.min(lastUpdate - (settings.lastBackup || lastUpdate), 0);
+        waiting = time - Math.max(lastUpdate - (settings.lastBackup || lastUpdate), 0);
 
         const dev = await this.Bot.client.users.fetch(OWNER_ID);
 
