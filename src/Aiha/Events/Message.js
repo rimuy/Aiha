@@ -87,8 +87,6 @@ class MessageEvent extends Internals.Event {
                             });
                     }
 
-                    console.log(cmd);
-
                     if (command) {
 
                         if ([
@@ -103,8 +101,6 @@ class MessageEvent extends Internals.Event {
                         if (userCd && (new Date() - userCd) <= cooldown) {
                             return msg.channel.send(`<@${user.id}> Não precisa ter pressa.`).delete({ timeout: 3000 });
                         }
-                        
-                        console.log(command);
 
                         if (
                             ( !command.dev || Configuration.Developers.includes(user.id) ) &&
