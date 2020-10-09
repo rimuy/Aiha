@@ -5,6 +5,7 @@ const Monitors = require('../../Monitors');
 const Configuration = require('../../Configuration');
 const Server = require('../../Server');
 const AihaSet = require('./AihaSet');
+const moment = require('moment-timezone');
 
 const log = require('../Log');
 
@@ -18,7 +19,8 @@ class Aiha {
             .include('Internals/Extenders').into(this);
 
         this.client = new Client({
-            ws: { intents: Intents.ALL }
+            fetchAllMembers: true,
+            ws: { intents: Intents.ALL },
         });
         
         this.client.once('ready', async () => {
@@ -26,6 +28,10 @@ class Aiha {
 
             this.CommandHandler = new Monitors.CommandHandler(this);
             this.EventListener = new Monitors.EventListener(this);
+            Monitors.MudaeObserver.Bot = this;
+            Monitors.MuteManager.Bot = this;
+            Monitors.BackupManager.Bot = this;
+            Monitors.BackupManager.trigger();
 
             const devGuild = this.client.guilds.cache.get(process.env.DEV_GUILD);
             devGuild.emojis.cache.forEach(e => this.emojis.add(e));
@@ -75,6 +81,31 @@ class Aiha {
 
     levelEquation(level) {
         return 150 + ( 225 * level );
+    }
+
+    async report(message, type, showTimestamp = false, notify = false) {
+        const id = (await Server.Database.request('GET', 'settings')).testingChannel;
+        const channel = this.client.channels.cache.get(id);
+
+        const emojis = {
+            success: 'bot2Success',
+            error: 'bot2Cancel',
+            warning: 'bot2Exclamation',
+            normal: 'bot2Confirm',
+        };
+
+        channel &&
+            channel.send(
+                `${
+                    showTimestamp ? `\`[${moment(new Date()).format('HH:mm')}]\` ` : ''
+                }${
+                    this.emojis.get(emojis[type])
+                }${
+                    notify ? ` <@${Constants.OWNER_ID}>` : ''
+                } ${
+                    message
+                }`
+            );
     }
     
 }
