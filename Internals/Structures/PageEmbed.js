@@ -126,19 +126,20 @@ class PageEmbed extends MessageEmbed {
                 cache.set(message.author.id, collector);
 
                 collector.on('collect', async reaction => {
-                    const newIndex = manager[reactions.indexOf(reaction.emoji.name)]();
+                    let newIndex = manager[reactions.indexOf(reaction.emoji.name)]();
 
-                    if (newIndex >= 0 && newIndex <= pages.length - 1) {
-                        current = newIndex;
-                        this.current = current;
+                    if (newIndex < 0) newIndex = pages.length - 1;
+                    else if (newIndex >= pages.length) newIndex = 0;
 
-                        this.setDescription(pages[current]);
-                        this.setFooter(`Página ${current + 1}/${pages.length}`);
-                        this.loadEmbedData();
+                    current = newIndex;
+                    this.current = current;
 
-                        await msg.edit(this);
-                        timer();
-                    }
+                    this.setDescription(pages[current]);
+                    this.setFooter(`Página ${current + 1}/${pages.length}`);
+                    this.loadEmbedData();
+
+                    await msg.edit(this);
+                    timer();
 
                     if (msg.channel.type !== 'text') return;
 
