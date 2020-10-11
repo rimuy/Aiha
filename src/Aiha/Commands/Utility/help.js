@@ -92,16 +92,17 @@ class Help extends Internals.Command {
                 }))
                 .setDescription(
                     `${bot.client.user.username} é o bot oficial do nosso servidor!` +
-                    `\n\nUse **${prefix}**help **<**comando**>** para obter informações detalhadas\ndo comando.` +
-                    `\n\nUse **${prefix}**flags para exibir as flags disponíveis para os comandos.\n\n` +
-                    [...categories]
-                        .map(e => {
-                            const emoji = bot.categoriesEmojis.get(e[0]);
-                            return `${emoji ? emoji + ' ' : ''}**${e[0]}:**\n**>** ${e[1].map(c => `\`${c}\`${ZeroWidthSpace}`).join('**,** ')}\n`;
-                        })
-                        .join('\n')
-                );
-
+                    `\n\nUse **${prefix}**\`help\` \`<comando>\` para obter informações detalhadas\ndo comando.` +
+                    `\n\nUse **${prefix}**\`flags\` para exibir as flags disponíveis para os comandos.\n${ZeroWidthSpace}`
+                )
+                .addFields([...categories].map(e => {
+                    const emoji = bot.categoriesEmojis.get(e[0]);
+                    return { 
+                        name: (emoji ? emoji + ' ' : '') + e[0],
+                        value: e[1].map(c => `\`${c}\`${ZeroWidthSpace}`).join(' '),
+                        inline: true,
+                    };
+                }));
         }
 
         msg.target.send(embed);
