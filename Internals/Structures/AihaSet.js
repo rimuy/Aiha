@@ -66,6 +66,16 @@ class AihaSet extends Set
         return popped;
     }
 
+    random(amount = 1) 
+    {
+        const values = [];
+        for (let i = 0; i < Math.max(amount, 1); i++) {
+            values.push([...this][Math.floor(Math.random() * this.size)]);
+        }
+
+        return values.length < 2 ? values[0] : values;
+    }
+
     shift() 
     {
         const shifted = [...this].shift();
