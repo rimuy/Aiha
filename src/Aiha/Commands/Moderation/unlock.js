@@ -10,7 +10,8 @@ class Unlock extends Internals.Command {
             description: 'Desbloqueia o chat em que o comando foi executado.',
             usage: 'unlock',
             category: 'Moderação',
-            userPerms: ['MANAGE_CHANNELS']
+            userPerms: ['MANAGE_CHANNELS'],
+            blockFlags: ['double', 'twice'],
         });
     }
 

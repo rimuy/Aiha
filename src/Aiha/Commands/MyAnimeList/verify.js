@@ -19,6 +19,7 @@ class Verify extends Internals.Command {
             description: 'Executa a verificação para vincular o seu perfil do MyAnimeList ao seu usuário.',
             usage: 'verify `<nome do perfil>`',
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -32,17 +33,20 @@ class Verify extends Internals.Command {
         const embed = new Internals.BaseEmbed();
 
         if (!username) {
-            return msg.channel.send(
+            return msg.target.send(
                 embed
                     .setDescription(`${bot.emojis.get('bot2Exclamation')} **Indique um nome de usuário válido.**`)
                     .setColor(0xe3c51b)
             );
         }
         
+        msg.channel.startTyping();
         const status = (await API.request('GET', url + `user/${username}`)).status;
 
+        msg.channel.stopTyping(true);
+
         if (status && status >= 400) {
-            return msg.channel.send(
+            return msg.target.send(
                 embed
                     .setDescription(`${bot.emojis.get('bot2Cancel')} **Perfil não encontrado.**`)
                     .setColor(0xF44336)
@@ -63,7 +67,7 @@ class Verify extends Internals.Command {
 
         pending.set(msg.author.id, true);
 
-        const m = await msg.channel.send(embed);
+        const m = await msg.target.send(embed);
         let reqs = 0;
         
         const request = async () => {
@@ -73,7 +77,7 @@ class Verify extends Internals.Command {
                 await m.delete();
                 pending.delete(msg.author.id);
 
-                return msg.channel.send(
+                return msg.target.send(
                     new Internals.BaseEmbed()
                         .setDescription('**Tempo esgotado.**')
                         .setColor(color)
@@ -90,7 +94,7 @@ class Verify extends Internals.Command {
                             Server.Database.request('PATCH', `users/${msg.author.id}`, { mal: username })
                                 .then(async () => {
 
-                                    await msg.channel.send(
+                                    await msg.target.send(
                                         new Internals.BaseEmbed()
                                             .setDescription(
                                                 `${bot.emojis.get('bot2Success')} ` + 
@@ -101,7 +105,7 @@ class Verify extends Internals.Command {
                                 })
                                 .catch(async () => {
 
-                                    await msg.channel.send(
+                                    await msg.target.send(
                                         new Internals.BaseEmbed()
                                             .setDescription(`${bot.emojis.get('bot2Cancel')} **Erro ao completar a verificação.**`)
                                             .setColor(0xF44336)
@@ -122,7 +126,7 @@ class Verify extends Internals.Command {
                         pending.delete(msg.author.id);
                         console.log(e);
 
-                        msg.channel.send(
+                        msg.target.send(
                             new Internals.BaseEmbed()
                                 .setDescription(`${bot.emojis.get('bot2Cancel')} **Não foi possível realizar a verificação.**`)
                                 .setColor(0xF44336)

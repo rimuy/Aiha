@@ -12,6 +12,7 @@ class Manga extends Internals.Command {
             description: 'Exibe o mangá ou uma lista de mangás semelhantes ao título inserido.',
             usage: 'manga `<título>` **$** `[página]`',
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 

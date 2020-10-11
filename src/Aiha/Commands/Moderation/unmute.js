@@ -12,7 +12,8 @@ class Unmute extends Internals.Command {
             usage: 'unmute `<@membros[]>` `[motivo]`',
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
-            userPerms: ['MANAGE_ROLES']
+            userPerms: ['MANAGE_ROLES'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -27,7 +28,7 @@ class Unmute extends Internals.Command {
         const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!muteRole) 
-            return msg.channel.send(embed.setDescription(`${exclamation} **Não foi possível localizar o cargo de mute.**`));
+            return msg.target.send(embed.setDescription(`${exclamation} **Não foi possível localizar o cargo de mute.**`));
 
         embed.setColor(0x1ba4e3);
 
@@ -41,7 +42,7 @@ class Unmute extends Internals.Command {
                 .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
                 .setColor(0xe3c51b);
 
-            return msg.channel.send(embed);
+            return msg.target.send(embed);
         }
 
         const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
@@ -95,7 +96,7 @@ class Unmute extends Internals.Command {
 
         MakeEmbed();
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
         
     }
 }

@@ -13,6 +13,7 @@ class ResetSettings extends Internals.Command {
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -33,7 +34,7 @@ class ResetSettings extends Internals.Command {
                     .setColor(0xF44336);
             });
         
-        msg.channel.send(embed);
+        msg.target.send(embed);
     }
 }
 

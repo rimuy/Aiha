@@ -21,7 +21,7 @@ class Ping extends Internals.Command {
             .setColor(0x2F3136)
             .setDescription(`**Ping:** \`${msg.client.ws.ping}\` ms`);
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
 
     }
 }

@@ -10,7 +10,8 @@ class Ranks extends Internals.Command {
             description: 'Retorna uma lista com todos os cargos de level disponíveis.',
             usage: 'ranks',
             category: 'Utilidades',
-            botPerms: ['EMBED_LINKS']
+            botPerms: ['EMBED_LINKS'],
+            blockFlags: ['double'],
         });
     }
 
@@ -36,7 +37,7 @@ class Ranks extends Internals.Command {
                     .setColor(0xF44336);
             });
         
-        msg.channel.send(embed);
+        msg.target.send(embed);
 
     }
 }

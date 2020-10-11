@@ -14,7 +14,7 @@ class GitHub extends Internals.Command {
         });
     }
 
-    run = msg => msg.channel.send(Configuration.Social.github);
+    run = msg => msg.target.send(Configuration.Social.github);
 }
 
 module.exports = GitHub;

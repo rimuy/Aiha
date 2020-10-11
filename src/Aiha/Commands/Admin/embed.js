@@ -47,7 +47,7 @@ class Embed extends Internals.Command {
             result = `${bot.emojis.get('bot2Cancel')} **Formato de embed inválido.**`;
         } 
 
-        msg.channel.send(result);
+        msg.target.send(result);
 
     }
 }

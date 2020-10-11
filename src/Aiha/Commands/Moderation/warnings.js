@@ -13,7 +13,8 @@ class Warnings extends Internals.Command {
             aliases: ['infrations'],
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
-            userPerms: ['MANAGE_MESSAGES']
+            userPerms: ['MANAGE_MESSAGES'],
+            blockFlags: ['double', 'twice'],
         });
     }
 

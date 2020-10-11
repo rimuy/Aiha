@@ -14,6 +14,7 @@ class SetRank extends Internals.Command {
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -28,14 +29,14 @@ class SetRank extends Internals.Command {
         const role = await msg.guild.roles.fetch(id);
 
         if (!role) {
-            return msg.channel.send(
+            return msg.target.send(
                 new MessageEmbed()
                     .setDescription(`${bot.emojis.get('bot2Exclamation')} **Cargo inválido.**`)
                     .setColor(0xe3c51b)
             );
         }
         else if (!reqLevel || !parseInt(reqLevel)) {
-            return msg.channel.send(
+            return msg.target.send(
                 new MessageEmbed()
                     .setDescription(`${bot.emojis.get('bot2Exclamation')} **É preciso definir um level acima de 1.**`)
                     .setColor(0xe3c51b)
@@ -57,7 +58,7 @@ class SetRank extends Internals.Command {
                     .setColor(0xF44336);
             });
         
-        msg.channel.send(embed);
+        msg.target.send(embed);
     }
 }
 

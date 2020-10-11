@@ -11,7 +11,8 @@ class Top extends Internals.Command {
             usage: 'top',
             aliases: [],
             category: 'Utilidades',
-            botPerms: ['EMBED_LINKS']
+            botPerms: ['EMBED_LINKS'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -22,7 +23,7 @@ class Top extends Internals.Command {
         const limit = 10;
 
         if (!Object.keys(users).length) {
-            return msg.channel.send(
+            return msg.target.send(
                 new Internals.BaseEmbed().setDescription('Este servidor não possui nenhum membro com level.')
             );
         }

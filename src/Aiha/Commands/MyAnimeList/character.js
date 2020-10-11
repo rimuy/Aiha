@@ -12,6 +12,7 @@ class Character extends Internals.Command {
             usage: 'character `<nome>` **$** `[página]`',
             aliases: ['char', 'personagem'],
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -57,7 +58,7 @@ class Character extends Internals.Command {
 
             })
             .catch(async () => {
-                await msg.channel.send(
+                await msg.target.send(
                     new Internals.BaseEmbed()
                         .setDescription(`${bot.emojis.get('bot2Cancel')} **Nenhum personagem foi encontrado.**`)
                         .setColor(0xF44336)

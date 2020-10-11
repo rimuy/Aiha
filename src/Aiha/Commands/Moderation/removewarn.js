@@ -13,6 +13,7 @@ class RemoveWarn extends Internals.Command {
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['MANAGE_MESSAGES'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -57,7 +58,7 @@ class RemoveWarn extends Internals.Command {
 
         }
         
-        msg.channel.send(embed);
+        msg.target.send(embed);
     }
 }
 

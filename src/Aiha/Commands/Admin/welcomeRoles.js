@@ -20,7 +20,7 @@ class WelcomeRoles extends Internals.Command {
         
         const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
         
-        msg.channel.send(
+        msg.target.send(
             new Internals.BaseEmbed()
                 .setTitle('Cargos de Bem-vindo')
                 .setDescription(

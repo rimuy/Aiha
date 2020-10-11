@@ -22,7 +22,7 @@ class HelpDev extends Internals.Command {
             .setDescription(commands.map((c, i) => `**<**\`${c.name}\`**/>**${ZeroWidthSpace}${i && !(i % 4) ? '\n' : ' '}`).join(''))
             .setColor(0x03b6fc);
         
-        msg.channel.send(embed);
+        msg.target.send(embed);
 
     }
 }

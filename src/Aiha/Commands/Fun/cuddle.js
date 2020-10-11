@@ -27,7 +27,7 @@ class Cuddle extends Internals.Command {
         const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!target || target.equals(msg.author)) {
-            return msg.channel.send(
+            return msg.target.send(
                 embed
                     .setDescription(`${exclamation} **Não é possivel realizar esta ação si mesmo!**`)
                     .setColor(0xe3c51b)
@@ -39,9 +39,9 @@ class Cuddle extends Internals.Command {
             .setFooter(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setImage(req.url);
 
-        msg.channel.send(embed)
+        msg.target.send(embed)
             .catch(e => {
-                msg.channel.send(
+                msg.target.send(
                     embed
                         .setDescription(`${error} **${e.message}**`)
                         .setColor(0xF44336)

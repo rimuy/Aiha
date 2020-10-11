@@ -19,6 +19,7 @@ class RPS extends Internals.Command {
             aliases: ['ppt'],
             category: 'Diversão',
             botPerms: ['EMBED_LINKS'],
+            blockFlags: ['double'],
         });
     }
 
@@ -28,14 +29,14 @@ class RPS extends Internals.Command {
         const botChoice = choices[Math.floor(Math.random() * choices.length)];
 
         if (!choice || !choices.some(c => c.toLowerCase() === choice.toLowerCase())) {
-            return msg.channel.send(
+            return msg.target.send(
                 new MessageEmbed()
                     .setColor(0xe3c51b)
                     .setDescription('⚠️ **Escolha entre pedra, papel ou tesoura.**')
             );
         }
 
-        msg.channel.send(
+        msg.target.send(
             new Internals.BaseEmbed()
                 .setDescription(`**Minha escolha:** ${botChoice}`)
         );

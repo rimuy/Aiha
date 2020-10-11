@@ -3,7 +3,7 @@
  */
 
 const { Internals } = require('../..');
-const { MessageAttachment, User } = require('discord.js');
+const { MessageAttachment } = require('discord.js');
 const moment = require('moment-timezone');
 const Path = require('path');
 
@@ -14,12 +14,13 @@ class Backup extends Internals.Command {
         super('backup', {
             category: 'Developer',
             aliases: ['b'],
+            blockFlags: ['private', 'twice', 'double'],
             hidden: true,
             dev: true,
         });
     }
     
-    async run(msg, developer, instance) {
+    async run(msg, developer, _, instance) {
 
         const bot = (msg ? msg.instance : instance);
 

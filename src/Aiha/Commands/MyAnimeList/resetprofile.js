@@ -12,6 +12,7 @@ class ResetProfile extends Internals.Command {
             usage: 'resetprofile',
             aliases: ['resetpf'],
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -31,7 +32,7 @@ class ResetProfile extends Internals.Command {
                     .setDescription(`${bot.emojis.get('bot2Cancel')} **Ocorreu um erro ao tentar realizar esta tarefa.**`)
                     .setColor(0xF44336);
             })
-            .finally(() => msg.channel.send(embed));
+            .finally(() => msg.target.send(embed));
         
     }
 }

@@ -34,7 +34,7 @@ class HelpAdmin extends Internals.Command {
                     .join('**, **')
             );
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
 
     }
 }

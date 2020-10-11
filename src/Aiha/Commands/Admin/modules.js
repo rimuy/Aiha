@@ -51,7 +51,7 @@ class ModulesCommand extends Internals.Command {
                 );
         }
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
 
     }
 }

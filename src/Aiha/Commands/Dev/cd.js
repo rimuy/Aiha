@@ -11,6 +11,7 @@ class CD extends Internals.Command {
     constructor() {
         super('cd', {
             category: 'Developer',
+            blockFlags: ['double', 'twice'],
             hidden: true,
             dev: true,
         });
@@ -23,7 +24,7 @@ class CD extends Internals.Command {
         const dir = readdirSync(fullDir);
         const limit = 10;
 
-        new PageEmbed(
+        new Internals.PageEmbed(
             msg, 
             dir
                 .sort((a, b) => {

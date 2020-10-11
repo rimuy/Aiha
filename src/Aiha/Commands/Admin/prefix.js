@@ -13,6 +13,7 @@ class Prefix extends Internals.Command {
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -43,7 +44,7 @@ class Prefix extends Internals.Command {
                 .setColor(0xe3c51b);
         }
         
-        msg.channel.send(embed);
+        msg.target.send(embed);
     }
 }
 

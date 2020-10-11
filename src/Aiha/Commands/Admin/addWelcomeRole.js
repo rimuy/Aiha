@@ -14,6 +14,7 @@ class AddWelcomeRole extends Internals.Command {
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -29,7 +30,7 @@ class AddWelcomeRole extends Internals.Command {
         const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!role) {
-            return msg.channel.send(
+            return msg.target.send(
                 new MessageEmbed()
                     .setDescription(`${exclamation} **Cargo inválido.**`)
                     .setColor(0xe3c51b)
@@ -50,7 +51,7 @@ class AddWelcomeRole extends Internals.Command {
                     .setColor(0xF44336);
             });
         
-        msg.channel.send(embed);
+        msg.target.send(embed);
     }
 }
 

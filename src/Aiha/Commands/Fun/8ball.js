@@ -18,6 +18,7 @@ class EightBall extends Internals.Command {
             usage: '8ball `<pergunta>`',
             category: 'Diversão',
             botPerms: ['EMBED_LINKS'],
+            blockFlags: ['double'],
         });
     }
 
@@ -34,7 +35,7 @@ class EightBall extends Internals.Command {
             .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
             .setDescription(`> ${question}\n\n🔮 **Resposta:** ${responses[Math.floor(Math.random() * responses.length)]}.`);
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
 
     }
 }

@@ -36,7 +36,7 @@ class Purge extends Internals.Command {
                     .setDescription(`${error} Ocorreu um erro ao tentar realizar este comando.`)
                     .setColor(0xF44336);
             })
-            .finally(() => msg.channel.send(embed));
+            .finally(() => msg.target.send(embed));
         
     }
 }

@@ -55,7 +55,7 @@ class Level extends Internals.Command {
             embed.setDescription('Este usuário ainda não possui uma conta registrada.');
         }
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
         
     }
 }

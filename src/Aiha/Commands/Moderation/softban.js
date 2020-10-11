@@ -12,21 +12,22 @@ class SoftBan extends Internals.Command {
             usage: 'softban `<@membro>`',
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
-            userPerms: ['BAN_MEMBERS']
+            userPerms: ['BAN_MEMBERS'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
-    async run(msg, args) {
+    async run(msg, args, flags) {
 
         const bot = msg.instance;
-        await bot.commands.get('ban').run(bot, msg, args, true);
-        await bot.commands.get('unban').run(bot, msg, args, true);
+        await bot.commands.get('ban').run(msg, args, flags, true);
+        await bot.commands.get('unban').run(msg, args, flags, true);
 
         const embed = new MessageEmbed()
             .setDescription('☑️ **Comando executado.**')
             .setColor(0x1ba4e3);
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
         
     }
 }

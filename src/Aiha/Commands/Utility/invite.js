@@ -10,7 +10,8 @@ class Invite extends Internals.Command {
             description: 'Retorna o link do convite do servidor.',
             usage: 'invite',
             aliases: ['i', 'convite'],
-            category: 'Utilidades'
+            category: 'Utilidades',
+            blockFlags: ['private'],
         });
     }
 
@@ -19,8 +20,8 @@ class Invite extends Internals.Command {
         const response = `> ${msg.content.split(' ')[0]}\nhttps://discord.gg/${process.env.GUILD_INVITE_CODE}`;
 
         msg.author.send(response)
-            .then(() => { msg.react('✅').catch(); })
-            .catch(() => msg.channel.send(response));
+            .then(() => { msg.react(msg.instance.emojis.get('bot2Success')).catch(); })
+            .catch(() => msg.target.send(response));
     }
 }
 

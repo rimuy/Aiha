@@ -7,6 +7,7 @@ const {
     Modules,
     Monitors, 
     Configuration,
+    Util,
     API, 
     Server, 
     ZeroWidthSpace,
@@ -16,6 +17,9 @@ const {
 const { inspect } = require('util');
 const { color } = require('./.config.json');
 const Discord = require('discord.js');
+
+const md = 'js';
+const limit = 30;
 
 class Eval extends Internals.Command {
     constructor() {
@@ -27,15 +31,12 @@ class Eval extends Internals.Command {
         });
     }
     
-    async run(msg, args) {
+    async run(msg, args, flags) {
        
         const Instance = msg.instance;
 
         args = args.join(' ').split('$', 2);
         const page = Math.max(0, parseInt(args[1] || '0') - 1);
-
-        const md = 'js';
-        const limit = 30;
 
         /* Shortcut variables */
         const Client = Instance.client;
@@ -45,8 +46,12 @@ class Eval extends Internals.Command {
         const members = Client.members;
         
         try {
-            let evaled = await eval(args[0]);
+            let evaled = await eval(flags.string.replace(/(.+?)(::)(.+?)/g, '$1.$3'));
             if (typeof evaled !== 'string') evaled = inspect(evaled);
+
+            if (flags.collection.includes('noreturn')) {
+                return await msg.react(Instance.emojis.get('bot2Success'));
+            }
             
             evaled = evaled.split('\n');
 
@@ -66,8 +71,13 @@ class Eval extends Internals.Command {
                 .setColor(color)
                 .send();
         } catch(e) {
+            console.log(e);
+
+            if (flagObj.flags.includes('noreturn')) {
+                return await msg.react(Instance.emojis.get('bot2Cancel'));
+            }
             
-            msg.channel.send(
+            msg.target.send(
                 new Internals.BaseEmbed()
                     .setTitle(`${Instance.emojis.get('bot2Cancel')}${`\ ${ZeroWidthSpace}`.repeat(4)}Erro`)
                     .setDescription(`\`\`\`${md}\n${e}\n\`\`\``)

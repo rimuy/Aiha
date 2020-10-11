@@ -35,7 +35,7 @@ class Avatar extends Internals.Command {
             embed.setDescription('🤷‍♀️ O usuário não possui um avatar.');
         }
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
     }
 }
 

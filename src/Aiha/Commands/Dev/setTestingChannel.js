@@ -12,6 +12,7 @@ class SetTestingChannel extends Internals.Command {
             aliases: ['settc', 'testingChannel'],
             category: 'Developer',
             botPerms: ['EMBED_LINKS'],
+            blockFlags: ['double', 'twice'],
             dev: true,
         });
     }
@@ -49,7 +50,7 @@ class SetTestingChannel extends Internals.Command {
                 .setColor(0xF44336);
         }
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
     }
 }
 

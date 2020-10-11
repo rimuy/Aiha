@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/08/27
  */
 
-const { Modules, Internals, Configuration, Server } = require('..');
+const { Modules, Internals, Configuration, Server, Util } = require('..');
 const { MessageEmbed } = require('discord.js');
 
 const usersOnCooldown = new Map();
@@ -107,10 +107,89 @@ class MessageEvent extends Internals.Event {
                             msg.guild.me.permissionsIn(msg.channel).has(command.botPerms.concat(command.userPerms) || []) &&
                             ( Configuration.Developers.includes(user.id) || msg.member.permissionsIn(msg.channel).has(command.userPerms || []))
                         ) { // <-- Exec
-    
+
                             usersOnCooldown.set(user.id, new Date());
 
-                            return await command.run(msg, params);
+                            const flags = new Util.Flags(
+                                msg.content
+                                    .slice(prefix.length)
+                                    .slice(cmd.length)
+                                    .trim()
+                            );
+
+                            if (flags.collection.some(f => command.blockFlags.includes(f))) {
+                                const blocked = flags.collection
+                                    .filter(f => command.blockFlags.includes(f))
+                                    .map(f => `\`${Internals.Constants.FLAG_PREFIX}${f}\``)
+                                    .join(' ');
+                                
+                                return msg.channel.send(
+                                    new Internals.BaseEmbed()
+                                        .setDescription(
+                                            `${bot.emojis.get('bot2Cancel')} **Erro ao executar comando**\n\n> **Flags não permitidas:** ${blocked}`
+                                        )
+                                        .setColor(0xF44336)
+                                );
+                            }
+
+                            msg.target = msg.channel;
+
+                            const flagFunctions = {
+                                double: () => [0, 0].forEach(() => command.run(msg, params, flags)),
+                                help: async () => {
+                                    await bot.commands.get('help').run(msg, [command.name], flags);
+                                },
+                                private: () => msg.target = msg.author,
+                                twice: () => new Promise(res => {
+
+                                    let completed = 0;
+
+                                    const exec = async () => {
+
+                                        await command.run(msg, params, flags); 
+                                        completed++;
+
+                                        if (completed < 2) 
+                                            setTimeout(exec, 1000);
+                                        else 
+                                            res();
+                                    };
+
+                                    exec();
+                                }),
+                            };
+
+                            const target = msg.target;
+
+                            const postCommandFunctions = {
+                                delete: async () => await msg.delete({ reason: 'Delete Flag' }),
+                                mention: async () => await target.send(`<@${user.id}>`).then(m => m.delete({ timeout: 5000 })),
+                                ping: async () => {
+                                    await target.send(`**Tempo levado:** \`${Date.now() - sendTime}\` ms`).catch(() => []);
+                                },
+                                private: async () => {
+                                    msg && await msg.react(bot.emojis.get('bot2Success')).catch(() => []);
+                                }
+                            };
+
+                            const sendTime = Date.now();
+
+                            await Promise.all(flags.collection.map(async f => 
+                                flagFunctions[f] && await flagFunctions[f]()));
+
+                            if ([
+                                !flags.collection.length,
+                                Object.keys(postCommandFunctions).some(key => flags.collection.includes(key))
+                                && !flags.collection.includes('help'),
+                                !flags.collection.some(f => flagFunctions[f] || postCommandFunctions[f]),
+                            ].some(isTrue => isTrue)) {
+                                await command.run(msg, params, flags);
+                            }
+
+                            flags.collection.forEach(async f => 
+                                postCommandFunctions[f] && await postCommandFunctions[f]());
+                                
+                            return;
                         } else { 
                             msg.channel.send(
                                 new MessageEmbed()

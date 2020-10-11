@@ -26,7 +26,7 @@ class Warn extends Internals.Command {
         const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!id.length) {
-            return msg.channel.send(
+            return msg.target.send(
                 embed
                     .setDescription(`${exclamation} **Mencione o usuário que deseja registrar a infração.**`)
                     .setColor(0xe3c51b)
@@ -46,7 +46,7 @@ class Warn extends Internals.Command {
                 })
                     .then(async inf => {
 
-                        await msg.channel.send(
+                        await msg.target.send(
                             embed
                                 .setDescription(`${success} **Foi registrada uma infração para ${member.user.tag}.**`)
                         );
@@ -64,7 +64,7 @@ class Warn extends Internals.Command {
 
                     })
                     .catch(() => {
-                        msg.channel.send(
+                        msg.target.send(
                             embed
                                 .setDescription(`${error} **Ocorreu um erro ao tentar registrar a infração.**`)
                                 .setColor(0xF44336)
@@ -73,7 +73,7 @@ class Warn extends Internals.Command {
 
             })
             .catch(() => {
-                msg.channel.send(
+                msg.target.send(
                     embed
                         .setDescription(`${error} **Usuário não encontrado.**`)
                         .setColor(0xF44336)

@@ -12,11 +12,12 @@ class Unban extends Internals.Command {
             usage: 'unban `<@membro>` `[motivo]`',
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
-            userPerms: ['BAN_MEMBERS']
+            userPerms: ['BAN_MEMBERS'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
-    async run(msg, args, soft) {
+    async run(msg, args, _, soft) {
 
         const bot = msg.instance;
         const bannedList = await msg.guild.fetchBans();
@@ -32,7 +33,7 @@ class Unban extends Internals.Command {
                 .setDescription(`${exclamation} **Não há nenhum usuário banido neste servidor.**`)
                 .setColor(0xe3c51b);
 
-            return msg.channel.send(embed);
+            return msg.target.send(embed);
         }
         
         const promise = await Promise.all(
@@ -88,7 +89,7 @@ class Unban extends Internals.Command {
 
         MakeEmbed();
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
         
     }
 }

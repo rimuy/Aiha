@@ -13,6 +13,7 @@ class Profile extends Internals.Command {
             description: 'Exibe seu perfil da MyAnimeList ou o do usuário mencionado.',
             usage: 'profile `[nome]` **$** `[página]`',
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -221,7 +222,7 @@ class Profile extends Internals.Command {
             .catch(async e => {
                 console.log(e);
 
-                await msg.channel.send(
+                await msg.target.send(
                     new Internals.BaseEmbed()
                         .setDescription(`${bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)

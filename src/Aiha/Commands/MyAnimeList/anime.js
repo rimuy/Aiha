@@ -12,6 +12,7 @@ class Anime extends Internals.Command {
             description: 'Exibe o anime ou uma lista de animes semelhantes ao título inserido.',
             usage: 'anime `<título>` **$** `[página]`',
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 

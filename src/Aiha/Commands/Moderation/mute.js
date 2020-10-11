@@ -12,7 +12,8 @@ class Mute extends Internals.Command {
             usage: 'mute `<@membros[]>` `[tempo (Ex: 1h30m)]` `[motivo]`',
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
-            userPerms: ['MANAGE_ROLES']
+            userPerms: ['MANAGE_ROLES'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -27,7 +28,7 @@ class Mute extends Internals.Command {
         const exclamation = bot.emojis.get('bot2Exclamation');
 
         if (!muteRole) 
-            return msg.channel.send(
+            return msg.target.send(
                 embed
                     .setDescription(`${error} **Não foi possível criar o cargo de mute.**`)
                     .setColor(0xF44336)
@@ -135,7 +136,7 @@ class Mute extends Internals.Command {
 
         MakeEmbed();
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
         
     }
 }

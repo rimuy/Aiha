@@ -13,6 +13,7 @@ class Season extends Internals.Command {
             usage: 'season `<estação>` `[ano]` **$** `[página]`',
             aliases: ['temporada'],
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -45,7 +46,7 @@ class Season extends Internals.Command {
             : season.toLowerCase();
 
         if (!seasons.has(season)) {
-            return msg.channel.send(
+            return msg.target.send(
                 new Internals.BaseEmbed()
                     .setDescription(`${bot.emojis.get('bot2Cancel')} **Estação do ano inválida.**`)
                     .setColor(0xF44336)

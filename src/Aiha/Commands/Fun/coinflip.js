@@ -13,6 +13,7 @@ class CoinFlip extends Internals.Command {
             usage: 'coinflip',
             category: 'Diversão',
             botPerms: ['EMBED_LINKS'],
+            blockFlags: ['double'],
         });
     }
 
@@ -20,7 +21,7 @@ class CoinFlip extends Internals.Command {
 
         const result = Math.floor(Math.random() * 2);
 
-        msg.channel.send(
+        msg.target.send(
             new Internals.BaseEmbed()
                 .setDescription(`${['👤', '👑'][result]} Você tirou **${tails[result]}**!`)
         );

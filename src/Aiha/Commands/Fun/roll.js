@@ -21,7 +21,7 @@ class Roll extends Internals.Command {
         const max = parseInt(args[0] || defaultN.toString());
         const result = Math.floor(Math.random() * max) + 1;
         
-        msg.channel.send(
+        msg.target.send(
             new Internals.BaseEmbed()
                 .setDescription(`🎲 Você jogou um \`${result}\`!`)
         );

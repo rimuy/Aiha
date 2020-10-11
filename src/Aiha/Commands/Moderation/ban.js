@@ -12,11 +12,12 @@ class Ban extends Internals.Command {
             usage: 'ban `<@membro>` `[motivo]`',
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
-            userPerms: ['BAN_MEMBERS']
+            userPerms: ['BAN_MEMBERS'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
-    async run(msg, args, soft) {
+    async run(msg, args, _, soft) {
 
         const bot = msg.instance;
         const ids = new Set();
@@ -34,7 +35,7 @@ class Ban extends Internals.Command {
                 .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
                 .setColor(0xe3c51b);
 
-            return msg.channel.send(embed);
+            return msg.target.send(embed);
         }
 
         const reason = args.slice(ids.size).join(' ') || 'Nenhum motivo foi registrado.';
@@ -114,7 +115,7 @@ class Ban extends Internals.Command {
 
         MakeEmbed();
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
         
     }
 }

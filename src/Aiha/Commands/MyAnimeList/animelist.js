@@ -13,6 +13,7 @@ class AnimeList extends Internals.Command {
             description: 'Exibe sua lista de animes da MyAnimeList ou a do usuário mencionado.',
             usage: 'animelist `[nome do perfil]` **$** `[página]`',
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -89,7 +90,7 @@ class AnimeList extends Internals.Command {
             .catch(async e => {
                 console.log(e);
 
-                await msg.channel.send(
+                await msg.target.send(
                     new Internals.BaseEmbed()
                         .setDescription(`${bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)

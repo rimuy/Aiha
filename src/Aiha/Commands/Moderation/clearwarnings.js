@@ -13,6 +13,7 @@ class ClearWarnings extends Internals.Command {
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['MANAGE_MESSAGES'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -37,7 +38,7 @@ class ClearWarnings extends Internals.Command {
                 .setColor(0xF44336);
         }
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
 
     }
 }

@@ -12,6 +12,7 @@ class OwOify extends Internals.Command {
             aliases: ['0w0ify'],
             category: 'Diversão',
             botPerms: ['EMBED_LINKS'],
+            blockFlags: ['double', 'twice'],
             multiChannel: true,
         });
     }
@@ -31,7 +32,7 @@ class OwOify extends Internals.Command {
         const error = bot.emojis.get('bot2Cancel');
 
         if (!text) {
-            return msg.channel.send(
+            return msg.target.send(
                 new Internals.BaseEmbed()
                     .setDescription(`${error} **Ocorreu um erro ao executar o comando.**`)
                     .setColor(0xF44336)
@@ -40,7 +41,7 @@ class OwOify extends Internals.Command {
 
         msg.channel.startTyping();
         const transform = await API.NekosLife.owoify(text);
-        msg.channel.send(transform.owo.replace(/:(.+):/g, ''))
+        msg.target.send(transform.owo.replace(/:(.+):/g, ''))
             .finally(() => msg.channel.stopTyping());
 
     }

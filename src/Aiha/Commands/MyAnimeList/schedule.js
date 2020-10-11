@@ -13,6 +13,7 @@ class Schedule extends Internals.Command {
             usage: 'schedule `[dia]` **$** `[página]`',
             aliases: ['programacao'],
             category: 'MyAnimeList',
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -72,7 +73,7 @@ class Schedule extends Internals.Command {
 
             })
             .catch(async () => {
-                await msg.channel.send(
+                await msg.target.send(
                     new Internals.BaseEmbed()
                         .setDescription(`${bot.emojis.get('bot2Cancel')} **Não foi possível realizar esta ação.**`)
                         .setColor(0xF44336)

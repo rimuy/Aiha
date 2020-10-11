@@ -28,6 +28,7 @@ class Poll extends Internals.Command {
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
+            blockFlags: ['private'],
             multiChannel: true,
         });
     }

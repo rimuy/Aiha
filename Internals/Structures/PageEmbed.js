@@ -73,7 +73,7 @@ class PageEmbed extends MessageEmbed {
 
         this.loadEmbedData();
 
-        message.channel.send(this)
+        message.target.send(this)
             .then(async msg => {
 
                 if (pages.length < 2) return;
@@ -139,6 +139,8 @@ class PageEmbed extends MessageEmbed {
                         await msg.edit(this);
                         timer();
                     }
+
+                    if (msg.channel.type !== 'text') return;
 
                     reaction.users.cache.forEach(async user => 
                         !user.equals(msg.author) && await reaction.users.remove(user.id));

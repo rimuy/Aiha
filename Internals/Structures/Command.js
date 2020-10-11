@@ -9,6 +9,7 @@ class Command {
         this.usage = options.usage;
         this.userPerms = options.userPerms || [];
         this.botPerms = options.botPerms || [];
+        this.blockFlags = options.blockFlags || [];
         this.hidden = options.hidden || false;
         this.dev = options.dev || false;
         this.multiChannel = options.multiChannel || false;

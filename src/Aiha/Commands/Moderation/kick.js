@@ -12,7 +12,8 @@ class Kick extends Internals.Command {
             usage: 'kick `<@membro>` `[motivo]`',
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
-            userPerms: ['KICK_MEMBERS']
+            userPerms: ['KICK_MEMBERS'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -34,7 +35,7 @@ class Kick extends Internals.Command {
                 .setDescription(`${exclamation} **Por favor, indique um membro válido.**`)
                 .setColor(0xe3c51b);
 
-            return msg.channel.send(embed);
+            return msg.target.send(embed);
         }
 
         const reason = args.slice(members.size).join(' ') || 'Nenhum motivo foi registrado.';
@@ -100,7 +101,7 @@ class Kick extends Internals.Command {
 
         MakeEmbed();
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
         
     }
 }

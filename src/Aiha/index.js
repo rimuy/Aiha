@@ -12,6 +12,9 @@ module.exports = {
     // Monitors
     Monitors: require('../../Monitors'),
 
+    // Util
+    Util: require('../../Util'),
+
     // External
     Server: require('../../Server'),
     API: require('../../API'),

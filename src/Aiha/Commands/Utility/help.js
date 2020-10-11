@@ -11,7 +11,8 @@ class Help extends Internals.Command {
             usage: 'help `[comando]`',
             aliases: ['h', 'hawp', 'ajuda'],
             category: 'Utilidades',
-            botPerms: ['EMBED_LINKS']
+            botPerms: ['EMBED_LINKS'],
+            blockFlags: ['double', 'twice'],
         });
     }
 
@@ -46,6 +47,7 @@ class Help extends Internals.Command {
                 'usage': 'Modo de uso',
                 'aliases': 'Aliases',
                 'userPerms': 'Permissões',
+                'blockFlags': 'Flags bloqueadas',
             };
             
             const format = {
@@ -53,6 +55,7 @@ class Help extends Internals.Command {
                 'usage': `${prefix}{}`,
                 'aliases': '`{}`',
                 'userPerms': '`{}`',
+                'blockFlags': '`{}`',
             };
 
             const cmd = Object.create(command);
@@ -72,7 +75,7 @@ class Help extends Internals.Command {
                                     ? (
                                         cmd[key].length 
                                             ? cmd[key].map(c => `${format[key] ? format[key].replace('{}', c) : c}`).join(', ')
-                                            : 'Nenhuma'
+                                            : 'N/A'
                                     )
                                     : cmd[key]
                             }`;
@@ -89,7 +92,8 @@ class Help extends Internals.Command {
                 }))
                 .setDescription(
                     `${bot.client.user.username} é o bot oficial do nosso servidor!` +
-                    `\nUse **${prefix}**help **<**comando**>** para obter informações detalhadas\ndo comando.\n\n` +
+                    `\n\nUse **${prefix}**help **<**comando**>** para obter informações detalhadas\ndo comando.` +
+                    `\n\nUse **${prefix}**flags para exibir as flags disponíveis para os comandos.\n\n` +
                     [...categories]
                         .map(e => {
                             const emoji = bot.categoriesEmojis.get(e[0]);
@@ -100,7 +104,7 @@ class Help extends Internals.Command {
 
         }
 
-        msg.channel.send(embed);
+        msg.target.send(embed);
         
     }
 }
