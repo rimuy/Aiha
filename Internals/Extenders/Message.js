@@ -7,6 +7,8 @@ module.exports = Bot =>
                 super(client, data, channel);
                 this.instance = Bot;
             }
+
+            target;
         }
     
         return AihaMessage;
