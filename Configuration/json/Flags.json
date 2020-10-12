@@ -1,0 +1,42 @@
+[
+    {
+        "label": "delete",
+        "aliases": ["D"],
+        "description": "Deleta sua mensagem após executar o comando."
+    },
+    {
+        "label": "double",
+        "aliases": ["d"],
+        "description": "Executa o mesmo comando duas vezes."
+    },
+    {
+        "label": "help",
+        "aliases": ["h"],
+        "description": "Exibe informações sobre o comando.\n(Idêntico à `help` `<comando>`)"
+    },
+    {
+        "label": "mention",
+        "aliases": ["m"],
+        "description": "Menciona o usuário depois da execução do comando."
+    },
+    {
+        "label": "noreturn",
+        "aliases": ["n"],
+        "description": "**[Dev-Only]** Bloqueia o retorno do comando."
+    },
+    {
+        "label": "ping",
+        "aliases": ["p"],
+        "description": "Retorna em milisegundos o tempo de execução do comando."
+    },
+    {
+        "label": "private",
+        "aliases": ["P"],
+        "description": "Direciona a saída do comando para seu DM."
+    },
+    {
+        "label": "twice",
+        "aliases": ["t"],
+        "description": "Executa o comando mais uma vez após a execução do mesmo."
+    }
+]

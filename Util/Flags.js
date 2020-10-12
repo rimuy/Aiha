@@ -1,40 +1,9 @@
 const { FLAG_PREFIX, FLAG_ALIAS_PREFIX } = require('../Internals/Contants');
+const json = require('../Configuration/json/Flags.json');
 
-module.exports = class FlagObject
+class FlagObject
 {
-    static info = new Map()
-        .set('delete', {
-            aliases: ['D'],
-            description: 'Deleta sua mensagem após executar o comando.',
-        })
-        .set('double', {
-            aliases: ['d'],
-            description: 'Executa o mesmo comando duas vezes.',
-        })
-        .set('help', {
-            aliases: ['h'],
-            description: 'Exibe informações sobre o comando.\n(Idêntico à `help` `<comando>`)',
-        })
-        .set('mention', {
-            aliases: ['m'],
-            description: 'Menciona o usuário depois da execução do comando.',
-        })
-        .set('noreturn', {
-            aliases: ['n'],
-            description: '**[Dev-Only]** Bloqueia o retorno do comando.',
-        })
-        .set('ping', {
-            aliases: ['p'],
-            description: 'Retorna em milisegundos o tempo de execução do comando.',
-        })
-        .set('private', {
-            aliases: ['P'],
-            description: 'Direciona a saída do comando para seu DM.',
-        })
-        .set('twice', {
-            aliases: ['t'],
-            description: 'Executa o comando mais uma vez após a execução do mesmo.',
-        });
+    static info = new Map();
 
     constructor(string) 
     {
@@ -101,4 +70,13 @@ module.exports = class FlagObject
             this.string = this.string.replace(placeholder, s);
         });
     }
-};
+}
+
+json.forEach(flag => {
+    FlagObject.info.set(flag.label, { 
+        aliases: flag.aliases, 
+        description: flag.description 
+    });
+});
+
+module.exports = FlagObject;
