@@ -159,13 +159,11 @@ class MessageEvent extends Internals.Event {
                                 }),
                             };
 
-                            const target = msg.target;
-
                             const postCommandFunctions = {
                                 delete: async () => await msg.delete({ reason: 'Delete Flag' }),
-                                mention: async () => await target.send(`<@${user.id}>`).then(m => m.delete({ timeout: 5000 })),
+                                mention: async () => await msg.target.send(`<@${user.id}>`).then(m => m.delete({ timeout: 5000 })),
                                 ping: async () => {
-                                    await target.send(`**Tempo levado:** \`${Date.now() - sendTime}\` ms`).catch(() => []);
+                                    await msg.target.send(`**Tempo levado:** \`${Date.now() - sendTime}\` ms`).catch(() => []);
                                 },
                                 private: async () => {
                                     msg && await msg.react(bot.emojis.get('bot2Success')).catch(() => []);
