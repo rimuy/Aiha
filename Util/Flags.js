@@ -39,15 +39,27 @@ module.exports = class FlagObject
     constructor(string) 
     {
         const placeholder = '{SPACE}';
+        const replaced = [];
 
         this.string = string;
         this.collection = [];
 
-        let str = string
-            .replace(/(\{).+(\})/g, `$1${placeholder}$2`)
-            .replace(/(\().+(\))/g, `$1${placeholder}$2`)
-            .replace(/(<).+(>)/g,   `$1${placeholder}$2`)
-            .replace(/(\[).+(\])/g, `$1${placeholder}$2`);
+        let str = '';
+
+        [
+
+            new RegExp(/(\{).+(\})/, 'g'),
+            new RegExp(/(\().+(\))/, 'g'),
+            new RegExp(/(<).+(>)/,   'g'),
+            new RegExp(/(\[).+(\])/, 'g'),
+
+        ].forEach(regexp => 
+            (string.match(regexp) || []).forEach(s => {
+                // eslint-disable-next-line no-useless-escape
+                replaced.push(s.replace(/[\[{(<>)}\]]/g, ''));
+                str = string.replace(regexp, `$1${placeholder}$2`);
+            })
+        );
 
         let aliases = str
             .split(' ')
@@ -81,7 +93,12 @@ module.exports = class FlagObject
             .map(s => s.replace(FLAG_PREFIX, ''));
 
         this.string = str
-            .replace(/- /g, '')
-            .replace(/--\w+/g ,'');
+            .replace(/- /g,    '')
+            .replace(/--\w+/g, '')
+            .replace(/\\/g,    '');
+
+        replaced.forEach(s => {
+            this.string = this.string.replace(placeholder, s);
+        });
     }
 };

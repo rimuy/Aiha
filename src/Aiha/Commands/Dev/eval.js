@@ -39,11 +39,22 @@ class Eval extends Internals.Command {
         const page = Math.max(0, parseInt(args[1] || '0') - 1);
 
         /* Shortcut variables */
-        const Client = Instance.client;
-        const me = msg.author;
-        const guild = msg.guild;
-        const users = Client.users;
-        const members = Client.members;
+        const { 
+            author, 
+            channel, 
+            client, 
+            guild, 
+            target, 
+        } = msg;
+
+        const { 
+            members, 
+            users, 
+        } = client;
+
+        const server = Server;
+        const [DB, db] = [server.Database, server.Database];
+        //
         
         try {
             let evaled = await eval(flags.string.replace(/(.+?)(::)(.+?)/g, '$1.$3'));
@@ -73,11 +84,11 @@ class Eval extends Internals.Command {
         } catch(e) {
             console.log(e);
 
-            if (flagObj.flags.includes('noreturn')) {
+            if (flags.collection.includes('noreturn')) {
                 return await msg.react(Instance.emojis.get('bot2Cancel'));
             }
             
-            msg.target.send(
+            target.send(
                 new Internals.BaseEmbed()
                     .setTitle(`${Instance.emojis.get('bot2Cancel')}${`\ ${ZeroWidthSpace}`.repeat(4)}Erro`)
                     .setDescription(`\`\`\`${md}\n${e}\n\`\`\``)
