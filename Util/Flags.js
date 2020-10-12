@@ -34,8 +34,6 @@ class FlagObject
             .split(' ')
             .find(s => s.match(/-\w+/));
 
-        console.log(aliases);
-
         if (aliases)
             aliases = aliases.slice(FLAG_ALIAS_PREFIX.length);
         else
