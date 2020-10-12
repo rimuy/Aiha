@@ -55,7 +55,7 @@ class Kick extends Internals.Command {
                                     { name: 'Motivo', value: `\`${reason}\``, inline: true },
                                 );
 
-                            Modules.Logs(msg.guild, logEmbed);
+                            Modules.Logs.run(msg.guild, logEmbed);
                         })
                         .catch()
                         .finally(res);

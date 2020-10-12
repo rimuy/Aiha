@@ -42,7 +42,7 @@ class RemoveWarn extends Internals.Command {
                                 { name: 'Caso', value: `\`${warnCase}\``, inline: true },
                             );
     
-                        await Modules.ModLogs(msg.guild, logEmbed);
+                        await Modules.ModLogs.run(msg.guild, logEmbed);
                     })
                     .catch(() => {
                         embed
