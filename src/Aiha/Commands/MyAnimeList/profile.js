@@ -57,9 +57,9 @@ class Profile extends Internals.Command {
                 });
 
                 const animeUpdates = await API.request('GET', url + `user/${user}/history/anime`)
-                    .then(res => res.history);
+                    .then(res => res.history) || [];
                 const mangaUpdates = await API.request('GET', url + `user/${user}/history/manga`)
-                    .then(res => res.history);
+                    .then(res => res.history) || [];
 
                 const cached = new Set();
                 const history = [];
