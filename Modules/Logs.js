@@ -5,6 +5,8 @@ module.exports = new class extends Module
 {
     async function(guild, content) 
     {
+        if (!guild) return;
+        
         const id = (await Server.Database.request('GET', 'settings')).logChannel;
         const logChannel = guild.channels.cache.get(id);
         
