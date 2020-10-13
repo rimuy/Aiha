@@ -17,14 +17,18 @@ class Flags extends Internals.Command {
 
     run(msg) {
 
-        const examplecmd = msg.instance.commands.random().name;
-        let randomFlags = [...Util.Flags.info.values()]
+        const examplecmd = msg.instance.commands
+            .filter(c => !c.userPerms.length && !c.dev && !c.hidden)
+            .random()
+            .name;
+
+        const randomFlags = [...Util.Flags.info.values()]
             .map(obj => obj.aliases)
             .map(aliases =>  aliases[Math.floor(Math.random() * aliases.length)][0]);
 
         const randomFlag = randomFlags[Math.floor(Math.random() * randomFlags.length)];
 
-        const limit = 3;
+        const limit = 4;
         const flags = [...Util.Flags.info.keys()]
             .map((f, i) => {
                 const info = Util.Flags.info.get(f);
