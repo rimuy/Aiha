@@ -7,7 +7,7 @@ class FlagObject
 
     constructor(string) 
     {
-        const placeholder = '{SPACE}';
+        const placeholder = '|SPACE|';
         const replaced = [];
 
         this.string = string;
@@ -15,20 +15,14 @@ class FlagObject
 
         let str = string;
 
-        [
-
-            new RegExp(/(\{).+(\})/, 'g'),
-            new RegExp(/(\().+(\))/, 'g'),
-            new RegExp(/(<).+(>)/,   'g'),
-            new RegExp(/(\[).+(\])/, 'g'),
-
-        ].forEach(regexp => 
-            (string.match(regexp) || []).forEach(s => {
-                // eslint-disable-next-line no-useless-escape
-                replaced.push(s.replace(/[\[{(<>)}\]]/g, ''));
-                str = string.replace(regexp, `$1${placeholder}$2`);
-            })
-        );
+        [/(\{).+(\})/g, /(\().+(\))/g, /(<).+(>)/g, /(\[).+(\])/g]
+            .forEach(regexp => 
+                (string.match(regexp) || []).forEach(s => {
+                    // eslint-disable-next-line no-useless-escape
+                    replaced.push(Buffer.from(s.replace(/[\[{(<>)}\]]/g, '')));
+                    str = string.replace(regexp, `$1${placeholder}$2`);
+                })
+            );
 
         let aliases = str
             .split(' ')
@@ -47,8 +41,7 @@ class FlagObject
             });
         }
 
-        aliases
-            .split('')
+        [...new Set(aliases.split(''))]
             .forEach(s => {
                 const map = [...FlagObject.info].find(e => e[1].aliases.includes(s));
 
@@ -67,7 +60,7 @@ class FlagObject
             .replace(/\\/g,    '');
 
         replaced.forEach(s => {
-            this.string = this.string.replace(placeholder, s);
+            this.string = this.string.replace(placeholder, s.toString());
         });
     }
 }
