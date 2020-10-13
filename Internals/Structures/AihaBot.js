@@ -21,6 +21,7 @@ class Aiha {
         this.client = new Client({
             fetchAllMembers: true,
             ws: { intents: Intents.ALL },
+            partials: ['CHANNEL', 'MESSAGE', 'REACTION'],
         });
         
         this.client.once('ready', async () => {
@@ -30,6 +31,8 @@ class Aiha {
             this.EventListener = new Monitors.EventListener(this);
             Monitors.MudaeObserver.Bot = this;
             Monitors.MuteManager.Bot = this;
+            Monitors.StarboardManager.Bot = this;
+            Monitors.StarboardManager.fetch();
             Monitors.BackupManager.Bot = this;
             Monitors.BackupManager.trigger();
 

@@ -7,6 +7,10 @@ module.exports = {
     FLAG_ALIAS_PREFIX: '-',
     ZeroWidthSpace: '​',
     PageSeparator: '$',
+    Starboard: {
+        EMOJI: '⭐',
+        MIN_REACTIONS: 10,
+    },
     ResultsCollector: {
         MAX_RESULTS: 7,
         TIMEOUT: 10000,

@@ -14,6 +14,7 @@ db.defaults({
     muted: [],
     infrations: [],
     levelroles: {},
+    starboard: [],
 }).write();
 
 routes.get('/', (_, res) => res.send(db.value()));

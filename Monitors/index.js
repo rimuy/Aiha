@@ -6,4 +6,5 @@ module.exports = {
     MemberCounter: require('./MemberCounter'),
     MudaeObserver: require('./MudaeObserver'),
     MuteManager: require('./MuteManager'),
+    StarboardManager: require('./StarboardManager'),
 };

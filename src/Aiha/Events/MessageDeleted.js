@@ -2,7 +2,7 @@
  *      Kevinwkz - 2020/09/09
  */
 
-const { Internals, Modules } = require('..');
+const { Internals, Modules, Monitors } = require('..');
 const { Util } = require('discord.js');
 
 const userMessages = new Map();
@@ -23,6 +23,7 @@ class MessageDeleteEvent extends Internals.Event {
                 const collected = userMessages.get(user.id);
                 collected.add(msg.id);
 
+                await Monitors.StarboardManager.check(msg); // Check starboard
                 await Util.delayFor(900);
 
                 const size = collected.size;
