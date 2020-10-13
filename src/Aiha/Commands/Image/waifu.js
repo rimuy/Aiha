@@ -21,7 +21,7 @@ class Waifu extends Internals.Command {
         const bot = msg.instance;
         const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤎', '🤍'];
         const req = await API.NekosLife.waifu;
-        const error = bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('name', 'bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
             .setColor(color)

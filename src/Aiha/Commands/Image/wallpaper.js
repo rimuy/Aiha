@@ -20,7 +20,7 @@ class Wallpaper extends Internals.Command {
 
         const bot = msg.instance;
         const req = await API.NekosLife.wallpaper;
-        const error = bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('name', 'bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
             .setColor(color)

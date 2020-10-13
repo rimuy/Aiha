@@ -61,7 +61,7 @@ class Eval extends Internals.Command {
             if (typeof evaled !== 'string') evaled = inspect(evaled);
 
             if (flags.collection.includes('noreturn')) {
-                return await msg.react(Instance.emojis.get('bot2Success'));
+                return await msg.react(Instance.emojis.get('name', 'bot2Success'));
             }
             
             evaled = evaled.split('\n');
@@ -78,19 +78,19 @@ class Eval extends Internals.Command {
                 limit,
                 page,
             )
-                .setTitle(`${Instance.emojis.get('botdev')}${`\ ${ZeroWidthSpace}`.repeat(4)}Saída`)
+                .setTitle(`${Instance.emojis.get('name', 'botdev')}${`\ ${ZeroWidthSpace}`.repeat(4)}Saída`)
                 .setColor(color)
                 .send();
         } catch(e) {
             console.log(e);
 
             if (flags.collection.includes('noreturn')) {
-                return await msg.react(Instance.emojis.get('bot2Cancel'));
+                return await msg.react(Instance.emojis.get('name', 'bot2Cancel'));
             }
             
             target.send(
                 new Internals.BaseEmbed()
-                    .setTitle(`${Instance.emojis.get('bot2Cancel')}${`\ ${ZeroWidthSpace}`.repeat(4)}Erro`)
+                    .setTitle(`${Instance.emojis.get('name', 'bot2Cancel')}${`\ ${ZeroWidthSpace}`.repeat(4)}Erro`)
                     .setDescription(`\`\`\`${md}\n${e}\n\`\`\``)
                     .setColor(0xF44336)
             );

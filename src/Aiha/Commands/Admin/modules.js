@@ -29,13 +29,13 @@ class ModulesCommand extends Internals.Command {
         const module = modules[(args[0] || '').toLowerCase()];
 
         const icons = {
-            on: `${instance.emojis.get('on1')}${instance.emojis.get('on2')}`,
-            off: `${instance.emojis.get('off1')}${instance.emojis.get('off2')}`,
+            on: `${instance.emojis.get('name', 'on1')}${instance.emojis.get('name', 'on2')}`,
+            off: `${instance.emojis.get('name', 'off1')}${instance.emojis.get('name', 'off2')}`,
         };
         
         if (module) {
             embed.
-                setDescription(`${instance.emojis.get('bot2Success')} **O módulo foi** \`${module.toggle() ? 'ativado' : 'desativado'}\` **com sucesso.**`);
+                setDescription(`${instance.emojis.get('name', 'bot2Success')} **O módulo foi** \`${module.toggle() ? 'ativado' : 'desativado'}\` **com sucesso.**`);
         } else {
 
             const prefix = (await Server.Database.request('GET', 'settings')).prefix || '';

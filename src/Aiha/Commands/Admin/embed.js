@@ -44,7 +44,7 @@ class Embed extends Internals.Command {
         try { 
             result = JSON.parse(raw);
         } catch(e) { 
-            result = `${bot.emojis.get('bot2Cancel')} **Formato de embed inválido.**`;
+            result = `${bot.emojis.get('name', 'bot2Cancel')} **Formato de embed inválido.**`;
         } 
 
         msg.target.send(result);

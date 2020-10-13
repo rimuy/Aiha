@@ -47,7 +47,7 @@ class Top extends Internals.Command {
                 return `${
 
                     !(idx % limit) 
-                        ? `${instance.emojis.get('bot2QuestionMark')}` + (
+                        ? `${instance.emojis.get('name', 'bot2QuestionMark')}` + (
                             userData 
                                 ? ` Seu rank atual é: **#${userData.order}**` 
                                 : ' Você não possui um rank.'

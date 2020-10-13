@@ -23,16 +23,16 @@ class MemberCounter {
         }
 
         const emojis = {
-            '0': bot.emojis.get('0_'),
-            '1': bot.emojis.get('1_'),
-            '2': bot.emojis.get('2_'),
-            '3': bot.emojis.get('3_'),
-            '4': bot.emojis.get('4_'),
-            '5': bot.emojis.get('5_'),
-            '6': bot.emojis.get('6_'),
-            '7': bot.emojis.get('7_'),
-            '8': bot.emojis.get('8_'),
-            '9': bot.emojis.get('9_'),
+            '0': bot.emojis.get('name', '0_'),
+            '1': bot.emojis.get('name', '1_'),
+            '2': bot.emojis.get('name', '2_'),
+            '3': bot.emojis.get('name', '3_'),
+            '4': bot.emojis.get('name', '4_'),
+            '5': bot.emojis.get('name', '5_'),
+            '6': bot.emojis.get('name', '6_'),
+            '7': bot.emojis.get('name', '7_'),
+            '8': bot.emojis.get('name', '8_'),
+            '9': bot.emojis.get('name', '9_'),
         };
 
         const counter = (' ' + ZeroWidthSpace).repeat(64) + '00000'.slice(0, -(membersSize.toString()).length) + membersSize.toString();

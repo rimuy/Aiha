@@ -74,7 +74,7 @@ class MessageEvent extends Internals.Event {
 
                     const params = msg.content.slice(prefix.length).split(/\s+/g);
                     const cmd = (params.shift() || '');
-                    let command = bot.commands.get(cmd) || bot.commands.find(c => c.aliases.includes(cmd));
+                    let command = bot.commands.get('name', cmd) || bot.commands.find(c => c.aliases.includes(cmd));
 
                     /* Collector */
                     if (!command && cmd.length) {
@@ -137,7 +137,7 @@ class MessageEvent extends Internals.Event {
                             const flagFunctions = {
                                 double: () => [0, 0].forEach(() => command.run(msg, params, flags)),
                                 help: async () => {
-                                    await bot.commands.get('help').run(msg, [command.name], flags);
+                                    await bot.commands.get('name', 'help').run(msg, [command.name], flags);
                                 },
                                 private: () => msg.target = msg.author,
                                 twice: () => new Promise(res => {

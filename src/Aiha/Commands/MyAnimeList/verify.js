@@ -35,7 +35,7 @@ class Verify extends Internals.Command {
         if (!username) {
             return msg.target.send(
                 embed
-                    .setDescription(`${bot.emojis.get('bot2Exclamation')} **Indique um nome de usuário válido.**`)
+                    .setDescription(`${bot.emojis.get('name', 'bot2Exclamation')} **Indique um nome de usuário válido.**`)
                     .setColor(0xe3c51b)
             );
         }
@@ -48,7 +48,7 @@ class Verify extends Internals.Command {
         if (status && status >= 400) {
             return msg.target.send(
                 embed
-                    .setDescription(`${bot.emojis.get('bot2Cancel')} **Perfil não encontrado.**`)
+                    .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Perfil não encontrado.**`)
                     .setColor(0xF44336)
             );
         }
@@ -58,7 +58,7 @@ class Verify extends Internals.Command {
 
         embed
             .setDescription(
-                `${bot.emojis.get('loading2')} **Coloque o número gerado no campo de localização de seu perfil.**\n` + 
+                `${bot.emojis.get('name', 'loading2')} **Coloque o número gerado no campo de localização de seu perfil.**\n` + 
                 `**Seu código:** \`${generatedNumber}\``
             )
             .attachFiles(imgPath)
@@ -97,7 +97,7 @@ class Verify extends Internals.Command {
                                     await msg.target.send(
                                         new Internals.BaseEmbed()
                                             .setDescription(
-                                                `${bot.emojis.get('bot2Success')} ` + 
+                                                `${bot.emojis.get('name', 'bot2Success')} ` + 
                                                 '**A verificação foi completada com sucesso! Use o comando** `profile` **para exibir seu perfil.**'
                                             )
                                             .setColor(color)
@@ -107,7 +107,7 @@ class Verify extends Internals.Command {
 
                                     await msg.target.send(
                                         new Internals.BaseEmbed()
-                                            .setDescription(`${bot.emojis.get('bot2Cancel')} **Erro ao completar a verificação.**`)
+                                            .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Erro ao completar a verificação.**`)
                                             .setColor(0xF44336)
                                     );
                                 })
@@ -128,7 +128,7 @@ class Verify extends Internals.Command {
 
                         msg.target.send(
                             new Internals.BaseEmbed()
-                                .setDescription(`${bot.emojis.get('bot2Cancel')} **Não foi possível realizar a verificação.**`)
+                                .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Não foi possível realizar a verificação.**`)
                                 .setColor(0xF44336)
                         );
                     });

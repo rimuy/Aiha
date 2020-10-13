@@ -99,7 +99,7 @@ class Profile extends Internals.Command {
                 const embedData = [
                     // 1
                     {
-                        title: `${bot.emojis.get('mal')} ${u.username}`,
+                        title: `${bot.emojis.get('name', 'mal')} ${u.username}`,
                         description: `🔍 [Página da web](${u.url})\n\n📘 **Descrição**\n\n${
                             u.about 
                                 ? u.about
@@ -143,7 +143,7 @@ class Profile extends Internals.Command {
                     },
                     // 2
                     {
-                        title: `${bot.emojis.get('mal')} ${u.username}`,
+                        title: `${bot.emojis.get('name', 'mal')} ${u.username}`,
                         description: `📕 **Status**\n${ZeroWidthSpace}`,
                         thumbnail: { url: u.image_url },
                         fields: [
@@ -176,7 +176,7 @@ class Profile extends Internals.Command {
                     },
                     // 3
                     {
-                        title: `${bot.emojis.get('mal')} ${u.username}`,
+                        title: `${bot.emojis.get('name', 'mal')} ${u.username}`,
                         description: `📗 **Ranking**\n${ZeroWidthSpace}`,
                         thumbnail: { url: u.image_url },
                         fields: [
@@ -205,7 +205,7 @@ class Profile extends Internals.Command {
                     },
                     // 4
                     {
-                        title: `${bot.emojis.get('mal')} ${u.username}`,
+                        title: `${bot.emojis.get('name', 'mal')} ${u.username}`,
                         description: `📙 **Lista de Amigos**${
                             !friendList.length ? `\n\n${u.username} não possui amigos.` : ''
                         }`,
@@ -224,7 +224,7 @@ class Profile extends Internals.Command {
 
                 await msg.target.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
+                        .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)
                 );
             })

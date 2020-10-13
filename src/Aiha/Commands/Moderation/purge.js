@@ -24,7 +24,7 @@ class Purge extends Internals.Command {
         const embed = new MessageEmbed();
         const num = parseInt(args[0] || toString(max));
 
-        const error = bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('name', 'bot2Cancel');
 
         msg.channel.bulkDelete(num < max ? num + 1 : max)
             .then(msgs => {

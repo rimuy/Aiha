@@ -24,12 +24,12 @@ class ResetProfile extends Internals.Command {
         Server.Database.request('PATCH', `users/${msg.author.id}`, { mal: '' })
             .then(() => {
                 embed
-                    .setDescription(`${bot.emojis.get('bot2Success')} **Perfil desvinculado com sucesso!**`)
+                    .setDescription(`${bot.emojis.get('name', 'bot2Success')} **Perfil desvinculado com sucesso!**`)
                     .setColor(color);
             })
             .catch(() => {
                 embed
-                    .setDescription(`${bot.emojis.get('bot2Cancel')} **Ocorreu um erro ao tentar realizar esta tarefa.**`)
+                    .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Ocorreu um erro ao tentar realizar esta tarefa.**`)
                     .setColor(0xF44336);
             })
             .finally(() => msg.target.send(embed));

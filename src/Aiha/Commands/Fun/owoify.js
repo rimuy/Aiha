@@ -30,7 +30,7 @@ class OwOify extends Internals.Command {
                     : null
             );
 
-        const error = bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('name', 'bot2Cancel');
 
         if (!text) {
             return msg.target.send(

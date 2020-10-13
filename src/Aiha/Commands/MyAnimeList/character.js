@@ -31,7 +31,7 @@ class Character extends Internals.Command {
                 const description = results.map(r => `🔍 [Página da web](${r.url})\n${ZeroWidthSpace}`);
 
                 const embedData = results.map(r => ({
-                    title: `${bot.emojis.get('mal')} ${r.name}`,
+                    title: `${bot.emojis.get('name', 'mal')} ${r.name}`,
                     thumbnail: { url: r.image_url },
                     fields: [
                         { 
@@ -60,7 +60,7 @@ class Character extends Internals.Command {
             .catch(async () => {
                 await msg.target.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Nenhum personagem foi encontrado.**`)
+                        .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Nenhum personagem foi encontrado.**`)
                         .setColor(0xF44336)
                 );
             })

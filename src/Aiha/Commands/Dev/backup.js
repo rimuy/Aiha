@@ -35,7 +35,7 @@ class Backup extends Internals.Command {
 
         await user.send('', attachment)
             .then(() => { 
-                msg && msg.react(bot.emojis.get('bot2Success'));
+                msg && msg.react(bot.emojis.get('name', 'bot2Success'));
             })
             .catch();
 

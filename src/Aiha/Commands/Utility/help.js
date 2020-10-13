@@ -23,7 +23,7 @@ class Help extends Internals.Command {
         let cmd = (args[0] || '').toLowerCase();
 
         const categories = new Map();
-        const command = bot.commands.get(cmd) || bot.commands.find(c => c.aliases.includes(cmd));
+        const command = bot.commands.get('name', cmd) || bot.commands.find(c => c.aliases.includes(cmd));
         const prefix = (await Server.Database.request('GET', 'settings')).prefix;
 
         const embed = new Internals.BaseEmbed()
@@ -42,12 +42,12 @@ class Help extends Internals.Command {
         if (command) {
 
             const info = {
-                'name': 'Nome',
-                'description': 'Descrição',
-                'usage': 'Modo de uso',
-                'aliases': 'Aliases',
-                'userPerms': 'Permissões',
-                'blockFlags': 'Flags bloqueadas',
+                'name': `${bot.emojis.get('name', 'bot2QuestionMark')} Nome`,
+                'description': '📘 Descrição',
+                'usage': '📙 Modo de uso',
+                'aliases': '🔖 Aliases',
+                'userPerms': '🔐 Permissões',
+                'blockFlags': '🚩 Flags bloqueadas',
             };
             
             const format = {
@@ -80,7 +80,7 @@ class Help extends Internals.Command {
                                     : cmd[key]
                             }`;
                         })
-                        .join('\n')
+                        .join('\n\n')
                 );
         } else {
 

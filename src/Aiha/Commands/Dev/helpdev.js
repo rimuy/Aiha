@@ -19,7 +19,7 @@ class HelpDev extends Internals.Command {
         const commands = bot.commands.filter(c => c.dev);
 
         const embed = new Internals.BaseEmbed()
-            .setTitle(`${bot.emojis.get('botdev')} **Developer**`)
+            .setTitle(`${bot.emojis.get('name', 'botdev')} **Developer**`)
             .setDescription(commands.map((c, i) => `**<**\`${c.name}\`**/>**${ZeroWidthSpace}${i && !(i % 4) ? '\n' : ' '}`).join(''))
             .setColor(color);
         

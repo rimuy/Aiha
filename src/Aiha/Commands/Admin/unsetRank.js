@@ -30,7 +30,7 @@ class UnsetRank extends Internals.Command {
         if (!role) {
             return msg.target.send(
                 new MessageEmbed()
-                    .setDescription(`${bot.emojis.get('bot2Exclamation')} **Cargo inválido.**`)
+                    .setDescription(`${bot.emojis.get('name', 'bot2Exclamation')} **Cargo inválido.**`)
                     .setColor(0xe3c51b)
             );
         }
@@ -39,11 +39,11 @@ class UnsetRank extends Internals.Command {
 
         await Server.Database.request('DELETE', `levelroles/${id}`)
             .then(() => {
-                embed.setDescription(`${bot.emojis.get('bot2Success')} **O Cargo \`${role.name}\` foi retirado do sistema de level.**`);
+                embed.setDescription(`${bot.emojis.get('name', 'bot2Success')} **O Cargo \`${role.name}\` foi retirado do sistema de level.**`);
             })
             .catch(() => {
                 embed
-                    .setDescription(`${bot.emojis.get('bot2Cancel')} **Erro ao tentar remover o cargo do sistema.**`)
+                    .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Erro ao tentar remover o cargo do sistema.**`)
                     .setColor(0xF44336);
             });
 

@@ -22,9 +22,9 @@ class Warn extends Internals.Command {
         const id = (args[0] || '').replace(/[<@!>&]/g, '');
         const embed = new Internals.BaseEmbed().setColor(color);
 
-        const success = bot.emojis.get('bot2Success');
-        const error = bot.emojis.get('bot2Cancel');
-        const exclamation = bot.emojis.get('bot2Exclamation');
+        const success = bot.emojis.get('name', 'bot2Success');
+        const error = bot.emojis.get('name', 'bot2Cancel');
+        const exclamation = bot.emojis.get('name', 'bot2Exclamation');
 
         if (!id.length) {
             return msg.target.send(

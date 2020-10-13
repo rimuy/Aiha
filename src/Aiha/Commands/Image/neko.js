@@ -27,7 +27,7 @@ class Neko extends Internals.Command {
             Math.floor(Math.random() * 2)
         ];
 
-        const error = bot.emojis.get('bot2Cancel');
+        const error = bot.emojis.get('name', 'bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
             .setColor(color)

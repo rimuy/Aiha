@@ -45,7 +45,7 @@ class Manga extends Internals.Command {
                         );
 
                     return {
-                        title: `${bot.emojis.get('mal')} ${r.title}`,
+                        title: `${bot.emojis.get('name', 'mal')} ${r.title}`,
                         thumbnail: { url: r.image_url },
                         fields: [
                             { name: '📆 Ano', value: moment(r.start_date).format('YYYY'), inline: true },

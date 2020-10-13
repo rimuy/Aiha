@@ -27,8 +27,8 @@ class ClearWarnings extends Internals.Command {
         const embed = new Internals.BaseEmbed().setColor(color);
         const response = await Server.Database.request('PURGE', `infrations/${id}`);
 
-        const success = bot.emojis.get('bot2Success');
-        const error = bot.emojis.get('bot2Cancel');
+        const success = bot.emojis.get('name', 'bot2Success');
+        const error = bot.emojis.get('name', 'bot2Cancel');
 
         if (response) {
             embed

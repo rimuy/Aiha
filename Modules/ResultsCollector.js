@@ -57,9 +57,9 @@ module.exports = new class extends Module
             const choices = ['s', 'n'];
         
             const question = 
-                `${bot.emojis.get('bot2QuestionMark')} **Você quis dizer:** \`${mostLikely}\`, **${message.author.username}**? (${choices[0]}/${choices[1].toUpperCase()})`;
+                `${bot.emojis.get('name', 'bot2QuestionMark')} **Você quis dizer:** \`${mostLikely}\`, **${message.author.username}**? (${choices[0]}/${choices[1].toUpperCase()})`;
         
-            const timeExpired = `${bot.emojis.get('bot2Cancel')} **Tempo esgotado.**`;
+            const timeExpired = `${bot.emojis.get('name', 'bot2Cancel')} **Tempo esgotado.**`;
             
             cache.set(message.author.id, true);
         
@@ -82,7 +82,7 @@ module.exports = new class extends Module
                             }
         
                             await questionMsg.delete();
-                            await choice.react(bot.emojis.get('bot2Success'));
+                            await choice.react(bot.emojis.get('name', 'bot2Success'));
                             
                             switch(choice.content.toLowerCase()) {
                             case choices[0]:

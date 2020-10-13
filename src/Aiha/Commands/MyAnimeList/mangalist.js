@@ -44,7 +44,7 @@ class MangaList extends Internals.Command {
                 ];
                 
                 const embedData = mangas.map(r => ({
-                    title: `${bot.emojis.get('mal')} ${r.title}`,
+                    title: `${bot.emojis.get('name', 'mal')} ${r.title}`,
                     description: `🔍 [Página da lista](https://myanimelist.net/mangalist/${user})\n` +
                         `🔍 [Página do mangá](${r.url})\n${ZeroWidthSpace}`,
                     thumbnail: { url: r.image_url },
@@ -93,7 +93,7 @@ class MangaList extends Internals.Command {
 
                 await msg.target.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
+                        .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)
                 );
             })

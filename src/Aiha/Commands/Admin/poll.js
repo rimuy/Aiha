@@ -39,8 +39,8 @@ class Poll extends Internals.Command {
         const bot = msg.instance;
         const embed = new Internals.BaseEmbed().setColor(color);
 
-        const error = bot.emojis.get('bot2Cancel');
-        const exclamation = bot.emojis.get('bot2Exclamation');
+        const error = bot.emojis.get('name', 'bot2Cancel');
+        const exclamation = bot.emojis.get('name', 'bot2Exclamation');
 
         const slice = args.join(' ').split(separator);
         const title = slice[0];

@@ -53,7 +53,7 @@ class Schedule extends Internals.Command {
                 const embedData = results.map(r => {
                     
                     return {
-                        title: `${bot.emojis.get('mal')} ${r.title}`,
+                        title: `${bot.emojis.get('name', 'mal')} ${r.title}`,
                         thumbnail: { url: r.image_url },
                         fields: [
                             { name: '📆 Data de Estreia', value: r.airing_start ? moment(r.airing_start).format('DD/MM/YYYY') : '?', inline: true },
@@ -75,7 +75,7 @@ class Schedule extends Internals.Command {
             .catch(async () => {
                 await msg.target.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Não foi possível realizar esta ação.**`)
+                        .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Não foi possível realizar esta ação.**`)
                         .setColor(0xF44336)
                 );
             })

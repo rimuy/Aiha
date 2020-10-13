@@ -21,8 +21,8 @@ class Lock extends Internals.Command {
         const everyone = msg.guild.roles.everyone;
         const channel = msg.channel;
 
-        const success = bot.emojis.get('bot2Success');
-        const error = bot.emojis.get('bot2Cancel');
+        const success = bot.emojis.get('name', 'bot2Success');
+        const error = bot.emojis.get('name', 'bot2Cancel');
 
         if (msg.guild.me.permissionsIn(channel).has(['VIEW_CHANNEL', 'MANAGE_CHANNELS'])) {
             channel.createOverwrite(everyone, { SEND_MESSAGES: false })

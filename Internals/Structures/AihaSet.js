@@ -33,14 +33,14 @@ class AihaSet extends Set
     concat(set) 
     {
         if (!(set instanceof AihaSet) || !(set instanceof Set)) 
-            throw new Error('Parameter must be an instance of AihaSet or Set.');
+            throw new TypeError('Parameter must be an instance of AihaSet or Set.');
 
         return new AihaSet([...this].concat(...set));
     }
 
-    get(key) 
+    get(key, value) 
     {
-        return [...this].find(e => e.name === key);
+        return [...this].find(e => e[key] === value);
     }
 
     includes(key, searchElement, fromIndex) 

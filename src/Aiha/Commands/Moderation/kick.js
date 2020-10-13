@@ -25,9 +25,9 @@ class Kick extends Internals.Command {
         const kickedMembers = new Set();
         const embed = new MessageEmbed().setColor(color);
 
-        const success = bot.emojis.get('bot2Success');
-        const error = bot.emojis.get('bot2Cancel');
-        const exclamation = bot.emojis.get('bot2Exclamation');
+        const success = bot.emojis.get('name', 'bot2Success');
+        const error = bot.emojis.get('name', 'bot2Cancel');
+        const exclamation = bot.emojis.get('name', 'bot2Exclamation');
 
         msg.mentions.members.forEach(m => members.add(m));
 

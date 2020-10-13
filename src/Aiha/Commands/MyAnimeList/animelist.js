@@ -44,7 +44,7 @@ class AnimeList extends Internals.Command {
                 ];
                 
                 const embedData = animes.map(r => ({
-                    title: `${bot.emojis.get('mal')} ${r.title}`,
+                    title: `${bot.emojis.get('name', 'mal')} ${r.title}`,
                     description: `🔍 [Página da lista](https://myanimelist.net/animelist/${user})\n` +
                         `🔍 [Página do anime](${r.url})\n${ZeroWidthSpace}`,
                     thumbnail: { url: r.image_url },
@@ -92,7 +92,7 @@ class AnimeList extends Internals.Command {
 
                 await msg.target.send(
                     new Internals.BaseEmbed()
-                        .setDescription(`${bot.emojis.get('bot2Cancel')} **Usuário inválido.**`)
+                        .setDescription(`${bot.emojis.get('name', 'bot2Cancel')} **Usuário inválido.**`)
                         .setColor(0xF44336)
                 );
             })

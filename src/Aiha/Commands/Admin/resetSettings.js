@@ -22,8 +22,8 @@ class ResetSettings extends Internals.Command {
        
         const bot = msg.instance;
         const embed = new Internals.BaseEmbed().setColor(color);
-        const success = bot.emojis.get('bot2Success');
-        const error = bot.emojis.get('bot2Cancel');
+        const success = bot.emojis.get('name', 'bot2Success');
+        const error = bot.emojis.get('name', 'bot2Cancel');
 
         await Server.Database.request('POST', 'settings')
             .then(() => {
