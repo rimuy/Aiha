@@ -3,6 +3,7 @@
  */
 
 const { Internals } = require('../..');
+const { color } = require('./.config.json');
 
 const defaultN = 6;
 
@@ -23,6 +24,7 @@ class Roll extends Internals.Command {
         
         msg.target.send(
             new Internals.BaseEmbed()
+                .setColor(color)
                 .setDescription(`🎲 Você jogou um \`${result}\`!`)
         );
 

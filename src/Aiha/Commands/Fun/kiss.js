@@ -3,6 +3,7 @@
  */
 
 const { Internals, API } = require('../..');
+const { color } = require('./.config.json');
 
 class Kiss extends Internals.Command {
     constructor() {
@@ -20,7 +21,7 @@ class Kiss extends Internals.Command {
 
         const bot = msg.instance;
         const kissed = msg.mentions.users.first();
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
         const req = await API.NekosLife.kiss;
 
         const error = bot.emojis.get('bot2Cancel');

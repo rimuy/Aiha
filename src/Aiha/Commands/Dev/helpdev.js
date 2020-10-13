@@ -3,6 +3,7 @@
  */
 
 const { Internals, ZeroWidthSpace } = require('../..');
+const { color } = require('./.config.json');
 
 class HelpDev extends Internals.Command {
     constructor() {
@@ -20,7 +21,7 @@ class HelpDev extends Internals.Command {
         const embed = new Internals.BaseEmbed()
             .setTitle(`${bot.emojis.get('botdev')} **Developer**`)
             .setDescription(commands.map((c, i) => `**<**\`${c.name}\`**/>**${ZeroWidthSpace}${i && !(i % 4) ? '\n' : ' '}`).join(''))
-            .setColor(0x03b6fc);
+            .setColor(color);
         
         msg.target.send(embed);
 

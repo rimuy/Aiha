@@ -4,6 +4,7 @@
 
 const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 const choices = [
     'Pedra',
@@ -38,6 +39,7 @@ class RPS extends Internals.Command {
 
         msg.target.send(
             new Internals.BaseEmbed()
+                .setColor(color)
                 .setDescription(`**Minha escolha:** ${botChoice}`)
         );
 

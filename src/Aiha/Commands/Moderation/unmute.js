@@ -4,6 +4,7 @@
 
 const { Internals, Modules } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class Unmute extends Internals.Command {
     constructor() {
@@ -66,7 +67,7 @@ class Unmute extends Internals.Command {
                 if (unmutedMembers.has(member.id)) {
                     embed
                         .setDescription(`${success} \`${member.user.tag}\` **foi desmutado(a) com sucesso.**`)
-                        .setColor(0x27db27);
+                        .setColor(color);
                     
                     return;
                 }
@@ -80,6 +81,7 @@ class Unmute extends Internals.Command {
                 if (unmutedMembers.size) {
                     embed
                         .setTitle('Membros desmutados')
+                        .setColor(color)
                         .setDescription([...members].map(m => 
                             `${unmutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
                         );

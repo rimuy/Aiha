@@ -3,6 +3,7 @@
  */
 
 const { Internals, API } = require('../..');
+const { color } = require('./.config.json');
 
 class OwOify extends Internals.Command {
     constructor() {
@@ -34,6 +35,7 @@ class OwOify extends Internals.Command {
         if (!text) {
             return msg.target.send(
                 new Internals.BaseEmbed()
+                    .setColor(color)
                     .setDescription(`${error} **Ocorreu um erro ao executar o comando.**`)
                     .setColor(0xF44336)
             );

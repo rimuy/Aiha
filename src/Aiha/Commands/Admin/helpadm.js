@@ -3,6 +3,7 @@
  */
 
 const { Internals } = require('../..');
+const { color } = require('./.config.json');
 
 class HelpAdmin extends Internals.Command {
     constructor() {
@@ -21,6 +22,7 @@ class HelpAdmin extends Internals.Command {
 
         const bot = msg.instance;
         const embed = new Internals.BaseEmbed()
+            .setColor(color)
             .setFooter(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }));
 
         embed

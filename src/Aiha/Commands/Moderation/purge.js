@@ -4,6 +4,7 @@
 
 const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class Purge extends Internals.Command {
     constructor() {
@@ -29,7 +30,7 @@ class Purge extends Internals.Command {
             .then(msgs => {
                 embed
                     .setDescription(`🗑️ **Foram deletadas** \`${msgs.size - 1}\` **mensagens!**`)
-                    .setColor(0x1ba4e3);
+                    .setColor(color);
             })
             .catch(() => {
                 embed

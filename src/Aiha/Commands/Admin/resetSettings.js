@@ -3,6 +3,7 @@
  */
 
 const { Internals, Server } = require('../..');
+const { color } = require('./.config.json');
 
 class ResetSettings extends Internals.Command {
     constructor() {
@@ -20,7 +21,7 @@ class ResetSettings extends Internals.Command {
     async run(msg) {
        
         const bot = msg.instance;
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
         const success = bot.emojis.get('bot2Success');
         const error = bot.emojis.get('bot2Cancel');
 

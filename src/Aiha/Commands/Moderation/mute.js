@@ -4,6 +4,7 @@
 
 const { Internals, Modules } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class Mute extends Internals.Command {
     constructor() {
@@ -106,7 +107,7 @@ class Mute extends Internals.Command {
 
                     embed
                         .setDescription(`${success} \`${member.user.tag}\` **foi mutado(a) ${desc}**`)
-                        .setColor(0x27db27);
+                        .setColor(color);
                     
                     return;
                 }
@@ -120,6 +121,7 @@ class Mute extends Internals.Command {
                 if (mutedMembers.size) {
                     embed
                         .setTitle('Membros mutados')
+                        .setColor(color)
                         .setDescription(time > 0 ? `**Tempo:** \`${timeFormat}\`\n\n` : '' + [...members].map(m => 
                             `${mutedMembers.has(m.id) ? success : error} **${m.user.tag}**`).join('\n')
                         );

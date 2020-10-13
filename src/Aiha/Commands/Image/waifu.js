@@ -3,6 +3,7 @@
  */
 
 const { Internals, API } = require('../..');
+const { color } = require('./.config.json');
 
 class Waifu extends Internals.Command {
     constructor() {
@@ -23,6 +24,7 @@ class Waifu extends Internals.Command {
         const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
+            .setColor(color)
             .setTitle(`${hearts[Math.floor(Math.random() * hearts.length)]} Waifu`)
             .setFooter(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setImage(req.url);

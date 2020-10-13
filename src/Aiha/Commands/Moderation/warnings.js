@@ -3,6 +3,7 @@
  */
 
 const { Internals, Server } = require('../..');
+const { color } = require('./.config.json');
 const moment = require('moment-timezone');
 
 class Warnings extends Internals.Command {
@@ -31,6 +32,7 @@ class Warnings extends Internals.Command {
         if (!infrations || !infrations.length) {
             msg.channel.send(
                 new Internals.BaseEmbed()
+                    .setColor(color)
                     .setDescription(`👼 **${member ? member.user.username : 'Este usuário'} não possui nenhuma infração registrada.**`)
             );
         } else {
@@ -44,6 +46,7 @@ class Warnings extends Internals.Command {
                 ), 
                 5
             )
+                .setColor(color)
                 .setAuthor(member ? member.user.tag : id, member ? member.user.displayAvatarURL({ dynamic: true }) : null)
                 .send();
         }

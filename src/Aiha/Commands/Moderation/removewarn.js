@@ -3,6 +3,7 @@
  */
 
 const { Internals, Server, Modules } = require('../..');
+const { color } = require('./.config.json');
 
 class RemoveWarn extends Internals.Command {
     constructor() {
@@ -21,7 +22,7 @@ class RemoveWarn extends Internals.Command {
 
         const bot = msg.instance;
         const warnCase = parseInt((args[0] || '#0').replace(/#/g, ''));
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
 
         const success = bot.emojis.get('bot2Success');
         const error = bot.emojis.get('bot2Cancel');

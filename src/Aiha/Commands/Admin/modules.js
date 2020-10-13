@@ -3,6 +3,7 @@
  */
 
 const { Internals, Server, Modules } = require('../..');
+const { color } = require('./.config.json');
 
 class ModulesCommand extends Internals.Command {
     constructor() {
@@ -24,7 +25,7 @@ class ModulesCommand extends Internals.Command {
             .filter(key => Modules[key].run && Modules[key].toggle)
             .forEach(key => modules[key.toLowerCase()] = Modules[key]);
 
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
         const module = modules[(args[0] || '').toLowerCase()];
 
         const icons = {

@@ -4,6 +4,7 @@
 
 const { Internals, Modules } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class Kick extends Internals.Command {
     constructor() {
@@ -22,7 +23,7 @@ class Kick extends Internals.Command {
         const bot = msg.instance;
         const members = new Set();
         const kickedMembers = new Set();
-        const embed = new MessageEmbed().setColor(0x1ba4e3);
+        const embed = new MessageEmbed().setColor(color);
 
         const success = bot.emojis.get('bot2Success');
         const error = bot.emojis.get('bot2Cancel');

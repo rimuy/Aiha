@@ -4,6 +4,7 @@
 
 const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class Unban extends Internals.Command {
     constructor() {
@@ -22,7 +23,7 @@ class Unban extends Internals.Command {
         const bot = msg.instance;
         const bannedList = await msg.guild.fetchBans();
         const unbannedUsers = new Set();
-        const embed = new MessageEmbed().setColor(0x1ba4e3);
+        const embed = new MessageEmbed().setColor(color);
 
         const success = bot.emojis.get('bot2Success');
         const error = bot.emojis.get('bot2Cancel');
@@ -59,7 +60,7 @@ class Unban extends Internals.Command {
                 if (unbannedUsers.has(userinfo[0])) {
                     embed
                         .setDescription(`${success} \`${userinfo[1].user.tag}\` **foi desbanido(a) com sucesso.**`)
-                        .setColor(0x27db27);
+                        .setColor(color);
                     
                     return;
                 }
@@ -73,6 +74,7 @@ class Unban extends Internals.Command {
                 if (unbannedUsers.size) {
                     embed
                         .setTitle('Usuários desbanidos')
+                        .setColor(color)
                         .setDescription([...bannedList].map(u => 
                             `${unbannedUsers.has(u[0]) ? success : error} **${u[1].user.tag}**`).join('\n')
                         );

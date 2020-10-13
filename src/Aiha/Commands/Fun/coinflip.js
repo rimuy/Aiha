@@ -3,6 +3,7 @@
  */
 
 const { Internals } = require('../..');
+const { color } = require('./.config.json');
 
 const tails = ['Cara', 'Coroa'];
 
@@ -23,6 +24,7 @@ class CoinFlip extends Internals.Command {
 
         msg.target.send(
             new Internals.BaseEmbed()
+                .setColor(color)
                 .setDescription(`${['👤', '👑'][result]} Você tirou **${tails[result]}**!`)
         );
         

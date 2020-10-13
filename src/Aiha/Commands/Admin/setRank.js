@@ -4,6 +4,7 @@
 
 const { Internals, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class SetRank extends Internals.Command {
     constructor() {
@@ -43,7 +44,7 @@ class SetRank extends Internals.Command {
             );
         }
 
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
 
         await Server.Database.request('POST', `levelroles/${id}`, {
             roleId: id,

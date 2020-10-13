@@ -3,6 +3,7 @@
  */
 
 const { Internals, Server } = require('../..');
+const { color } = require('./.config.json');
 
 class Prefix extends Internals.Command {
     constructor() {
@@ -22,7 +23,7 @@ class Prefix extends Internals.Command {
         const bot = msg.instance;
         const prefix = args[0];
        
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
         const success = bot.emojis.get('bot2Success');
         const error = bot.emojis.get('bot2Cancel');
         const exclamation = bot.emojis.get('bot2Exclamation');

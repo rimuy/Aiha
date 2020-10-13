@@ -3,6 +3,7 @@
  */
 
 const { Internals, API } = require('../..');
+const { color } = require('./.config.json');
 
 class Hug extends Internals.Command {
     constructor() {
@@ -25,6 +26,7 @@ class Hug extends Internals.Command {
         const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
+            .setColor(color)
             .setDescription(`💓 **${msg.author.username}** ${
                 hugged.equals(msg.author) ? 'abraçou a si mesmo D:' : `abraçou <@${hugged.id}>`
             }`)

@@ -4,6 +4,7 @@
 
 const { Internals, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class RemoveWelcomeRole extends Internals.Command {
     constructor() {
@@ -37,7 +38,7 @@ class RemoveWelcomeRole extends Internals.Command {
             );
         }
 
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
         const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
 
         const index = welcomeRoles.indexOf(role.id);

@@ -3,6 +3,7 @@
  */
 
 const { Internals, API } = require('../..');
+const { color } = require('./.config.json');
 
 class Slap extends Internals.Command {
     constructor() {
@@ -25,6 +26,7 @@ class Slap extends Internals.Command {
         const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
+            .setColor(color)
             .setDescription(`💢 **${msg.author.username}** ${
                 slapped.equals(msg.author) ? 'deu um tapa em si mesmo.' : `deu um tapa em <@${slapped.id}>`
             }`)

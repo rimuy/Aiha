@@ -3,6 +3,7 @@
  */
 
 const { Internals, Server } = require('../..');
+const { color } = require('./.config.json');
 
 class WelcomeRoles extends Internals.Command {
     constructor() {
@@ -22,6 +23,7 @@ class WelcomeRoles extends Internals.Command {
         
         msg.target.send(
             new Internals.BaseEmbed()
+                .setColor(color)
                 .setTitle('Cargos de Bem-vindo')
                 .setDescription(
                     welcomeRoles && welcomeRoles.length

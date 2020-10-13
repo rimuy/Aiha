@@ -3,6 +3,7 @@
  */
 
 const { Internals, Server } = require('../..');
+const { color } = require('./.config.json');
 
 class ClearWarnings extends Internals.Command {
     constructor() {
@@ -23,7 +24,7 @@ class ClearWarnings extends Internals.Command {
             .replace(/[<@!>&]/g, '');
 
         const bot = msg.instance;
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
         const response = await Server.Database.request('PURGE', `infrations/${id}`);
 
         const success = bot.emojis.get('bot2Success');

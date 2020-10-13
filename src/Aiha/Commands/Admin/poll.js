@@ -4,6 +4,7 @@
  */
 
 const { Internals } = require('../..');
+const { color } = require('./.config.json');
 
 const separator = ':';
 const emojis = [
@@ -28,7 +29,7 @@ class Poll extends Internals.Command {
             category: 'Admin',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['ADMINISTRATOR'],
-            blockFlags: ['private'],
+            blockFlags: ['delete', 'private'],
             multiChannel: true,
         });
     }
@@ -36,7 +37,7 @@ class Poll extends Internals.Command {
     async run(msg, args) {
        
         const bot = msg.instance;
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
 
         const error = bot.emojis.get('bot2Cancel');
         const exclamation = bot.emojis.get('bot2Exclamation');

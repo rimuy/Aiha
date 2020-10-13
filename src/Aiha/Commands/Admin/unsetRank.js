@@ -4,6 +4,7 @@
 
 const { Internals, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class UnsetRank extends Internals.Command {
     constructor() {
@@ -34,7 +35,7 @@ class UnsetRank extends Internals.Command {
             );
         }
 
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
 
         await Server.Database.request('DELETE', `levelroles/${id}`)
             .then(() => {

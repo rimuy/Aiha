@@ -3,6 +3,7 @@
  */
 
 const { Internals, API } = require('../..');
+const { color } = require('./.config.json');
 
 class Neko extends Internals.Command {
     constructor() {
@@ -29,6 +30,7 @@ class Neko extends Internals.Command {
         const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
+            .setColor(color)
             .setTitle('🐱 ~ Meow')
             .setFooter(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setImage(req.url);

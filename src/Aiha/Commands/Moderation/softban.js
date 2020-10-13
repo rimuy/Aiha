@@ -4,6 +4,7 @@
 
 const { Internals } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class SoftBan extends Internals.Command {
     constructor() {
@@ -25,7 +26,7 @@ class SoftBan extends Internals.Command {
 
         const embed = new MessageEmbed()
             .setDescription('☑️ **Comando executado.**')
-            .setColor(0x1ba4e3);
+            .setColor(color);
 
         msg.target.send(embed);
         

@@ -3,6 +3,7 @@
  */
 
 const { Internals, Modules, Server } = require('../..');
+const { color } = require('./.config.json');
 
 class Warn extends Internals.Command {
     constructor() {
@@ -19,7 +20,7 @@ class Warn extends Internals.Command {
         
         const bot = msg.instance;
         const id = (args[0] || '').replace(/[<@!>&]/g, '');
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
 
         const success = bot.emojis.get('bot2Success');
         const error = bot.emojis.get('bot2Cancel');

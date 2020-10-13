@@ -4,6 +4,7 @@
 
 const { Internals, Server } = require('../..');
 const { MessageEmbed } = require('discord.js');
+const { color } = require('./.config.json');
 
 class AddWelcomeRole extends Internals.Command {
     constructor() {
@@ -37,7 +38,7 @@ class AddWelcomeRole extends Internals.Command {
             );
         }
         
-        const embed = new Internals.BaseEmbed();
+        const embed = new Internals.BaseEmbed().setColor(color);
         const welcomeRoles = (await Server.Database.request('GET', 'settings')).welcomeRoles || [];
         welcomeRoles.push(role.id);
 

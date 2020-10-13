@@ -3,6 +3,7 @@
  */
 
 const { Internals } = require('../..');
+const { color } = require('./.config.json');
 
 const responses = [
     'Sim',
@@ -32,6 +33,7 @@ class EightBall extends Internals.Command {
             .join('\n> ');
 
         const embed = new Internals.BaseEmbed()
+            .setColor(color)
             .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ dynamic: true }))
             .setDescription(`> ${question}\n\n🔮 **Resposta:** ${responses[Math.floor(Math.random() * responses.length)]}.`);
 

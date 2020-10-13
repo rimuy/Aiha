@@ -3,6 +3,7 @@
  */
 
 const { Internals, API } = require('../..');
+const { color } = require('./.config.json');
 
 class Smug extends Internals.Command {
     constructor() {
@@ -25,6 +26,7 @@ class Smug extends Internals.Command {
         const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
+            .setColor(color)
             .setDescription(`💮 **${msg.author.username}** ${
                 target.equals(msg.author) ? 'sorriu pretensiosamente.' : `sorriu pretensiosamente para <@${target.id}>`
             }`)

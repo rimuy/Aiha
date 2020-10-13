@@ -3,6 +3,7 @@
  */
 
 const { Internals, API } = require('../..');
+const { color } = require('./.config.json');
 
 class Feed extends Internals.Command {
     constructor() {
@@ -25,6 +26,7 @@ class Feed extends Internals.Command {
         const error = bot.emojis.get('bot2Cancel');
 
         const embed = new Internals.BaseEmbed()
+            .setColor(color)
             .setDescription(`🍣 **${msg.author.username}** ${
                 pet.equals(msg.author) ? 'alimentou a si mesmo D:' : `alimentou <@${pet.id}>`
             }`)
