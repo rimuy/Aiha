@@ -18,7 +18,7 @@ function Message(msg, stars)
     const getObj = () => visual [
         Object.keys(visual)
             .sort((a, b) => Number(b) - Number(a))
-            .find(n => Number(n) >= stars)
+            .find(n => Number(n) <= stars)
     ];
 
     const attachment = msg.attachments
