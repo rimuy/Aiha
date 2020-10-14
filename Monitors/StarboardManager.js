@@ -104,9 +104,9 @@ class StarboardManager
                 if (data.error)
                     return StarboardManager.add(msg, 1);
     
-                return StarboardManager.update(data, reaction.users.cache.size + 1);
+                return StarboardManager.update(data, reaction.users.cache.size);
             } else if (!data.error) {
-                return StarboardManager.update(data, reaction.users.cache.size + 1);
+                return StarboardManager.update(data, reaction.users.cache.size);
             }
 
             return 'OK';
@@ -150,6 +150,8 @@ class StarboardManager
             
             const board = await stChannel.messages.fetch(data.boardId);
             const msg = await channel.messages.fetch(data.id).catch(() => false);
+
+            if (msg) await msg.reactions.fetch();
 
             if (!board || !msg) {
                 board && await board.delete();
