@@ -91,7 +91,7 @@ class StarboardManager
 
         if (reaction) {
 
-            reaction.users.cache
+            (await reaction.users.fetch())
                 .forEach(user => {
                     const member = msg.guild.members.cache.get(user.id);
                     if (member.hasPermission('ADMINISTRATOR')) force = true;
@@ -104,9 +104,9 @@ class StarboardManager
                 if (data.error)
                     return StarboardManager.add(msg, 1);
     
-                return StarboardManager.update(data, reaction.users.cache.size);
+                return StarboardManager.update(data, count);
             } else if (!data.error) {
-                return StarboardManager.update(data, reaction.users.cache.size);
+                return StarboardManager.update(data, count);
             }
 
             return 'OK';
@@ -150,8 +150,6 @@ class StarboardManager
             
             const board = await stChannel.messages.fetch(data.boardId);
             const msg = await channel.messages.fetch(data.id).catch(() => false);
-
-            if (msg) await msg.reactions.fetch();
 
             if (!board || !msg) {
                 board && await board.delete();
