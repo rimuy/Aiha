@@ -1,8 +1,6 @@
 Aiha
 =======
 [![Build Status](https://img.shields.io/travis/Kevinwkz/Aiha/master?style=for-the-badge)](https://travis-ci.org/Kevinwkz/Aiha)
-[![Discord](https://img.shields.io/discord/739910960810295338?color=%237289DA&label=Discord&style=for-the-badge)](https://discord.gg/zz6zFS5)
-[![Contributors](https://img.shields.io/github/contributors/Kevinwkz/Aiha?style=for-the-badge)](https://github.com/Kevinwkz/Aiha/graphs/contributors)
 [![License](https://img.shields.io/github/license/Kevinwkz/Aiha?style=for-the-badge)](LICENSE)
 [![Node Version](https://img.shields.io/node/v/discord.js?style=for-the-badge)](https://nodejs.org/)
 ![Last Commit](https://img.shields.io/github/last-commit/Kevinwkz/Aiha/master?color=%23038cfc&style=for-the-badge)
@@ -13,21 +11,25 @@ Aiha
 About
 ----
 
-Aiha is a multi-purpose local bot that I created for a **Brazilian** anime server that I manage.
-It has all the features for a core discord bot, and a lot more!
+Aiha is a private multi-purpose bot that I created for a **Brazilian** server that I manage.
+It has all the core features a good discord bot has, and a lot more!
 
 <br>
 
 Features
 --------
 
+- [x] Flags for commands
 - [x] Utility
 - [x] Fun
 - [x] Moderation
 - [x] Leveling system
 - [x] GIFs & Images API
 - [x] MyAnimeList Integration
+- [x] Starboard
 - [ ] Quiz Minigame
+- [ ] Osu! API
+- [ ] Minecraft recipes
 - [ ] Minecraft Client & Commands
 
 Contributing
