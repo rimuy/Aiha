@@ -104,7 +104,7 @@ class StarboardManager
             if (count >= Starboard.MIN_REACTIONS || force) {
                 
                 if (data.error)
-                    return StarboardManager.add(msg, 1);
+                    return StarboardManager.add(msg, count);
     
                 return StarboardManager.update(data, count);
             } else if (!data.error) {
