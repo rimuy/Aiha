@@ -2,41 +2,50 @@
     {
         "label": "delete",
         "aliases": ["D"],
-        "description": "Deleta sua mensagem após executar o comando."
+        "description": "Deleta sua mensagem após executar o comando.",
+        "permissions": []
     },
     {
         "label": "double",
         "aliases": ["d"],
-        "description": "Executa o mesmo comando duas vezes."
+        "description": "Executa o mesmo comando duas vezes.",
+        "permissions": []
     },
     {
         "label": "help",
         "aliases": ["h"],
-        "description": "Exibe informações sobre o comando.\n(Idêntico à `help` `<comando>`)"
+        "description": "Exibe informações sobre o comando.\n(Idêntico à `help` `<comando>`)",
+        "permissions": []
     },
     {
         "label": "mention",
         "aliases": ["m"],
-        "description": "Menciona o usuário depois da execução do comando."
+        "description": "Menciona o usuário depois da execução do comando.",
+        "permissions": []
     },
     {
         "label": "noreturn",
         "aliases": ["n"],
-        "description": "**[Dev-Only]** Bloqueia o retorno do comando."
-    },
-    {
-        "label": "ping",
-        "aliases": ["p"],
-        "description": "Retorna em milisegundos o tempo de execução do comando."
+        "description": "**[Dev-Only]** Bloqueia o retorno do comando.",
+        "permissions": []
     },
     {
         "label": "private",
-        "aliases": ["P"],
-        "description": "Direciona a saída do comando para seu DM."
+        "aliases": ["p"],
+        "description": "Direciona a saída do comando para seu DM.",
+        "permissions": []
+    },
+    {
+        "label": "time",
+        "aliases": ["T"],
+        "description": "Retorna em milisegundos o tempo de execução do comando.",
+        "permissions": []
     },
     {
         "label": "twice",
         "aliases": ["t"],
-        "description": "Executa o comando mais uma vez após a execução do mesmo."
+        "description": "Executa o comando mais uma vez após a execução do mesmo.",
+        "permissions": [],
+        "isFunction": true
     }
 ]

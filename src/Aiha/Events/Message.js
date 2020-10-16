@@ -117,16 +117,16 @@ class MessageEvent extends Internals.Event {
                                     .trim()
                             );
 
-                            if (flags.collection.some(f => command.blockFlags.includes(f))) {
+                            if (flags.collection.some(f => command.blockFlags.includes(f.name))) {
                                 const blocked = flags.collection
-                                    .filter(f => command.blockFlags.includes(f))
-                                    .map(f => `\`${Internals.Constants.FLAG_PREFIX}${f}\``)
+                                    .filter(f => command.blockFlags.includes(f.name))
+                                    .map(f => `\`${Internals.Constants.FLAG_PREFIX}${f.name}\``)
                                     .join(' ');
                                 
                                 return msg.channel.send(
                                     new Internals.BaseEmbed()
                                         .setDescription(
-                                            `${bot.emojis.get('bot2Cancel')} **Erro ao executar comando**\n\n> **Flags não permitidas:** ${blocked}`
+                                            `${bot.emojis.get('name', 'bot2Cancel')} **Erro ao executar comando**\n\n> **Flags não permitidas:** ${blocked}`
                                         )
                                         .setColor(0xF44336)
                                 );
@@ -140,7 +140,7 @@ class MessageEvent extends Internals.Event {
                                     await bot.commands.get('name', 'help').run(msg, [command.name], flags);
                                 },
                                 private: () => msg.target = msg.author,
-                                twice: () => new Promise(res => {
+                                twice: (amount = 2) => new Promise(res => {
 
                                     let completed = 0;
 
@@ -149,7 +149,7 @@ class MessageEvent extends Internals.Event {
                                         await command.run(msg, params, flags); 
                                         completed++;
 
-                                        if (completed < 2) 
+                                        if (completed < Math.max(2, Number(amount))) 
                                             setTimeout(exec, 1000);
                                         else 
                                             res();
@@ -162,30 +162,30 @@ class MessageEvent extends Internals.Event {
                             const postCommandFunctions = {
                                 delete: async () => await msg.delete({ reason: 'Delete Flag' }),
                                 mention: async () => await msg.target.send(`<@${user.id}>`).then(m => m.delete({ timeout: 5000 })),
-                                ping: async () => {
+                                time: async () => {
                                     await msg.target.send(`**Tempo levado:** \`${Date.now() - sendTime}\` ms`).catch(() => []);
                                 },
                                 private: async () => {
-                                    msg && await msg.react(bot.emojis.get('bot2Success')).catch(() => []);
+                                    msg && await msg.react(bot.emojis.get('name', 'bot2Success')).catch(() => []);
                                 }
                             };
 
                             const sendTime = Date.now();
 
                             await Promise.all(flags.collection.map(async f => 
-                                flagFunctions[f] && await flagFunctions[f]()));
+                                flagFunctions[f.name] && await flagFunctions[f.name](f.parameter)));
 
                             if ([
-                                !flags.collection.length,
-                                Object.keys(postCommandFunctions).some(key => flags.collection.includes(key))
-                                && !flags.collection.includes('help'),
-                                !flags.collection.some(f => flagFunctions[f] || postCommandFunctions[f]),
+                                !flags.collection.size,
+                                Object.keys(postCommandFunctions).some(key => flags.collection.get('name', key))
+                                && !['help', 'twice'].some(n => flags.collection.get('name', n)), // Custom output
+                                !flags.collection.some(f => flagFunctions[f.name] || postCommandFunctions[f.name]),
                             ].some(isTrue => isTrue)) {
                                 await command.run(msg, params, flags);
                             }
 
                             flags.collection.forEach(async f => 
-                                postCommandFunctions[f] && await postCommandFunctions[f]());
+                                postCommandFunctions[f.name] && await postCommandFunctions[f.name](f.parameter));
                                 
                             return;
                         } else { 
