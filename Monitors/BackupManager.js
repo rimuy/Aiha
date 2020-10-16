@@ -28,7 +28,7 @@ class BackupManager {
 
         interval = setInterval(async () => {
         
-            await this.Bot.commands.get('backup').run(null, dev, null, this.Bot);
+            await this.Bot.commands.get('name', 'backup').run(null, dev, null, this.Bot);
             settings.lastBackup = Date.now();
             lastUpdate = settings.lastBackup;
 
