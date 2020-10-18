@@ -44,14 +44,6 @@ class Aiha {
             );
 
             this.updateStatus();
-
-            /* Auto-Backup */
-            setInterval(async () => {
-                const dev = await this.client.users.fetch(process.env.OWNER);
-                dev.send(this.commands.get('backup').run(this, null, dev));
-                
-            }, process.env.AUTO_BACKUP_INTERVAL);
-
         });
             
     }
@@ -75,7 +67,7 @@ class Aiha {
 
     events = new AihaSet();
 
-    pageEmbeds = new AihaSet();
+    pageEmbeds = new Collection();
 
     async updateStatus() {
         this.client.user.setActivity(
@@ -102,7 +94,7 @@ class Aiha {
                 `${
                     showTimestamp ? `\`[${moment(new Date()).format('HH:mm')}]\` ` : ''
                 }${
-                    this.emojis.get(emojis[type])
+                    this.emojis.get('name', emojis[type])
                 }${
                     notify ? ` <@${Constants.OWNER_ID}>` : ''
                 } ${
