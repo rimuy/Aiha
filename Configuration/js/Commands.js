@@ -2,6 +2,7 @@ const set = new Set()
 
     .add(require('../../src/Aiha/Commands/Admin/addWelcomeRole'))
     .add(require('../../src/Aiha/Commands/Admin/embed'))
+    .add(require('../../src/Aiha/Commands/Admin/embedDesigner'))
     .add(require('../../src/Aiha/Commands/Admin/helpadm'))
     .add(require('../../src/Aiha/Commands/Admin/modules'))
     .add(require('../../src/Aiha/Commands/Admin/poll'))
