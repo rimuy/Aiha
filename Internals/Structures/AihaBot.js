@@ -43,6 +43,8 @@ class Aiha {
                 this.categoriesEmojis.set(key, Configuration.CategoriesEmojis[key])
             );
 
+            await this.report('Instância inicializada com sucesso!', 'success', true, true);
+
             this.updateStatus();
         });
             
