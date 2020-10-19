@@ -91,9 +91,8 @@ class Help extends Internals.Command {
                     size: 256
                 }))
                 .setDescription(
-                    `${bot.client.user.username} é o bot oficial do nosso servidor!` +
-                    `\n\nUse **${prefix}**\`help\` \`<comando>\` para obter informações detalhadas\ndo comando.` +
-                    `\n\nUse **${prefix}**\`flags\` para exibir as flags disponíveis para os comandos.\n${ZeroWidthSpace}`
+                    `Use **${prefix}**\`help\` \`<comando>\` para obter informações detalhadas\ndo comando.\n` +
+                    `Use **${prefix}**\`flags\` para exibir as flags disponíveis para os comandos.\n${ZeroWidthSpace}`
                 )
                 .addFields([...categories].map(e => {
                     const emoji = bot.categoriesEmojis.get(e[0]);
@@ -103,6 +102,10 @@ class Help extends Internals.Command {
                         inline: true,
                     };
                 }));
+
+            (embed.fields.length > 2 && embed.fields.length % 2) &&
+                embed.addField(ZeroWidthSpace, ZeroWidthSpace, true);
+
         }
 
         msg.target.send(embed);
