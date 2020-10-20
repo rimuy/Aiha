@@ -54,7 +54,7 @@ function Message(msg, stars)
 async function StarboardChannel() 
 {
     const channelId = (await Server.Database.request('GET', 'settings')).starboardChannel || '';
-    const channel = await bot.client.channels.fetch(channelId);
+    const channel = await bot.client.channels.fetch(channelId).catch(() => false);
 
     if (!channel) throw new ReferenceError('StarboardChannel not found.');
 
