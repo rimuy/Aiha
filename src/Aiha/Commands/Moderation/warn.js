@@ -39,7 +39,7 @@ class Warn extends Internals.Command {
         msg.guild.members.fetch(id)
             .then(member => {
 
-                Server.Database.request('POST', 'infrations', {
+                Server.Database.request('POST', 'infractions', {
                     userId: id,
                     moderatorId: msg.author.id,
                     description: infration,

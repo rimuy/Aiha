@@ -29,10 +29,10 @@ class RemoveWarn extends Internals.Command {
         const exclamation = bot.emojis.get('name', 'bot2Exclamation');
 
         if (warnCase) {
-            const infration = await Server.Database.request('GET', `infrations/${warnCase}`);
+            const infration = await Server.Database.request('GET', `infractions/${warnCase}`);
 
             if (infration) {
-                await Server.Database.request('DELETE', `infrations/${warnCase}`)
+                await Server.Database.request('DELETE', `infractions/${warnCase}`)
                     .then(async () => {
                         embed.setDescription(`${success} **O Caso #${warnCase} foi removido com sucesso.**`);
 

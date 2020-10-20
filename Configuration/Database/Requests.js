@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const URL = 'http://localhost:' + process.env.PORT + '/';
+const URL = 'http://localhost:' + (process.env.PORT || 8080) + '/';
 
 class Database {
     static async request(method, key, body) {

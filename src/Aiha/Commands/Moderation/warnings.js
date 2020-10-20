@@ -11,7 +11,7 @@ class Warnings extends Internals.Command {
         super('warnings', {
             description: 'Exibe todos as suas infrações ou as do usuário marcado.',
             usage: 'warnings `[@membro]`',
-            aliases: ['infrations'],
+            aliases: ['infractions'],
             category: 'Moderação',
             botPerms: ['EMBED_LINKS'],
             userPerms: ['MANAGE_MESSAGES'],
@@ -24,12 +24,12 @@ class Warnings extends Internals.Command {
         const id = (args[0] || msg.author.id)
             .replace(/[<@!>&]/g, '');
 
-        const infrations = (await Server.Database.request('GET', 'infrations') || [])
+        const infractions = (await Server.Database.request('GET', 'infractions') || [])
             .filter(inf => inf.userId === id);
 
         const member = await msg.guild.members.fetch(id || '').catch(() => {});
 
-        if (!infrations || !infrations.length) {
+        if (!infractions || !infractions.length) {
             msg.channel.send(
                 new Internals.BaseEmbed()
                     .setColor(color)
@@ -38,7 +38,7 @@ class Warnings extends Internals.Command {
         } else {
             new Internals.PageEmbed(
                 msg, 
-                infrations.map(w => 
+                infractions.map(w => 
                     `> 📕 \`#${w._case}\`\n`+ 
                     `> **Moderador:** <@${w.moderatorId}>\n` + 
                     `> **Data de Registro:** ${moment(w.createdTimestamp).format('hh:mm DD/MM/YYYY')}\n` +
