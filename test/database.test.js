@@ -1,3 +1,4 @@
+const Server = require('../Server');
 const { Database } = require('../Server');
 const request = Database.request;
 
@@ -97,4 +98,9 @@ describe('levelRoles', () => {
         const levelroles = await request('GET', 'levelroles').catch(() => false);
         expect(typeof levelroles).toBe('object');
     });
+});
+
+test('closeServer', () => {
+    const { Recipient } = Server;
+    expect(Recipient.close()).toBe(Recipient);
 });
