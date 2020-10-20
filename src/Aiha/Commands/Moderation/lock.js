@@ -24,11 +24,9 @@ class Lock extends Internals.Command {
         const success = bot.emojis.get('name', 'bot2Success');
         const error = bot.emojis.get('name', 'bot2Cancel');
 
-        if (msg.guild.me.permissionsIn(channel).has(['VIEW_CHANNEL', 'MANAGE_CHANNELS'])) {
-            channel.createOverwrite(everyone, { SEND_MESSAGES: false })
-                .then(() => msg.react(success))
-                .catch(() => msg.react(error).catch());
-        }
+        channel.createOverwrite(everyone, { SEND_MESSAGES: false })
+            .then(() => msg.react(success))
+            .catch(() => msg.react(error).catch());
         
     }
 }
