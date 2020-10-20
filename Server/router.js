@@ -12,7 +12,7 @@ db.defaults({
     mudae: require('./models/Mudae'),
     users: {},
     muted: [],
-    infrations: [],
+    infractions: [],
     levelroles: {},
     starboard: [],
 }).write();
