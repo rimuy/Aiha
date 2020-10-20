@@ -1,6 +1,5 @@
 const Server = require('../Server');
-const { Database } = require('../Server');
-const request = Database.request;
+const request = Server.Database.request;
 
 describe('data', () => {
     test('ifExists', async () => {
