@@ -141,7 +141,7 @@ class PageEmbed extends MessageEmbed {
                     await msg.edit(this);
                     timer();
 
-                    if (msg.channel.type !== 'text') return;
+                    if (!msg.channel.isText()) return;
 
                     reaction.users.cache.forEach(async user => 
                         !user.equals(msg.author) && await reaction.users.remove(user.id));
