@@ -9,10 +9,10 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(router);
 
-app.listen(PORT, () => log('FG_GREEN','[Server] Listening on port ' + PORT));
+const Recipient = app.listen(PORT, () => log('FG_GREEN','[Server] Listening on port ' + PORT));
 
 module.exports = {
-    Recipient: app,
+    Recipient,
     Router: router,
     Database: require('../Configuration/Database/Requests'),
 };
