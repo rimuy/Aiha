@@ -9,7 +9,11 @@
 *.zip
 *.tar*
 
+# Database adapter
 /server/Adapter.json
+
+# Quiz configuration
+/Configuration/js/Quiz.js
 
 # Temp
 /api/rest
