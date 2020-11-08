@@ -26,9 +26,14 @@ Object.keys(config).forEach(key => {
     
             const channelId = (await Server.Database.request('GET', 'settings')).mudaeChannel;
             const channel = bot.client.channels.cache.get(channelId);
-            const waiting = await Server.Database.request('GET', `mudae/${key}`);
+            const data = await Server.Database.request('GET', 'mudae');
+            const waiting = data[key];
     
-            if (channel && waiting.length) {
+            if (
+                channel &&
+                waiting.length &&
+                (key === 'claims' || !waiting.some(id => data['claims'].includes(id)) ) // Don't mention twice
+            ) {
     
                 await channel.send(`Os **${key}** foram resetados! ${
                     waiting.map(id => `<@${id}>`).join(' ')
