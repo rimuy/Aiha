@@ -22,6 +22,7 @@ class Aiha {
             fetchAllMembers: true,
             ws: { intents: Intents.ALL },
             partials: ['CHANNEL', 'MESSAGE', 'REACTION'],
+            http: { version: 8 }
         });
         
         this.client.once('ready', async () => {
